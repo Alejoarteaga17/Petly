@@ -93,7 +93,7 @@ onMounted(() => {
         <button 
           type="submit" 
           :disabled="isSubmitting || !form.comment.trim()" 
-          class="bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition" 
+          class="bg-orange-500 text-white font-medium py-2 px-4 rounded hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition" 
         > 
           Post review 
         </button> 

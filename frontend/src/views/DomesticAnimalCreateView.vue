@@ -13,6 +13,14 @@ async function submitForm() {
     breed: breed.value,
     category: category.value,
     description: description.value,
+    lifeExpectancy: '',
+    weight: '',
+    height: '',
+    behaviours: '',
+    commonDisease: '',
+    countryOrigin: '',
+    history: '',
+    image: ''
   };
   try {
       await DomesticAnimalService.createDomesticAnimal(newDomesticAnimal);

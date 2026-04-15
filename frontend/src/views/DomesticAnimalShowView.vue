@@ -23,7 +23,7 @@ onMounted(async () => {
             <div class="flex items-start space-x-8">
               <div>
                 <img
-                  src="https://picsum.photos/seed/picsum/536/354"
+                  src="https://placedog.net/536/354"
                   alt="Domestic Animal"
                   class="object-cover rounded shadow-sm w-72 h-auto"
                 />

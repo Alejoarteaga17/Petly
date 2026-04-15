@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import AboutView from '@/views/AboutView.vue';
-import BooksIndexView from '@/views/BooksIndexView.vue';
-import BooksShowView from '@/views/BooksShowView.vue';
-import BooksCreateView from '@/views/BooksCreateView.vue';
+import BooksIndexView from '@/views/DomesticAnimalIndexView.vue';
+import BooksShowView from '@/views/DomesticAnimalShowView.vue';
+import BooksCreateView from '@/views/DomesticAnimalCreateView.vue';
 import ContactView from '@/views/ContactView.vue';
 import HomeView from '@/views/HomeView.vue';
 

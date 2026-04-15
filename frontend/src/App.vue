@@ -3,82 +3,76 @@ import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <template>
-  <div class="bg-gray-100 min-h-screen">
-    <div class="flex h-screen overflow-hidden">
-      <!-- sidebar -->
-      <aside class="w-64 bg-gray-800 text-white shadow-lg fixed h-full flex flex-col">
-        <div class="p-6 flex-1">
-          <div class="flex items-center mb-8">
-            <i class="fas fa-graduation-cap text-2xl mr-3 text-blue-400"></i>
-            <span class="font-bold text-xl">Petly Dashboard</span>
+  <div class="min-h-screen bg-[#ffffff]">
+    <!-- HEADER: fixed top bar -->
+    <header class="fixed inset-x-0 top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <!-- Logo -->
+          <div class="flex items-center gap-4">
+            <RouterLink to="/" class="flex items-center gap-3">
+              <img src="/favicon.ico" alt="Petly logo" class="h-12 w-12 rounded-xl object-cover" />
+              <span class="text-lg font-black tracking-wide text-gray-900">PETLY.CO</span>
+            </RouterLink>
           </div>
-          <nav class="space-y-2">
-            <RouterLink
-              to="/"
-              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200"
-            >
-              <i class="fas fa-home mr-3"></i>
-              <span>Home</span>
-            </RouterLink>
-            <RouterLink
-              to="/about"
-              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200"
-            >
-              <i class="fas fa-info-circle mr-3"></i>
-              <span>About</span>
-            </RouterLink>
-            <RouterLink
-              to="/domesticAnimals"
-              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200"
-            >
-              <i class="fas fa-book mr-3"></i>
-              <span>Domestic Animals</span>
-            </RouterLink>
+
+          <!-- Nav links -->
+          <nav class="flex items-center gap-3">
+            <RouterLink to="/" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Home</RouterLink>
+            <RouterLink to="/about" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">About</RouterLink>
+            <RouterLink to="/domesticAnimals" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Domestic animals</RouterLink>
           </nav>
         </div>
-        <div class="w-full p-6 border-t border-gray-700 mt-auto">
-          <div class="flex items-center">
-            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
-              <i class="fas fa-user text-white"></i>
-            </div>
-            <div>
-              <p class="text-sm font-semibold">Admin User</p>
-              <p class="text-xs text-gray-400">admin@example.com</p>
-            </div>
+      </div>
+    </header>
+
+    <!-- MAIN: route content area -->
+    <main class="mx-auto max-w-7xl px-6 pb-14 pt-32">
+      <RouterView />
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-200 pb-10 pt-16">
+      <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 md:grid-cols-4">
+        <div class="md:col-span-2">
+          <h2 class="mb-4 text-2xl font-black">PETLY.CO</h2>
+
+          <p class="max-w-sm text-sm text-gray-500">
+            Find what other people think about your domesticAnimals and say something about them too.
+          </p>
+
+          <div class="mt-6 flex gap-4 text-sm text-gray-400">
+            <span class="cursor-pointer hover:text-black">X</span>
+            <span class="cursor-pointer hover:text-black">Facebook</span>
+            <span class="cursor-pointer hover:text-black">Instagram</span>
+            <span class="cursor-pointer hover:text-black">GitHub</span>
           </div>
         </div>
-      </aside>
 
-      <!-- main content area -->
-      <div class="flex-1 flex flex-col overflow-hidden ml-64">
-        <!-- top header -->
-        <header class="bg-white shadow-sm border-b border-gray-200">
-          <div class="px-6 py-4 flex items-center justify-between">
-            <div>
-              <h1 class="text-2xl font-bold text-gray-800">
-                {{ $route.meta.title }}
-              </h1>
-            </div>
-            <div class="flex items-center space-x-4">
-              <button
-                class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition duration-200"
-              >
-                <i class="fas fa-search"></i>
-              </button>
-              <div
-                class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center cursor-pointer hover:bg-blue-600 transition duration-200"
-              >
-                <i class="fas fa-user text-white"></i>
-              </div>
-            </div>
-          </div>
-        </header>
+        <div>
+          <h3 class="mb-4 font-semibold">Company</h3>
 
-        <!-- main content -->
-        <main class="flex-1 overflow-y-auto p-6">
-          <RouterView />
-        </main>
+          <ul class="space-y-2 text-sm text-gray-500">
+            <li class="cursor-pointer hover:text-black">About</li>
+            <li class="cursor-pointer hover:text-black">Features</li>
+            <li class="cursor-pointer hover:text-black">Works</li>
+            <li class="cursor-pointer hover:text-black">Career</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="mb-4 font-semibold">Help</h3>
+
+          <ul class="space-y-2 text-sm text-gray-500">
+            <li class="cursor-pointer hover:text-black">Customer Support</li>
+            <li class="cursor-pointer hover:text-black">My Account</li>
+            <li class="cursor-pointer hover:text-black">Terms & Conditions</li>
+            <li class="cursor-pointer hover:text-black">Privacy Policy</li>
+          </ul>
+        </div>
       </div>
-    </div>
+
+      <div class="mx-auto mt-10 max-w-7xl border-t px-6 pt-6 text-xs text-gray-400">Petly 2024. All Rights Reserved</div>
+    </footer>
   </div>
 </template>

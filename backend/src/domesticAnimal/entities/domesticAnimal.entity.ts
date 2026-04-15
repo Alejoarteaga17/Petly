@@ -15,29 +15,29 @@ export class DomesticAnimal {
   @Column({ type: 'text' })
   description!: string;
 
-  @Column({ nullable: true })
-  lifeExpectancy?: string;
+  @Column()
+  lifeExpectancy!: string;
 
-  @Column({ nullable: true })
-  weight?: string;
+  @Column()
+  weight!: string;
 
-  @Column({ nullable: true })
-  height?: string;
+  @Column()
+  height!: string;
 
-  @Column({ nullable: true })
-  behaviours?: string;
+  @Column()
+  behaviours!: string;
 
-  @Column({ nullable: true })
-  commonDisease?: string;
+  @Column()
+  commonDisease!: string;
 
-  @Column({ nullable: true })
-  countryOrigin?: string;
+  @Column()
+  countryOrigin!: string;
 
-  @Column({ type: 'text', nullable: true })
-  history?: string;
+  @Column({ type: 'text' })
+  history!: string;
 
-  @Column({ nullable: true })
-  image?: string;
+  @Column()
+  image!: string;
 
   @OneToMany(() => Review, (review) => review.domesticAnimal)
   reviews!: Review[];

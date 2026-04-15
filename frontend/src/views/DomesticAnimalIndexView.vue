@@ -16,7 +16,7 @@ onMounted(async () => {
       <div class="flex justify-end mb-6"> 
         <RouterLink 
           to="/domesticAnimals/create" 
-          class="inline-block bg-orange-500 text-white font-semibold px-5 py-2 rounded hover:bg-orange-600 transition" 
+          class="inline-block bg-orange-400 text-white font-semibold px-5 py-2 rounded hover:bg-orange-500 transition" 
           >+ Add Domestic Animal</RouterLink 
         > 
       </div> 
@@ -30,9 +30,9 @@ onMounted(async () => {
               </h3>
             </div> 
 
-            <div class="flex justify-center mb-4"> 
-              <img src="/default-animal.jpg" alt="Domestic Animal" class="object-cover rounded shadow-sm w-full h-auto" /> 
-            </div> 
+            <div class="flex justify-center mb-4">
+              <img src="https://placedog.net/536/354" alt="Book Cover" class="object-cover rounded shadow-sm w-full h-auto" />
+            </div>
 
             <p class="text-gray-700 text-lg font-bold mb-3"> 
               {{ domesticAnimal.category }} 
@@ -45,7 +45,7 @@ onMounted(async () => {
             <div class="flex justify-center"> 
               <RouterLink 
                 :to="`/domesticAnimals/${domesticAnimal.id}`" 
-                class="bg-orange-100 hover:bg-orange-200 text-orange-700 font-semibold py-2 px-3 rounded transition duration-300" 
+                class="bg-yellow-100 hover:bg-orange-200 text-orange-700 font-semibold py-2 px-3 rounded transition duration-300" 
               > 
                 More info <i class="fas fa-info-circle"></i> 
               </RouterLink> 
