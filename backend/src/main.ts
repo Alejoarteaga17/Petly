@@ -3,9 +3,10 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({ 
-    origin: 'http://localhost:5173', 
-  }); 
+  //Cambie el puerto 5173 para que coincida con el puerto del frontend, y así evitar problemas de CORS
+  app.enableCors({
+    origin: [/^http:\/\/localhost:\d+$/],
+  });
   app.setGlobalPrefix('api');
   await app.listen(process.env.PORT ?? 3000);
 }

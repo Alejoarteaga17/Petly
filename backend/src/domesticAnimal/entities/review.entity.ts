@@ -7,19 +7,19 @@ import {
   RelationId, 
   CreateDateColumn, 
 } from 'typeorm'; 
-import { Book } from './book.entity'; 
+import { DomesticAnimal } from './domesticAnimal.entity'; 
  
 @Entity() 
 export class Review { 
   @PrimaryGeneratedColumn() 
   id: number; 
  
-  @ManyToOne(() => Book, { onDelete: 'CASCADE' }) 
-  @JoinColumn({ name: 'bookId' }) 
-  book: Book; 
+  @ManyToOne(() => DomesticAnimal, { onDelete: 'CASCADE' }) 
+  @JoinColumn({ name: 'domesticAnimalId' }) 
+  domesticAnimal: DomesticAnimal; 
  
-  @RelationId((review: Review) => review.book) 
-  bookId: number; 
+  @RelationId((review: Review) => review.domesticAnimal) 
+  domesticAnimalId: number; 
  
   @Column({ type: 'int' }) 
   rating: number; 

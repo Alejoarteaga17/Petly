@@ -12,9 +12,9 @@ export class ReviewsController {
     return this.reviewsService.findAll(); 
   } 
  
-  @Get('book/:bookId') 
-  findByBookId(@Param('bookId') bookId: string): Promise<Review[]> { 
-    return this.reviewsService.findByBookId(Number(bookId)); 
+  @Get('domestic-animal/:domesticAnimalId') 
+  findByDomesticAnimalId(@Param('domesticAnimalId') domesticAnimalId: string): Promise<Review[]> { 
+    return this.reviewsService.findByDomesticAnimalId(Number(domesticAnimalId)); 
   } 
  
   @Post() 

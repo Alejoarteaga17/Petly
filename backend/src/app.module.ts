@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'; 
 import { HomeModule } from './home/home.module'; 
 import { TypeOrmModule } from '@nestjs/typeorm'; 
-import { BooksModule } from './books/books.module'; 
+import { DomesticAnimalsModule } from './domesticAnimal/domesticAnimal.module'; 
  
 @Module({ 
   imports: [
@@ -12,7 +12,7 @@ import { BooksModule } from './books/books.module';
       synchronize: true, 
     }), 
     HomeModule, 
-    BooksModule,
+    DomesticAnimalsModule,
   ], 
 
 }) 

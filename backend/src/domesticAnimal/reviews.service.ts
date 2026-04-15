@@ -15,15 +15,15 @@ export class ReviewsService {
     return this.reviewsRepository.find(); 
   } 
  
-  findByBookId(bookId: number): Promise<Review[]> { 
-    return this.reviewsRepository.find({ where: { book: { id: bookId } } }); 
+  findByDomesticAnimalId(domesticAnimalId: number): Promise<Review[]> { 
+    return this.reviewsRepository.find({ where: { domesticAnimal: { id: domesticAnimalId } } }); 
   } 
  
   create(createReviewDto: CreateReviewDto): Promise<Review> { 
-    const { bookId, ...rest } = createReviewDto; 
+    const { domesticAnimalId, ...rest } = createReviewDto; 
     const review = this.reviewsRepository.create({ 
       ...rest, 
-      book: { id: bookId }, 
+      domesticAnimal: { id: domesticAnimalId }, 
     }); 
  
     return this.reviewsRepository.save(review); 
