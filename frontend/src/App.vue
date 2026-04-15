@@ -3,83 +3,96 @@ import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 text-gray-900">
-    <div class="mx-auto flex min-h-screen max-w-7xl flex-col px-4 sm:px-6 lg:px-8">
-      <header class="flex flex-col gap-4 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:justify-between">
-        <div class="flex items-center gap-4">
-          <RouterLink to="/" class="flex items-center gap-3">
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-sm">
-              <i class="fas fa-paw"></i>
+  <div class="bg-gray-100 min-h-screen">
+    <div class="flex h-screen overflow-hidden">
+      <!-- sidebar -->
+      <aside class="w-64 bg-gray-800 text-white shadow-lg fixed h-full flex flex-col">
+        <div class="p-6 flex-1">
+          <div class="flex items-center mb-8">
+            <i class="fas fa-graduation-cap text-2xl mr-3 text-blue-400"></i>
+            <span class="font-bold text-xl">Library Dashboard</span>
+          </div>
+
+          <nav class="space-y-2">
+            <RouterLink
+              to="/"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200"
+            >
+              <i class="fas fa-home mr-3"></i>
+              <span>Home</span>
+            </RouterLink>
+
+            <RouterLink
+              to="/about"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200"
+            >
+              <i class="fas fa-info-circle mr-3"></i>
+              <span>About</span>
+            </RouterLink>
+
+            <RouterLink
+              to="/contact"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200"
+            >
+              <i class="fas fa-info-circle mr-3"></i>
+              <span>Contact</span>
+            </RouterLink>
+
+            <RouterLink
+              to="/books"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200"
+            >
+              <i class="fas fa-book mr-3"></i>
+              <span>Books</span>
+            </RouterLink>
+          </nav>
+        </div>
+
+        <div class="w-full p-6 border-t border-gray-700 mt-auto">
+          <div class="flex items-center">
+            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
+              <i class="fas fa-user text-white"></i>
             </div>
             <div>
-              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-600">Petly</p>
-              <p class="text-lg font-black text-gray-900">Pet reviews dashboard</p>
-            </div>
-          </RouterLink>
-        </div>
-
-        <nav class="flex items-center gap-2 text-sm font-medium text-gray-600">
-          <RouterLink to="/" class="rounded-full px-4 py-2 transition hover:bg-gray-200 hover:text-gray-900">
-            Home
-          </RouterLink>
-          <RouterLink to="/about" class="rounded-full px-4 py-2 transition hover:bg-gray-200 hover:text-gray-900">
-            About
-          </RouterLink>
-          <RouterLink to="/books" class="rounded-full px-4 py-2 transition hover:bg-gray-200 hover:text-gray-900">
-            Books
-          </RouterLink>
-          <RouterLink to="/books/create" class="rounded-full px-4 py-2 transition hover:bg-gray-200 hover:text-gray-900">
-            New Book
-          </RouterLink>
-        </nav>
-      </header>
-
-      <main class="flex-1 py-8">
-        <RouterView />
-      </main>
-
-      <footer class="border-t border-gray-200 py-10">
-        <div class="grid grid-cols-1 gap-10 md:grid-cols-4">
-          <div class="md:col-span-2">
-            <h2 class="mb-4 text-2xl font-black">PETLY.CO</h2>
-
-            <p class="max-w-sm text-sm text-gray-500">
-              Find what other people think about your domesticAnimals and say something about them too.
-            </p>
-
-            <div class="mt-6 flex gap-4 text-sm text-gray-400">
-              <span class="cursor-pointer hover:text-black">𝕏</span>
-              <span class="cursor-pointer hover:text-black">Facebook</span>
-              <span class="cursor-pointer hover:text-black">Instagram</span>
-              <span class="cursor-pointer hover:text-black">GitHub</span>
+              <p class="text-sm font-semibold">Admin User</p>
+              <p class="text-xs text-gray-400">admin@example.com</p>
             </div>
           </div>
-
-          <div>
-            <h3 class="mb-4 font-semibold">Company</h3>
-
-            <ul class="space-y-2 text-sm text-gray-500">
-              <li class="cursor-pointer hover:text-black">About</li>
-              <li class="cursor-pointer hover:text-black">Features</li>
-              <li class="cursor-pointer hover:text-black">Works</li>
-              <li class="cursor-pointer hover:text-black">Career</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="mb-4 font-semibold">Help</h3>
-
-            <ul class="space-y-2 text-sm text-gray-500">
-              <li class="cursor-pointer hover:text-black">Customer Support</li>
-              <li class="cursor-pointer hover:text-black">My Account</li>
-              <li class="cursor-pointer hover:text-black">Terms & Conditions</li>
-              <li class="cursor-pointer hover:text-black">Privacy Policy</li>
-            </ul>
-          </div>
         </div>
+      </aside>
 
-        <div class="mt-10 border-t pt-6 text-xs text-gray-400">Petly 2024. All Rights Reserved</div>
-      </footer>
+      <!-- main content area -->
+      <div class="flex-1 flex flex-col overflow-hidden ml-64">
+        <!-- top header -->
+        <header class="bg-white shadow-sm border-b border-gray-200">
+          <div class="px-6 py-4 flex items-center justify-between">
+            <div>
+              <h1 class="text-2xl font-bold text-gray-800">
+                {{ $route.meta.title }}
+              </h1>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <button
+                class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition duration-200"
+              >
+                <i class="fas fa-search"></i>
+              </button>
+
+              <div
+                class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center cursor-pointer hover:bg-blue-600 transition duration-200"
+              >
+                <i class="fas fa-user text-white"></i>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- main content -->
+        <main class="flex-1 overflow-y-auto p-6">
+          <RouterView />
+        </main>
+      </div>
     </div>
   </div>
 </template>
