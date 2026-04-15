@@ -1,8 +1,10 @@
+// Autor: Camila Velez
+
 export interface ReviewInterface {
   id: number;
-  bookId: number;
+  domesticAnimalId: number;
   rating: number;
+  userId: string;
   comment: string;
-  author?: string;
   createdAt?: string;
 }
