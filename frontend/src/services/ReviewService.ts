@@ -9,8 +9,8 @@ export class ReviewService {
     return data; 
   } 
  
-  static async getReviewsByBookId(bookId: number): Promise<ReviewInterface[]> { 
-    const { data } = await axios.get(`${this.API_URL}/book/${bookId}`); 
+  static async getReviewsByDomesticAnimalId(domesticAnimalId: number): Promise<ReviewInterface[]> { 
+    const { data } = await axios.get(`${this.API_URL}/domestic-animal/${domesticAnimalId}`); 
     return data; 
   } 
  

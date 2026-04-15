@@ -1,32 +1,21 @@
 <script setup lang="ts">
-import BookReviews from '@/components/BookReviews.vue';
-import type { BookInterface } from '@/interfaces/BookInterface';
-import { BookService } from '@/services/BookService';
+import DomesticAnimalReviews from '@/components/DomesticAnimalReviews.vue';
+import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
+import { DomesticAnimalService } from '@/services/domesticAnimalService.js';
 import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
 
-const book = ref<BookInterface | null>(null)
+const domesticAnimal = ref<DomesticAnimalInterface | null>(null)
 
-// functions
-function formatToCOP(price: number): string {
-  const formatter = new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  });
-
-  return formatter.format(price).replace(/^\s*\$\s?/, '');
-}
 onMounted(async () => { 
   const route = useRoute(); 
-  const bookId = Number(route.params.id); 
-  book.value = await BookService.getBookById(bookId); 
+  const domesticAnimalId = Number(route.params.id); 
+  domesticAnimal.value = await DomesticAnimalService.getDomesticAnimalById(domesticAnimalId); 
 }); 
 </script>
 
 <template>
-  <section v-if="book">
+  <section v-if="domesticAnimal">
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 gap-12">
         <div class="lg:col-span-2">
@@ -35,17 +24,17 @@ onMounted(async () => {
               <div>
                 <img
                   src="https://picsum.photos/seed/picsum/536/354"
-                  alt="Book Cover"
+                  alt="Domestic Animal"
                   class="object-cover rounded shadow-sm w-72 h-auto"
                 />
               </div>
               <div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ book.title }}</h2>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ domesticAnimal.breed }}</h2>
                 <div class="prose text-gray-600">
                   <p class="mb-4">
-                    "{{ book.title }}" is an outstanding work in the {{ book.category }} category.
-                    This work is an important part of our collection and has been carefully selected
-                    to enrich the reading experience of our users.
+                    "{{ domesticAnimal.breed }}" is an outstanding domestic animal in the {{ domesticAnimal.category }} category.
+                    This profile is part of our collection and helps users discover useful details
+                    about different domestic animals.
                   </p>
                 </div>
               </div>
@@ -54,35 +43,31 @@ onMounted(async () => {
 
           <div class="space-y-8">
             <div class="bg-white rounded-lg shadow-md p-6">
-              <h3 class="text-lg font-semibold text-gray-800 mb-4">Book Information</h3>
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">Domestic Animal Information</h3>
               <div class="space-y-3">
                 <div class="flex justify-between">
-                  <span class="text-gray-600">Title:</span>
+                  <span class="text-gray-600">Breed:</span>
                   <span class="font-medium">
-                    {{ book.title }}
+                    {{ domesticAnimal.breed }}
                   </span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-gray-600">Category:</span>
                   <span class="font-medium">
-                    {{ book.category }}
+                    {{ domesticAnimal.category }}
                   </span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-600">Price:</span>
-                  <span class="font-medium">${{ formatToCOP(book.price) }} COP</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">Stock:</span>
-                  <span class="font-medium">
-                    {{ book.stock }}
+                  <span class="text-gray-600">Description:</span>
+                  <span class="font-medium text-right max-w-[70%]">
+                    {{ domesticAnimal.description }}
                   </span>
                 </div>
               </div>
             </div>
           </div>
           <div class="bg-white rounded-lg shadow-md p-6 mt-8">
-            <BookReviews :book-id="book.id" />
+            <DomesticAnimalReviews :domestic-animal-id="domesticAnimal.id" />
           </div>
         </div>
       </div>

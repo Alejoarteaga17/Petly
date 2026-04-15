@@ -10,7 +10,7 @@ import { RouterLink, RouterView } from 'vue-router';
         <div class="p-6 flex-1">
           <div class="flex items-center mb-8">
             <i class="fas fa-graduation-cap text-2xl mr-3 text-blue-400"></i>
-            <span class="font-bold text-xl">Library Dashboard</span>
+            <span class="font-bold text-xl">Petly Dashboard</span>
           </div>
           <nav class="space-y-2">
             <RouterLink
@@ -28,11 +28,11 @@ import { RouterLink, RouterView } from 'vue-router';
               <span>About</span>
             </RouterLink>
             <RouterLink
-              to="/books"
+              to="/domesticAnimals"
               class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200"
             >
               <i class="fas fa-book mr-3"></i>
-              <span>Books</span>
+              <span>Domestic Animals</span>
             </RouterLink>
           </nav>
         </div>
