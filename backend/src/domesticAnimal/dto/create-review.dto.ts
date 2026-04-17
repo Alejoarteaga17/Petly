@@ -1,5 +1,5 @@
 export class CreateReviewDto { 
-  bookId: number; 
+  domesticAnimalId: number; 
   rating: number; 
   comment: string; 
   author?: string; 

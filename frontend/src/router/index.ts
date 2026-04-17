@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import AboutView from '@/views/AboutView.vue';
-import BooksIndexView from '@/views/BooksIndexView.vue';
-import BooksShowView from '@/views/BooksShowView.vue';
-import BooksCreateView from '@/views/BooksCreateView.vue';
+import BooksIndexView from '@/views/DomesticAnimalIndexView.vue';
+import BooksShowView from '@/views/DomesticAnimalShowView.vue';
+import BooksCreateView from '@/views/DomesticAnimalCreateView.vue';
 import ContactView from '@/views/ContactView.vue';
 import HomeView from '@/views/HomeView.vue';
 
@@ -12,14 +12,14 @@ const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: HomeView, meta: { title: 'Home' } },
     { path: '/about', name: 'about', component: AboutView, meta: { title: 'About' } },
-    { path: '/books', name: 'books', component: BooksIndexView, meta: { title: 'Books' } },
+    { path: '/domesticAnimals', name: 'domesticAnimals', component: BooksIndexView, meta: { title: 'Domestic Animals' } },
     {
-      path: '/books/create',
-      name: 'books.create',
+      path: '/domesticAnimals/create',
+      name: 'domesticAnimals.create',
       component: BooksCreateView,
-      meta: { title: 'Create Book' },
+      meta: { title: 'Create Domestic Animal' },
     },
-    { path: '/books/:id', name: 'book', component: BooksShowView, meta: { title: 'Book Details' } },
+    { path: '/domesticAnimals/:id', name: 'domesticAnimal', component: BooksShowView, meta: { title: 'Domestic Animal Details' } },
   ],
 });
 

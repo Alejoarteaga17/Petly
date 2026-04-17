@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'; 
 import { InjectRepository } from '@nestjs/typeorm'; 
 import { Repository } from 'typeorm'; 
-import { Review } from './entities/review.entity'; 
-import { CreateReviewDto } from './dto/create-review.dto'; 
+import { Review } from '../entities/review.entity'; 
+import { CreateReviewDto } from '../dto/create-review.dto'; 
  
 @Injectable() 
 export class ReviewsService { 
@@ -15,15 +15,15 @@ export class ReviewsService {
     return this.reviewsRepository.find(); 
   } 
  
-  findByBookId(bookId: number): Promise<Review[]> { 
-    return this.reviewsRepository.find({ where: { book: { id: bookId } } }); 
+  findByDomesticAnimalId(domesticAnimalId: number): Promise<Review[]> { 
+    return this.reviewsRepository.find({ where: { domesticAnimalId } }); 
   } 
  
   create(createReviewDto: CreateReviewDto): Promise<Review> { 
-    const { bookId, ...rest } = createReviewDto; 
+    const { domesticAnimalId, ...rest } = createReviewDto; 
     const review = this.reviewsRepository.create({ 
       ...rest, 
-      book: { id: bookId }, 
+      domesticAnimalId, 
     }); 
  
     return this.reviewsRepository.save(review); 

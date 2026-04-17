@@ -4,7 +4,7 @@ import { ReviewService } from '@/services/ReviewService.js';
 import type { ReviewInterface } from '@/interfaces/ReviewInterface.js'; 
  
 const props = defineProps<{ 
-  bookId: number; 
+  domesticAnimalId: number; 
 }>(); 
  
 const reviews = ref<ReviewInterface[]>([]); 
@@ -21,7 +21,7 @@ async function submitReview() {
   if (!form.value.comment.trim()) return; 
   isSubmitting.value = true; 
   await ReviewService.createReview({ 
-    bookId: props.bookId, 
+    domesticAnimalId: props.domesticAnimalId, 
     rating: Math.min(5, Math.max(1, form.value.rating)), 
     comment: form.value.comment.trim(), 
     author: form.value.author.trim() || undefined, 
@@ -42,7 +42,7 @@ function formatDate(iso?: string): string {
 } 
  
 async function getReviews() { 
-  reviews.value = await ReviewService.getReviewsByBookId(props.bookId); 
+  reviews.value = await ReviewService.getReviewsByDomesticAnimalId(props.domesticAnimalId); 
 } 
  
 onMounted(() => { 
@@ -93,7 +93,7 @@ onMounted(() => {
         <button 
           type="submit" 
           :disabled="isSubmitting || !form.comment.trim()" 
-          class="bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition" 
+          class="bg-orange-500 text-white font-medium py-2 px-4 rounded hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition" 
         > 
           Post review 
         </button> 

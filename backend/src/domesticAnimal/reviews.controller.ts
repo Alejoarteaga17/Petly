@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common'; 
-import { ReviewsService } from './reviews.service'; 
+import { ReviewsService } from './services/reviews.service'; 
 import { CreateReviewDto } from './dto/create-review.dto'; 
 import { Review } from './entities/review.entity'; 
  
@@ -12,9 +12,9 @@ export class ReviewsController {
     return this.reviewsService.findAll(); 
   } 
  
-  @Get('book/:bookId') 
-  findByBookId(@Param('bookId') bookId: string): Promise<Review[]> { 
-    return this.reviewsService.findByBookId(Number(bookId)); 
+  @Get('domestic-animal/:domesticAnimalId') 
+  findByDomesticAnimalId(@Param('domesticAnimalId') domesticAnimalId: string): Promise<Review[]> { 
+    return this.reviewsService.findByDomesticAnimalId(Number(domesticAnimalId)); 
   } 
  
   @Post() 
