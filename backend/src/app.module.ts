@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common'; 
-import { HomeModule } from './home/home.module'; 
 import { TypeOrmModule } from '@nestjs/typeorm'; 
-import { DomesticAnimalsModule } from './domesticAnimal/domesticAnimal.module'; 
+import { DomesticAnimalsModule } from './domesticAnimal/controllers/domesticAnimal.module'; 
  
 @Module({ 
   imports: [
@@ -11,7 +10,6 @@ import { DomesticAnimalsModule } from './domesticAnimal/domesticAnimal.module';
       autoLoadEntities: true, 
       synchronize: true, 
     }), 
-    HomeModule, 
     DomesticAnimalsModule,
   ], 
 

@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Post, Body } from '@nestjs/common'; 
-import { DomesticAnimalService } from './domesticAnimal.service'; 
-import { DomesticAnimal } from './entities/domesticAnimal.entity'; 
-import { CreateDomesticAnimalDto } from './dto/create-domesticAnimal.dto'; 
+import { DomesticAnimalService } from '../services/domesticAnimal.service'; 
+import { DomesticAnimal } from '../entities/domesticAnimal.entity'; 
+import { CreateDomesticAnimalDto } from '../dto/create-domesticAnimal.dto'; 
  
 @Controller('domestic-animals') 
 export class DomesticAnimalsController { 
