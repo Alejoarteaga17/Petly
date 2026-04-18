@@ -16,14 +16,16 @@ export class ReviewsService {
   } 
  
   findByDomesticAnimalId(domesticAnimalId: number): Promise<Review[]> { 
-    return this.reviewsRepository.find({ where: { domesticAnimalId } }); 
+    return this.reviewsRepository.find({ 
+      where: { domesticAnimal: { id: domesticAnimalId } },
+    }); 
   } 
  
   create(createReviewDto: CreateReviewDto): Promise<Review> { 
     const { domesticAnimalId, ...rest } = createReviewDto; 
     const review = this.reviewsRepository.create({ 
       ...rest, 
-      domesticAnimalId, 
+      domesticAnimal: { id: domesticAnimalId },
     }); 
  
     return this.reviewsRepository.save(review); 
