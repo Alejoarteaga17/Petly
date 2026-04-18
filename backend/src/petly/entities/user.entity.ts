@@ -9,16 +9,16 @@ export class User {
   @Column()
   fullName!: string;
 
-  @Column()
+  @Column({ unique: true })
   email!: string;
 
   @Column()
   role!: string;
 
-  @Column()
+  @Column({ unique: true })
   username!: string;
 
-  @Column()
+  @Column({ select: false })
   password!: string;
 
   @OneToMany(() => Review, (review) => review.user)

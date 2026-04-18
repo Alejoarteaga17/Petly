@@ -12,6 +12,6 @@ import { DomesticAnimalsModule } from './petly/domesticAnimal.module';
     }), 
     DomesticAnimalsModule,
   ], 
-
+  
 }) 
 export class AppModule {} 

@@ -2,6 +2,7 @@ import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { UserService } from "../services/user.service";
 import { User } from '../entities/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { LoginUserDto } from '../dto/login-user.dto';
 
 
 @Controller('users')
@@ -17,8 +18,14 @@ export class UserController {
   findOne(@Param('id') id: string): Promise<User | null> {
     return this.userService.findOne(Number(id));
   }
-  @Post()
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.userService.create(createUserDto);
+
+  @Post('register')
+  register(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return this.userService.register(createUserDto);
+  }
+
+  @Post('login')
+  login(@Body() loginUserDto: LoginUserDto) {
+    return this.userService.login(loginUserDto);
   }
 }
