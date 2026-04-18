@@ -1,9 +1,20 @@
 <script setup lang="ts"> 
-import { DomesticAnimalService } from '@/services/domesticAnimalService.js'; 
-import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface.js'; 
+import { DomesticAnimalService } from '@/services/DomesticAnimalService';
+import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface'; 
 import { onMounted, ref } from 'vue'; 
  
+const DEFAULT_IMAGE = 'https://placedog.net/536/355';
+
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]); 
+
+function getCardImage(image?: string) {
+  return image?.trim() || DEFAULT_IMAGE;
+}
+
+function handleCardImageError(event: Event) {
+  const target = event.target as HTMLImageElement;
+  target.src = DEFAULT_IMAGE;
+}
  
 onMounted(async () => { 
   domesticAnimals.value = await DomesticAnimalService.getDomesticAnimals(); 
@@ -31,7 +42,12 @@ onMounted(async () => {
             </div> 
 
             <div class="flex justify-center mb-4">
-              <img src="https://placedog.net/536/354" alt="Book Cover" class="object-cover rounded shadow-sm w-full h-auto" />
+              <img
+                :src="getCardImage(domesticAnimal.image)"
+                @error="handleCardImageError"
+                alt="Domestic Animal"
+                class="object-cover rounded shadow-sm w-full h-auto"
+              />
             </div>
 
             <p class="text-gray-700 text-lg font-bold mb-3"> 

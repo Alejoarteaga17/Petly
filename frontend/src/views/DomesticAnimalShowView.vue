@@ -1,16 +1,24 @@
 <script setup lang="ts">
 import DomesticAnimalReviews from '@/components/DomesticAnimalReviews.vue';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
-import { DomesticAnimalService } from '@/services/domesticAnimalService.js';
+import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
 
-const domesticAnimal = ref<DomesticAnimalInterface | null>(null)
+const DEFAULT_IMAGE = 'https://placedog.net/536/355';
+
+const domesticAnimal = ref<DomesticAnimalInterface | null>(null);
+const imageSrc = ref(DEFAULT_IMAGE);
+
+function handleImageError() {
+  imageSrc.value = DEFAULT_IMAGE;
+}
 
 onMounted(async () => { 
   const route = useRoute(); 
   const domesticAnimalId = Number(route.params.id); 
   domesticAnimal.value = await DomesticAnimalService.getDomesticAnimalById(domesticAnimalId); 
+  imageSrc.value = domesticAnimal.value?.image?.trim() || DEFAULT_IMAGE;
 }); 
 </script>
 
@@ -23,7 +31,8 @@ onMounted(async () => {
             <div class="flex items-start space-x-8">
               <div>
                 <img
-                  src="https://placedog.net/536/354"
+                  :src="imageSrc"
+                  @error="handleImageError"
                   alt="Domestic Animal"
                   class="object-cover rounded shadow-sm w-72 h-auto"
                 />

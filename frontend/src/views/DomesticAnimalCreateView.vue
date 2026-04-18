@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { DomesticAnimalService } from '@/services/domesticAnimalService.js';
-import type { CreateDomesticAnimalDTO } from '@/dtos/CreateDomesticAnimalDTO.js';
+import { DomesticAnimalService } from '@/services/DomesticAnimalService';
+import type { CreateDomesticAnimalDTO } from '@/dtos/CreateDomesticAnimalDTO';
 
 const breed = ref('');
 const category = ref('');
