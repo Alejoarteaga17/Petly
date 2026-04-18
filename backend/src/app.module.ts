@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'; 
 import { TypeOrmModule } from '@nestjs/typeorm'; 
-import { DomesticAnimalsModule } from './domesticAnimal/domesticAnimal.module'; 
+import { DomesticAnimalsModule } from './petly/domesticAnimal.module'; 
  
 @Module({ 
   imports: [
