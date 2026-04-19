@@ -1,5 +1,11 @@
 // Author: Alejandro Arteaga
-
-import type { UserInterface } from "@/interfaces/UserInterface";
-
-export type CreateUserDTO = Omit<UserInterface, 'id'>;
+// Esta bien hacer un dto casi que copiando los datos de la interfaz?
+// es solo que en la interfaz como se usa para consultas no necesitamos el password,
+//  pero en el dto si, por eso lo hice asi
+export interface CreateUserDTO {
+	fullName: string;
+	email: string;
+	username: string;
+	password: string;
+	role?: string;
+}

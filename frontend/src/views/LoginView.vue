@@ -32,6 +32,8 @@ async function submitLogin() {
 	} catch (error) {
 		if (axios.isAxiosError(error) && error.response?.status === 401) {
 			errorMessage.value = 'Invalid username or password.';
+		} else if (axios.isAxiosError(error) && error.response?.status === 400) {
+			errorMessage.value = 'Please verify the login data and try again.';
 		} else {
 			errorMessage.value = 'Could not log in right now. Please try again.';
 		}
