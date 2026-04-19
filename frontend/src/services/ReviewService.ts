@@ -14,7 +14,7 @@ export class ReviewService {
     return data; 
   } 
  
-  static async createReview(review: Omit<ReviewInterface, 'id'>): Promise<ReviewInterface> { 
+  static async createReview(review: Omit<ReviewInterface, 'id' | 'createdAt'>): Promise<ReviewInterface> { 
     const { data } = await axios.post(this.API_URL, review); 
     return data; 
   } 

@@ -1,6 +1,8 @@
-export class CreateReviewDto { 
-  domesticAnimalId: number; 
-  rating: number; 
-  comment: string; 
-  author?: string; 
-} 
+// Author: Alejandro Arteaga
+export class CreateReviewDto {
+
+  domesticAnimalId!: number;
+  rating!: number;
+  comment!: string;
+  userId!: number;
+}

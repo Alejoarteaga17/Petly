@@ -13,31 +13,28 @@ import { User } from './user.entity';
 @Entity() 
 export class Review { 
   @PrimaryGeneratedColumn() 
-  id: number; 
- 
-  @ManyToOne(() => DomesticAnimal, { onDelete: 'CASCADE' }) 
-  @JoinColumn({ name: 'domesticAnimalId' }) 
-  domesticAnimal: DomesticAnimal; 
- 
-  @RelationId((review: Review) => review.domesticAnimal) 
-  domesticAnimalId: number; 
+  id!: number; 
  
   @Column({ type: 'int' }) 
-  rating: number; 
+  rating!: number; 
  
   @Column({ type: 'text' }) 
-  comment: string; 
- 
+  comment!: string; 
+  
+  @CreateDateColumn() 
+  createdAt!: Date; 
+
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
-  user: User;
+  user!: User;
 
   @RelationId((review: Review) => review.user)
-  userId: number;
+  userId!: number;
 
-  @Column({ type: 'varchar', nullable: true }) 
-  author: string | null; 
+  @ManyToOne(() => DomesticAnimal, { onDelete: 'CASCADE' }) 
+  @JoinColumn({ name: 'domesticAnimalId' }) 
+  domesticAnimal!: DomesticAnimal; 
  
-  @CreateDateColumn() 
-  createdAt: Date; 
+  @RelationId((review: Review) => review.domesticAnimal) 
+  domesticAnimalId!: number; 
 } 

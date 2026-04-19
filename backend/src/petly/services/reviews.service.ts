@@ -12,22 +12,25 @@ export class ReviewsService {
   ) {} 
  
   findAll(): Promise<Review[]> { 
-    return this.reviewsRepository.find(); 
+    return this.reviewsRepository.find({ relations: ['user'] }); 
   } 
- 
+ // Al usar relations tambien vamos a traer la informacion del usuario que hizo la reseña, 
+ // lo que nos permite mostrar el nombre del autor en el frontend.
   findByDomesticAnimalId(domesticAnimalId: number): Promise<Review[]> { 
     return this.reviewsRepository.find({ 
       where: { domesticAnimal: { id: domesticAnimalId } },
+      relations: ['user'],
     }); 
   } 
  
-  create(createReviewDto: CreateReviewDto): Promise<Review> { 
-    const { domesticAnimalId, ...rest } = createReviewDto; 
-    const review = this.reviewsRepository.create({ 
-      ...rest, 
+  create(createReviewDto: CreateReviewDto): Promise<Review> {
+    const { domesticAnimalId, userId, ...rest } = createReviewDto;
+    const review = this.reviewsRepository.create({
+      ...rest,
       domesticAnimal: { id: domesticAnimalId },
-    }); 
- 
-    return this.reviewsRepository.save(review); 
+      user: { id: userId },
+    });
+
+    return this.reviewsRepository.save(review);
   } 
 } 
