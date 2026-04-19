@@ -1,5 +1,24 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { RouterLink, RouterView } from 'vue-router';
+import type { UserInterface } from '@/interfaces/UserInterface';
+
+const route = useRoute();
+const authUser = ref<UserInterface | null>(null);
+
+function loadAuthUser() {
+  const stored = localStorage.getItem('authUser');
+  authUser.value = stored ? (JSON.parse(stored) as UserInterface) : null;
+}
+
+watch(
+  () => route.fullPath,
+  () => {
+    loadAuthUser();
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
@@ -17,12 +36,13 @@ import { RouterLink, RouterView } from 'vue-router';
           </div>
 
           <!-- Nav links -->
+          <!-- Agregamos validacion de autenticacion para ocualtar botones-->
           <nav class="flex items-center gap-3">
             <RouterLink to="/" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Home</RouterLink>
-            <RouterLink to="/about" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">About</RouterLink>
+            <RouterLink to="/profile" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Profile</RouterLink>
             <RouterLink to="/domesticAnimals" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Domestic animals</RouterLink>
-            <RouterLink to="/login" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Login</RouterLink>
-            <RouterLink to="/register" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Register</RouterLink>
+            <RouterLink v-if="!authUser" to="/login" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Login</RouterLink>
+            <RouterLink v-if="!authUser" to="/register" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Register</RouterLink>
           </nav>
         </div>
       </div>
@@ -42,13 +62,6 @@ import { RouterLink, RouterView } from 'vue-router';
           <p class="max-w-sm text-sm text-gray-500">
             Find what other people think about your domesticAnimals and say something about them too.
           </p>
-
-          <div class="mt-6 flex gap-4 text-sm text-gray-400">
-            <span class="cursor-pointer hover:text-black">X</span>
-            <span class="cursor-pointer hover:text-black">Facebook</span>
-            <span class="cursor-pointer hover:text-black">Instagram</span>
-            <span class="cursor-pointer hover:text-black">GitHub</span>
-          </div>
         </div>
 
         <div>
