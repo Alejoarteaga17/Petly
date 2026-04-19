@@ -1,3 +1,4 @@
+// Author: Alejandro Arteaga
 import { Controller, Get, Param, Post, Body } from '@nestjs/common'; 
 import { UserService } from "../services/user.service";
 import { User } from '../entities/user.entity';
