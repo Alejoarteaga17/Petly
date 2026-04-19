@@ -21,6 +21,8 @@ import { RouterLink, RouterView } from 'vue-router';
             <RouterLink to="/" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Home</RouterLink>
             <RouterLink to="/about" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">About</RouterLink>
             <RouterLink to="/domesticAnimals" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Domestic animals</RouterLink>
+            <RouterLink to="/login" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Login</RouterLink>
+            <RouterLink to="/register" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Register</RouterLink>
           </nav>
         </div>
       </div>

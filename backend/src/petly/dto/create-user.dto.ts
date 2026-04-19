@@ -1,3 +1,4 @@
+// Autor: Alejandro Arteaga
 import { IsEmail, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class CreateUserDto {
