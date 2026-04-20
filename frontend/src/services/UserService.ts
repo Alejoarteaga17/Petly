@@ -3,8 +3,8 @@ import axios from 'axios';
 import type { UserInterface } from '@/interfaces/UserInterface';
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 
-// Hacemos una respuesta personalizada para el login, 
-// ya que el backend devuelve un token y el usuario
+// We make a personalized response for the login, 
+// since the backend returns a token and the user
 type LoginResponse = {
     accessToken: string;
     user: UserInterface;
@@ -30,6 +30,12 @@ export class UserService {
 
     public static async loginUser(credentials: { username: string; password: string }): Promise<LoginResponse> {
         const { data } = await axios.post(`${this.API_URL}/login`, credentials);
+        return data;
+    }
+
+    public static async updateUser(
+        id: number, updates: Partial<Pick<UserInterface, 'fullName' | 'email' | 'username'>>, ): Promise<UserInterface> {
+        const { data } = await axios.put(`${this.API_URL}/${id}`, updates);
         return data;
     }
 }
