@@ -2,6 +2,11 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Review } from './review.entity';
 
+// We defiine the possible user roles as a constant array and a type for better type safety
+// this means we can only use admin or user, numeric type bc of the array positions
+export const USER_ROLES = ['user', 'admin'] as const;
+export type UserRole = (typeof USER_ROLES)[number];
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -13,8 +18,8 @@ export class User {
   @Column({ unique: true })
   email!: string;
 
-  @Column()
-  role!: string;
+  @Column({ type: 'simple-enum', enum: USER_ROLES, default: 'user' })
+  role!: UserRole;
 
   @Column({ unique: true })
   username!: string;

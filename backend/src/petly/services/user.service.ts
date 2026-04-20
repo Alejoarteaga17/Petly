@@ -74,7 +74,7 @@ export class UserService {
         const user = this.userRepository.create({
             fullName,
             email,
-            role: createUserDto.role ?? "user",
+            role: "user",
             username,
             password: hashedPassword,
         });
