@@ -17,7 +17,7 @@ function handleCardImageError(event: Event) {
 }
  
 onMounted(async () => { 
-  domesticAnimals.value = await DomesticAnimalService.getDomesticAnimals(); 
+  domesticAnimals.value = await DomesticAnimalService.getAll(); 
 }); 
 </script> 
  

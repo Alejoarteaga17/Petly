@@ -7,6 +7,8 @@ import { UserService } from '@/services/UserService';
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 
 const router = useRouter();
+
+// Reactive variables
 const fullName = ref('');
 const email = ref('');
 const username = ref('');

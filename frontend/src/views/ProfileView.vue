@@ -7,13 +7,14 @@ import type { UserInterface } from '@/interfaces/UserInterface';
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { ReviewService } from '@/services/ReviewService';
 
+// Reactive variables
 const authUser = ref<UserInterface | null>(null);
-const router = useRouter();
 const showReviews = ref(false);
 const reviews = ref<ReviewInterface[]>([]);
 const loadingReviews = ref(false);
 const reviewsError = ref('');
 
+const router = useRouter();
 const profileFields = computed(() => {
   if (!authUser.value) return [];
 
@@ -30,6 +31,7 @@ function loadAuthUser() {
   const stored = localStorage.getItem('authUser');
   authUser.value = stored ? (JSON.parse(stored) as UserInterface) : null;
 }
+
 async function logout() {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('authUser');

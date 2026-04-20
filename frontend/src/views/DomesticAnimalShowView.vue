@@ -17,7 +17,7 @@ function handleImageError() {
 onMounted(async () => { 
   const route = useRoute(); 
   const domesticAnimalId = Number(route.params.id); 
-  domesticAnimal.value = await DomesticAnimalService.getDomesticAnimalById(domesticAnimalId); 
+  domesticAnimal.value = await DomesticAnimalService.getById(domesticAnimalId); 
   imageSrc.value = domesticAnimal.value?.image?.trim() || DEFAULT_IMAGE;
 }); 
 </script>

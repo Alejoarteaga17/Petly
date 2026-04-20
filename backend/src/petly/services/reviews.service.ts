@@ -1,3 +1,4 @@
+// Author: Alejandro Arteaga
 import { Injectable } from '@nestjs/common'; 
 import { InjectRepository } from '@nestjs/typeorm'; 
 import { Repository } from 'typeorm'; 
@@ -14,16 +15,16 @@ export class ReviewsService {
   findAll(): Promise<Review[]> { 
     return this.reviewsRepository.find({ relations: ['user'] }); 
   } 
- // Al usar relations tambien vamos a traer la informacion del usuario que hizo la reseña, 
- // lo que nos permite mostrar el nombre del autor en el frontend.
+ // While using relations the systems allow us to get the full info from that table were relting to, 
+ // wich allow us to show the author's name in the frontend.
   findByDomesticAnimalId(domesticAnimalId: number): Promise<Review[]> { 
     return this.reviewsRepository.find({ 
       where: { domesticAnimal: { id: domesticAnimalId } },
       relations: ['user'],
     }); 
   } 
- // Al usar relations tambien vamos a traer la informacion del usuario que hizo la reseña+info del animal, 
- // lo que nos permite mostrar algo de esa info en el front.
+ // While using relations the systems allow us to get the full info from that table were relting to, 
+ // wich allow us to show the animal's name from the review in the frontend.
   findByUserId(userId: number): Promise<Review[]> {
     return this.reviewsRepository.find({
       where: { user: { id: userId } },

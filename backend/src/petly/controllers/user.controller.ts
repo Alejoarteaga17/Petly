@@ -8,7 +8,6 @@ import { LoginUserDto } from '../dto/login-user.dto';
 
 @Controller('users')
 export class UserController {
-  // Define your user-related endpoints here
   constructor( private readonly userService: UserService) {}
     
   @Get()

@@ -13,12 +13,12 @@ type LoginResponse = {
 export class UserService {
     private static readonly API_URL = 'http://localhost:3000/api/users';
     
-    public static async getUsers(): Promise<UserInterface[]> {
+    public static async getAll(): Promise<UserInterface[]> {
         const { data } = await axios.get(this.API_URL);
         return data;
     }
     
-    public static async getUserById(id: number): Promise<UserInterface> {
+    public static async getById(id: number): Promise<UserInterface> {
         const { data } = await axios.get(`${this.API_URL}/${id}`);
         return data;
     }

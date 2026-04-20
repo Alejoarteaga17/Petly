@@ -5,12 +5,12 @@ import axios from 'axios';
 export class DomesticAnimalService { 
   private static readonly API_URL = 'http://localhost:3000/api/domestic-animals'; 
  
-  public static async getDomesticAnimals(): Promise<DomesticAnimalInterface[]> { 
+  public static async getAll(): Promise<DomesticAnimalInterface[]> { 
     const { data } = await axios.get(this.API_URL); 
     return data; 
   } 
  
-  public static async getDomesticAnimalById(id: number): Promise<DomesticAnimalInterface> { 
+  public static async getById(id: number): Promise<DomesticAnimalInterface> { 
     const { data } = await axios.get(`${this.API_URL}/${id}`); 
     return data; 
   } 
