@@ -1,3 +1,4 @@
+// Author: Alejandro Arteaga & Alejandra Suarez
 import { 
   Entity, 
   Column, 

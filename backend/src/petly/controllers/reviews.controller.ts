@@ -1,3 +1,4 @@
+// Author: Alejandro Arteaga
 import { Body, Controller, Get, Param, Post } from '@nestjs/common'; 
 import { ReviewsService } from '../services/reviews.service'; 
 import { CreateReviewDto } from '../dto/create-review.dto'; 
@@ -16,6 +17,11 @@ export class ReviewsController {
   findByDomesticAnimalId(@Param('domesticAnimalId') domesticAnimalId: string): Promise<Review[]> { 
     return this.reviewsService.findByDomesticAnimalId(Number(domesticAnimalId)); 
   } 
+
+  @Get('user-reviews/:userId')
+  findByUserId(@Param('userId') userId: string): Promise<Review[]> {
+    return this.reviewsService.findByUserId(Number(userId));
+  }
  
   @Post() 
   create(@Body() createReviewDto: CreateReviewDto): Promise<Review> { 

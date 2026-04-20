@@ -22,6 +22,14 @@ export class ReviewsService {
       relations: ['user'],
     }); 
   } 
+ // Al usar relations tambien vamos a traer la informacion del usuario que hizo la reseña+info del animal, 
+ // lo que nos permite mostrar algo de esa info en el front.
+  findByUserId(userId: number): Promise<Review[]> {
+    return this.reviewsRepository.find({
+      where: { user: { id: userId } },
+      relations: ['user', 'domesticAnimal'],
+    });
+  }
  
   create(createReviewDto: CreateReviewDto): Promise<Review> {
     const { domesticAnimalId, userId, ...rest } = createReviewDto;
