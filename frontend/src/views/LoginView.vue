@@ -6,6 +6,8 @@ import axios from 'axios';
 import { UserService } from '@/services/UserService';
 
 const router = useRouter();
+
+// Reactive variables
 const username = ref('');
 const password = ref('');
 const loading = ref(false);
