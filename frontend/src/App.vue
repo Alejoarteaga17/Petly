@@ -1,3 +1,4 @@
+<!-- Author: Alejandro Arteaga & Alejandra Suarez-->
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
@@ -87,7 +88,7 @@ watch(
         </div>
       </div>
 
-      <div class="mx-auto mt-10 max-w-7xl border-t px-6 pt-6 text-xs text-gray-400">Petly 2024. All Rights Reserved</div>
+      <div class="mx-auto mt-10 max-w-7xl border-t px-6 pt-6 text-xs text-gray-400">Petly 2026. All Rights Reserved</div>
     </footer>
   </div>
 </template>
