@@ -2,10 +2,10 @@
 <script setup lang="ts">
 import { computed, ref, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
-import { useRouter } from 'vue-router';
-import type { UserInterface } from '@/interfaces/UserInterface';
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { ReviewService } from '@/services/ReviewService';
+import { useRouter } from 'vue-router';
+import type { UserInterface } from '@/interfaces/UserInterface';
 import { UserService } from '@/services/UserService';
 
 // Reactive variables
@@ -37,16 +37,45 @@ const profileFields = computed(() => {
   ];
 });
 
+// Function to load the auth user
 function loadAuthUser() {
   const stored = localStorage.getItem('authUser');
-  authUser.value = stored ? (JSON.parse(stored) as UserInterface) : null;
+  if (!stored) {
+    authUser.value = null;
+    return;
+  }
 
-  if (authUser.value) {
-    editForm.value = {
-      fullName: authUser.value.fullName,
-      username: authUser.value.username,
-      email: authUser.value.email,
-    };
+  try {
+    authUser.value = JSON.parse(stored) as UserInterface;
+    syncEditForm();
+  } catch (error) {
+    console.error(error);
+    localStorage.removeItem('authUser');
+    authUser.value = null;
+  }
+}
+
+function syncEditForm() {
+  if (!authUser.value) return;
+
+  editForm.value = {
+    fullName: authUser.value.fullName,
+    username: authUser.value.username,
+    email: authUser.value.email,
+  };
+}
+
+// If we change somthing user related in the DB directly, this will make sure we have the freshest data.
+async function refreshAuthUserFromBackend() {
+  if (!authUser.value) return;
+
+  try {
+    const freshUser = await UserService.getById(authUser.value.id);
+    authUser.value = freshUser;
+    localStorage.setItem('authUser', JSON.stringify(freshUser));
+    syncEditForm();
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -59,8 +88,10 @@ async function logout() {
   await router.push('/');
 }
 
+// Start editing profile info, we use a separate form so we 
+// don't modify the authUser data until we save
 function startEditing() {
-  if (!authUser.value || authUser.value.role !== 'user') return;
+  if (!authUser.value) return;
 
   editForm.value = {
     fullName: authUser.value.fullName,
@@ -79,6 +110,7 @@ function cancelEditing() {
   profileSuccess.value = '';
 }
 
+// Save profile changes, we only update the authUser data if the API call is successful
 async function saveProfile() {
   if (!authUser.value) return;
 
@@ -111,6 +143,7 @@ async function saveProfile() {
   }
 }
 
+// To load reviewws only when the user wants to see them, and not before
 async function toggleReviews() {
   showReviews.value = !showReviews.value;
 
@@ -142,6 +175,7 @@ function formatDate(iso?: string): string {
 
 onMounted(() => {
   loadAuthUser();
+  refreshAuthUserFromBackend();
 });
 
 
@@ -153,7 +187,7 @@ onMounted(() => {
       <div class="mb-6 flex items-center justify-between gap-4">
         <h2 class="text-3xl font-bold text-gray-800">My Profile</h2>
         <button
-          v-if="authUser?.role === 'user' && !isEditing"
+          v-if="authUser && !isEditing"
           type="button"
           class="rounded bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
           @click="startEditing"
