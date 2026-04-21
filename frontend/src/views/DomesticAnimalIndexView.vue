@@ -1,11 +1,49 @@
 <script setup lang="ts"> 
+// Author: Alejandro Arteaga & Alejandra Suarez 
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface'; 
-import { onMounted, ref } from 'vue'; 
+import type { UserInterface } from '@/interfaces/UserInterface';
+import { UserService } from '@/services/UserService';
+import { computed, onMounted, ref } from 'vue'; 
  
+// Default image on case the url is invalid
 const DEFAULT_IMAGE = 'https://placedog.net/536/355';
 
+// Reactive variables
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]); 
+const authUser = ref<UserInterface | null>(null);
+
+// Computed property to check if the user is an admin
+const isAdmin = computed(() => authUser.value?.role === 'admin');
+
+// Function to load the auth user
+function loadAuthUser() {
+  const stored = localStorage.getItem('authUser');
+  if (!stored) {
+    authUser.value = null;
+    return;
+  }
+
+  try {
+    authUser.value = JSON.parse(stored) as UserInterface;
+  } catch (error) {
+    console.error(error);
+    localStorage.removeItem('authUser');
+    authUser.value = null;
+  }
+}
+// If we change somthing user related in the DB directly, this will make sure we have the freshest data.
+async function refreshAuthUserFromBackend() {
+  if (!authUser.value) return;
+
+  try {
+    const freshUser = await UserService.getById(authUser.value.id);
+    authUser.value = freshUser;
+    localStorage.setItem('authUser', JSON.stringify(freshUser));
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 function getCardImage(image?: string) {
   return image?.trim() || DEFAULT_IMAGE;
@@ -17,6 +55,8 @@ function handleCardImageError(event: Event) {
 }
  
 onMounted(async () => { 
+  loadAuthUser();
+  await refreshAuthUserFromBackend();
   domesticAnimals.value = await DomesticAnimalService.getAll(); 
 }); 
 </script> 
@@ -24,7 +64,7 @@ onMounted(async () => {
 <template> 
   <section> 
     <div class="max-w-7xl mx-auto"> 
-      <div class="flex justify-end mb-6"> 
+      <div v-if="isAdmin" class="flex justify-end mb-6"> 
         <RouterLink 
           to="/domesticAnimals/create" 
           class="inline-block bg-orange-400 text-white font-semibold px-5 py-2 rounded hover:bg-orange-500 transition" 

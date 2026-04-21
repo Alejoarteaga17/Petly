@@ -54,17 +54,6 @@ function loadAuthUser() {
     authUser.value = null;
   }
 }
-
-function syncEditForm() {
-  if (!authUser.value) return;
-
-  editForm.value = {
-    fullName: authUser.value.fullName,
-    username: authUser.value.username,
-    email: authUser.value.email,
-  };
-}
-
 // If we change somthing user related in the DB directly, this will make sure we have the freshest data.
 async function refreshAuthUserFromBackend() {
   if (!authUser.value) return;
@@ -77,6 +66,16 @@ async function refreshAuthUserFromBackend() {
   } catch (error) {
     console.error(error);
   }
+}
+
+function syncEditForm() {
+  if (!authUser.value) return;
+
+  editForm.value = {
+    fullName: authUser.value.fullName,
+    username: authUser.value.username,
+    email: authUser.value.email,
+  };
 }
 
 async function logout() {
