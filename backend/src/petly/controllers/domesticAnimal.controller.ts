@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body } from '@nestjs/common'; 
+import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common'; 
 import { DomesticAnimalService } from '../services/domesticAnimal.service'; 
 import { DomesticAnimal } from '../entities/domesticAnimal.entity'; 
 import { CreateDomesticAnimalDto } from '../dto/create-domesticAnimal.dto'; 
@@ -21,4 +21,15 @@ export class DomesticAnimalsController {
   create(@Body() createDomesticAnimalDto: CreateDomesticAnimalDto) : Promise<DomesticAnimal> { 
     return this.domesticAnimalService.create(createDomesticAnimalDto); 
   } 
+
+  @Put(':id')
+  update(
+    @Param('id') id: string, @Body() updateDomesticAnimalDto: CreateDomesticAnimalDto,): Promise<DomesticAnimal | null> {
+    return this.domesticAnimalService.update(Number(id), updateDomesticAnimalDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string): Promise<boolean> {
+    return this.domesticAnimalService.remove(Number(id));
+  }
 } 

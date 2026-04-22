@@ -19,4 +19,14 @@ export class DomesticAnimalService {
     const { data } = await axios.post(this.API_URL, domesticAnimal); 
     return data; 
   } 
+
+  public static async updateDomesticAnimal(id: number, domesticAnimal: CreateDomesticAnimalDTO): Promise<DomesticAnimalInterface> {
+    const { data } = await axios.put(`${this.API_URL}/${id}`, domesticAnimal);
+    return data;
+  }
+
+  public static async deleteDomesticAnimal(id: number): Promise<boolean> {
+    const { data } = await axios.delete(`${this.API_URL}/${id}`);
+    return Boolean(data);
+  }
 } 

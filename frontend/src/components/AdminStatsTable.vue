@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// Author: Alejandro Arteaga
 interface ColumnDefinition {
   key: string;
   label: string;

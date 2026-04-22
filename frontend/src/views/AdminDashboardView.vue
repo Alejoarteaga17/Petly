@@ -1,16 +1,21 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import Chart from 'chart.js/auto';
+import { useRouter } from 'vue-router';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import { ReviewService } from '@/services/ReviewService';
 import AdminStatsTable from '@/components/AdminStatsTable.vue';
+import AdminDomesticAnimalsTable from '@/components/AdminDomesticAnimalsTable.vue';
 
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]);
 const reviews = ref<ReviewInterface[]>([]);
 const loading = ref(true);
 const errorMessage = ref('');
+const deletingId = ref<number | null>(null);
+const actionMessage = ref('');
+const router = useRouter();
 
 const categoryChartCanvas = ref<HTMLCanvasElement | null>(null);
 const popularityChartCanvas = ref<HTMLCanvasElement | null>(null);
@@ -114,6 +119,7 @@ function renderCharts() {
 async function loadDashboardData() {
   loading.value = true;
   errorMessage.value = '';
+  actionMessage.value = '';
 
   try {
     const [animalsData, reviewsData] = await Promise.all([
@@ -131,6 +137,31 @@ async function loadDashboardData() {
     errorMessage.value = 'Could not load dashboard data right now.';
   } finally {
     loading.value = false;
+  }
+}
+
+function editDomesticAnimal(id: number) {
+  router.push(`/domesticAnimals/${id}/edit`);
+}
+
+async function deleteDomesticAnimal(id: number) {
+  const confirmed = window.confirm('Are you sure you want to delete this domestic animal?');
+  if (!confirmed) {
+    return;
+  }
+
+  deletingId.value = id;
+  errorMessage.value = '';
+
+  try {
+    await DomesticAnimalService.deleteDomesticAnimal(id);
+    actionMessage.value = 'Domestic animal deleted successfully.';
+    await loadDashboardData();
+  } catch (error) {
+    console.error(error);
+    errorMessage.value = 'Could not delete the domestic animal right now.';
+  } finally {
+    deletingId.value = null;
   }
 }
 
@@ -154,6 +185,8 @@ onBeforeUnmount(() => {
     <p v-else-if="errorMessage" class="text-sm text-red-600">{{ errorMessage }}</p>
 
     <template v-else>
+      <p v-if="actionMessage" class="text-sm text-green-600">{{ actionMessage }}</p>
+
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
           <p class="text-sm text-gray-500">Total pets</p>
@@ -206,6 +239,13 @@ onBeforeUnmount(() => {
           :rows="popularityRows"
         />
       </div>
+
+      <AdminDomesticAnimalsTable
+        :rows="domesticAnimals"
+        :deleting-id="deletingId"
+        @edit="editDomesticAnimal"
+        @delete="deleteDomesticAnimal"
+      />
     </template>
   </section>
 </template>
