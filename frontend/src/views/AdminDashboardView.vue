@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import Chart from 'chart.js/auto';
 import { useRouter } from 'vue-router';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
@@ -129,9 +129,6 @@ async function loadDashboardData() {
 
     domesticAnimals.value = animalsData;
     reviews.value = reviewsData;
-
-    await nextTick();
-    renderCharts();
   } catch (error) {
     console.error(error);
     errorMessage.value = 'Could not load dashboard data right now.';
@@ -139,6 +136,11 @@ async function loadDashboardData() {
     loading.value = false;
   }
 }
+
+watch([categoryRows, popularityRows], async () => {
+  await nextTick();
+  renderCharts();
+});
 
 function editDomesticAnimal(id: number) {
   router.push(`/domesticAnimals/${id}/edit`);
@@ -207,15 +209,15 @@ onBeforeUnmount(() => {
       <div class="grid gap-6 lg:grid-cols-2">
         <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
           <h3 class="mb-3 text-lg font-semibold text-gray-800">General count by category</h3>
-          <div class="relative h-72">
-            <canvas ref="categoryChartCanvas" />
+          <div class="relative h-72 w-full">
+            <canvas ref="categoryChartCanvas"></canvas>
           </div>
         </div>
 
         <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
           <h3 class="mb-3 text-lg font-semibold text-gray-800">Popularity by species</h3>
-          <div class="relative h-72">
-            <canvas ref="popularityChartCanvas" />
+          <div class="relative h-72 w-full">
+            <canvas ref="popularityChartCanvas"></canvas>
           </div>
         </div>
       </div>
