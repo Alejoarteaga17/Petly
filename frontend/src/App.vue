@@ -42,6 +42,7 @@ watch(
             <RouterLink to="/" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Home</RouterLink>
             <RouterLink to="/profile" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Profile</RouterLink>
             <RouterLink to="/domesticAnimals" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Domestic animals</RouterLink>
+            <RouterLink v-if="authUser?.role === 'admin'" to="/admin/dashboard" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Admin Dashboard</RouterLink>
             <RouterLink v-if="!authUser" to="/login" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Login</RouterLink>
             <RouterLink v-if="!authUser" to="/register" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Register</RouterLink>
           </nav>

@@ -23,4 +23,19 @@ export class DomesticAnimalService {
     const domesticAnimal = this.domesticAnimalsRepository.create(createDomesticAnimalDto); 
     return this.domesticAnimalsRepository.save(domesticAnimal); 
   } 
+
+  async update(id: number, updateDomesticAnimalDto: CreateDomesticAnimalDto): Promise<DomesticAnimal | null> {
+    const domesticAnimal = await this.domesticAnimalsRepository.findOneBy({ id });
+    if (!domesticAnimal) {
+      return null;
+    }
+
+    Object.assign(domesticAnimal, updateDomesticAnimalDto);
+    return this.domesticAnimalsRepository.save(domesticAnimal);
+  }
+
+  async remove(id: number): Promise<boolean> {
+    const result = await this.domesticAnimalsRepository.delete(id);
+    return Boolean(result.affected);
+  }
 } 

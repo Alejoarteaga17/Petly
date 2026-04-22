@@ -30,7 +30,7 @@ export class UserController {
   login(@Body() loginUserDto: LoginUserDto) {
     return this.userService.login(loginUserDto);
   }
-  // Segun como definimos el DTO, entonces acá si puede estar null?
+  // Segun como definimos el dto, entonces acá si puede estar null?
   @Put(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<User | null> {
     return this.userService.update(Number(id), updateUserDto);
