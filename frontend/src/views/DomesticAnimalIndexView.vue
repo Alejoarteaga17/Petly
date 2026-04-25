@@ -1,45 +1,31 @@
+<!-- Authors: Alejandra Suarez -->
 <script setup lang="ts"> 
-// Author: Alejandro Arteaga & Alejandra Suarez 
+
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface'; 
-import type { UserInterface } from '@/interfaces/UserInterface';
 import { UserService } from '@/services/UserService';
 import { computed, onMounted, ref } from 'vue'; 
+import { storeToRefs } from 'pinia';
+import { useAuthStore } from '@/stores/auth';
  
 // Default image on case the url is invalid
 const DEFAULT_IMAGE = 'https://placedog.net/536/355';
 
 // Reactive variables
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]); 
-const authUser = ref<UserInterface | null>(null);
+const authStore = useAuthStore();
+const { user: authUser } = storeToRefs(authStore);
 
 // Computed property to check if the user is an admin
 const isAdmin = computed(() => authUser.value?.role === 'admin');
 
-// Function to load the auth user
-function loadAuthUser() {
-  const stored = localStorage.getItem('authUser');
-  if (!stored) {
-    authUser.value = null;
-    return;
-  }
-
-  try {
-    authUser.value = JSON.parse(stored) as UserInterface;
-  } catch (error) {
-    console.error(error);
-    localStorage.removeItem('authUser');
-    authUser.value = null;
-  }
-}
 // If we change somthing user related in the DB directly, this will make sure we have the freshest data.
 async function refreshAuthUserFromBackend() {
   if (!authUser.value) return;
 
   try {
     const freshUser = await UserService.getById(authUser.value.id);
-    authUser.value = freshUser;
-    localStorage.setItem('authUser', JSON.stringify(freshUser));
+    authStore.setUser(freshUser);
   } catch (error) {
     console.error(error);
   }
@@ -55,7 +41,6 @@ function handleCardImageError(event: Event) {
 }
  
 onMounted(async () => { 
-  loadAuthUser();
   await refreshAuthUserFromBackend();
   domesticAnimals.value = await DomesticAnimalService.getAll(); 
 }); 

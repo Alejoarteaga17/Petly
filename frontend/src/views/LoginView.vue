@@ -4,8 +4,12 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { UserService } from '@/services/UserService';
+import { decodeJWT } from '@/utils/jwtUtils';
+import type { UserInterface } from '@/interfaces/UserInterface';
+import { useAuthStore } from '@/stores/auth';
 
 const router = useRouter();
+const authStore = useAuthStore();
 
 // Reactive variables
 const username = ref('');
@@ -20,13 +24,27 @@ async function submitLogin() {
 	loading.value = true;
 
 	try {
-		const { accessToken, user } = await UserService.loginUser({
+		const { accessToken } = await UserService.loginUser({
 			username: username.value,
 			password: password.value,
 		});
 
-		localStorage.setItem('accessToken', accessToken);
-		localStorage.setItem('authUser', JSON.stringify(user));
+		// Decode JWT to extract user info
+		const payload = decodeJWT(accessToken);
+		if (!payload) {
+			throw new Error('Invalid token received');
+		}
+
+		// Build user object from JWT payload
+		const user: UserInterface = {
+			id: payload.sub,
+			fullName: payload.fullName,
+			email: payload.email,
+			username: payload.username,
+			role: payload.role,
+		};
+
+		authStore.setSession(accessToken, user);
 		successMessage.value = `Welcome back, ${user.fullName}!`;
 		username.value = '';
 		password.value = '';

@@ -21,6 +21,15 @@ export class UserService {
     findOne(id: number): Promise<User | null> {
         return this.userRepository.findOneBy({ id });
     }
+    // This method is used to find a user by their username and include the password in the result,
+    //  which is necessary for authentication purposes.
+    findByUsernameWithPassword(username: string): Promise<User | null> {
+        return this.userRepository
+            .createQueryBuilder('user')
+            .addSelect('user.password')
+            .where('user.username = :username', { username })
+            .getOne();
+    }
 
     async update(id: number, updateUserDto: UpdateUserDto): Promise<User | null> {
         const user = await this.userRepository.findOneBy({ id });

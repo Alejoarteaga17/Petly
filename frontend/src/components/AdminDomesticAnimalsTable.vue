@@ -1,3 +1,4 @@
+<!-- Author: Alejandro Arteaga & Alejandra Suarez -->
 <script setup lang="ts">
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
 

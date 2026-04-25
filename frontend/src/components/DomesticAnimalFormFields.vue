@@ -1,3 +1,4 @@
+<!-- Author: Alejandro Arteaga -->
 <script setup lang="ts">
 import type { CreateDomesticAnimalDTO } from '@/dtos/CreateDomesticAnimalDTO';
 

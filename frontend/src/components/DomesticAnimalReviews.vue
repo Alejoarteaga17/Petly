@@ -2,16 +2,18 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
+import { storeToRefs } from 'pinia';
 import { ReviewService } from '@/services/ReviewService.js';
 import type { ReviewInterface } from '@/interfaces/ReviewInterface.js';
-import type { UserInterface } from '@/interfaces/UserInterface';
+import { useAuthStore } from '@/stores/auth';
 
 const props = defineProps<{
   domesticAnimalId: number;
 }>();
 
 const reviews = ref<ReviewInterface[]>([]);
-const authUser = ref<UserInterface | null>(null);
+const authStore = useAuthStore();
+const { user: authUser } = storeToRefs(authStore);
 const isSubmitting = ref(false);
 const form = ref({
   rating: 5,
@@ -51,15 +53,7 @@ async function getReviews() {
   reviews.value = await ReviewService.getReviewsByDomesticAnimalId(props.domesticAnimalId);
 }
 
-function loadAuthUser() {
-  const stored = localStorage.getItem('authUser');
-  if (stored) {
-    authUser.value = JSON.parse(stored);
-  }
-}
-
 onMounted(() => {
-  loadAuthUser();
   getReviews();
 });
 </script>
