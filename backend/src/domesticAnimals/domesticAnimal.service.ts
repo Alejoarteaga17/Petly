@@ -1,8 +1,9 @@
+// Author: Alejandra Suarez & Alejandro Arteaga
 import { Injectable } from '@nestjs/common'; 
 import { InjectRepository } from '@nestjs/typeorm'; 
 import { Repository } from 'typeorm'; 
-import { DomesticAnimal } from '../entities/domesticAnimal.entity'; 
-import { CreateDomesticAnimalDto } from '../dto/create-domesticAnimal.dto'; 
+import { DomesticAnimal } from './entities/domesticAnimal.entity'; 
+import { CreateDomesticAnimalDto } from './dto/create-domesticAnimal.dto'; 
  
 @Injectable() 
 export class DomesticAnimalService { 

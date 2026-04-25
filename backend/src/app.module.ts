@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common'; 
 import { TypeOrmModule } from '@nestjs/typeorm'; 
-import { DomesticAnimalsModule } from './petly/domesticAnimal.module'; 
+import { UserModule } from './users/user.module'; 
+import { AuthModule } from './auth/auth.module'; 
+import { DomesticAnimalsModule } from './domesticAnimals/domesticAnimal.module'; 
  
 @Module({ 
   imports: [
@@ -10,8 +12,9 @@ import { DomesticAnimalsModule } from './petly/domesticAnimal.module';
       autoLoadEntities: true, 
       synchronize: true, 
     }), 
+    UserModule,
+    AuthModule,
     DomesticAnimalsModule,
   ], 
-  
 }) 
 export class AppModule {} 

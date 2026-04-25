@@ -1,3 +1,4 @@
+// Author: Alejandra Suarez
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Review } from './review.entity';
 
