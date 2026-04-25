@@ -1,3 +1,4 @@
+<!-- Author: Alejandro Arteaga -->
 <script setup lang="ts">
 import { ref } from 'vue';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';

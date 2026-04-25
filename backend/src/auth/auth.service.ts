@@ -1,28 +1,21 @@
 // Author: Alejandro Arteaga
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { LoginUserDto } from './dto/login-user.dto';
 import * as bcrypt from 'bcrypt';
-import { User } from 'src/users/entities/user.entity';
+import { UserService } from '../users/user.service';
 
 @Injectable()
 export class AuthService {
     constructor(
-        @InjectRepository(User)
-        private userRepository: Repository<User>,
+        private userService: UserService,
         private jwtService: JwtService,
     ) {}
 
-    async login(loginUserDto: LoginUserDto) {
+    async login(loginUserDto: LoginUserDto): Promise<{ accessToken: string }> {
         const { username, password } = loginUserDto;
 
-        const user = await this.userRepository
-            .createQueryBuilder("user")
-            .addSelect("user.password")
-            .where("user.username = :username", { username })
-            .getOne();
+        const user = await this.userService.findByUsernameWithPassword(username);
 
         if (!user) {
             throw new UnauthorizedException("Invalid credentials");
@@ -35,6 +28,7 @@ export class AuthService {
 
         const payload = {
             sub: user.id,
+            fullName: user.fullName,
             username: user.username,
             role: user.role,
             email: user.email,
@@ -42,13 +36,6 @@ export class AuthService {
 
         return {
             accessToken: await this.jwtService.signAsync(payload),
-            user: {
-                id: user.id,
-                fullName: user.fullName,
-                email: user.email,
-                role: user.role,
-                username: user.username,
-            },
         };
     }
 }

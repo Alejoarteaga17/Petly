@@ -1,25 +1,11 @@
 <!-- Author: Alejandro Arteaga & Alejandra Suarez-->
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
 import { RouterLink, RouterView } from 'vue-router';
-import type { UserInterface } from '@/interfaces/UserInterface';
+import { storeToRefs } from 'pinia';
+import { useAuthStore } from '@/stores/auth';
 
-const route = useRoute();
-const authUser = ref<UserInterface | null>(null);
-
-function loadAuthUser() {
-  const stored = localStorage.getItem('authUser');
-  authUser.value = stored ? (JSON.parse(stored) as UserInterface) : null;
-}
-
-watch(
-  () => route.fullPath,
-  () => {
-    loadAuthUser();
-  },
-  { immediate: true },
-);
+const authStore = useAuthStore();
+const { user: authUser } = storeToRefs(authStore);
 </script>
 
 <template>
