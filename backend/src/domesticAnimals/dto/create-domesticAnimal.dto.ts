@@ -1,3 +1,4 @@
+// Author: Alejandra Suarez
 export class CreateDomesticAnimalDto {
   breed!: string;
   category!: string;

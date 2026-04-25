@@ -1,7 +1,8 @@
+// Author: Alejandra Suarez
 import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common'; 
-import { DomesticAnimalService } from '../services/domesticAnimal.service'; 
-import { DomesticAnimal } from '../entities/domesticAnimal.entity'; 
-import { CreateDomesticAnimalDto } from '../dto/create-domesticAnimal.dto'; 
+import { DomesticAnimalService } from './domesticAnimal.service'; 
+import { DomesticAnimal } from './entities/domesticAnimal.entity'; 
+import { CreateDomesticAnimalDto } from './dto/create-domesticAnimal.dto'; 
  
 @Controller('domestic-animals') 
 export class DomesticAnimalsController { 
