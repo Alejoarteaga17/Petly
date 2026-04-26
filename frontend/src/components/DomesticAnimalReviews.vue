@@ -147,8 +147,8 @@ onMounted(() => {
       </form>
     </div>
 
-    <div class="flex flex-wrap gap-4 mb-4">
-      <div class="flex flex-col">
+    <div class="flex w-full flex-wrap justify-end gap-4 mb-4">
+      <div class="flex flex-col items-start">
         <label class="text-sm font-medium text-gray-700 mb-1">Sort By Rating</label>
         <select
           v-model="activeFilters['RatingSort']"
@@ -160,7 +160,7 @@ onMounted(() => {
         </select>
       </div>
 
-      <div class="flex flex-col">
+      <div class="flex flex-col items-start">
         <label class="text-sm font-medium text-gray-700 mb-1">Sort By Publication Date</label>
         <select
           v-model="activeFilters['DateSort']"
