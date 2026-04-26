@@ -1,4 +1,4 @@
-<!-- Author: Alejandro Arteaga -->
+<!-- Author: Alejandro Arteaga & Camila Velez -->
 <script setup lang="ts">
 import type { CreateDomesticAnimalDTO } from '@/dtos/CreateDomesticAnimalDTO';
 

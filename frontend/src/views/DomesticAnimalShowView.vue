@@ -1,4 +1,4 @@
-<!-- Authors: Alejandra Suarez & Alejandro Arteaga  -->`
+<!-- Authors: Alejandra Suarez & Alejandro Arteaga & Camila Velez  -->`
 <script setup lang="ts">
 import DomesticAnimalReviews from '@/components/DomesticAnimalReviews.vue';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
