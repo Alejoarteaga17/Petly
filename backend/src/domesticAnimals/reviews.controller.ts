@@ -1,4 +1,4 @@
-// Author: Alejandro Arteaga & Alejandra Suarez
+// Author: Alejandro Arteaga & Alejandra Suarez & Camila Velez
 import { Body, Controller, Get, Param, Post } from '@nestjs/common'; 
 import { ReviewsService } from './reviews.service'; 
 import { CreateReviewDto } from './dto/create-review.dto'; 

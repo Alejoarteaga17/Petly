@@ -1,4 +1,4 @@
-// Author: Alejandro Arteaga & Alejandra Suarez
+// Author: Alejandro Arteaga & Alejandra Suarez & Camila Velez
 import type { ReviewInterface } from '@/interfaces/ReviewInterface'; 
 import axios from 'axios'; 
 import { useAuthStore } from '@/stores/auth';
