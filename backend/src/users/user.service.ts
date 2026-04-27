@@ -1,95 +1,111 @@
 // Author: Alejandro Arteaga
-import { ConflictException, Injectable, UnauthorizedException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "./entities/user.entity";
-import { Repository } from "typeorm";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
-import * as bcrypt from "bcrypt";
-import { USER_ROLES } from "./entities/user.entity";
+
+// External imports
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+
+// Internal imports
+import { User } from './entities/user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { USER_ROLES } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-    constructor(
-        @InjectRepository(User)
-        private userRepository: Repository<User>,
-    ) {}
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
 
-    findAll(): Promise<User[]> {
-        return this.userRepository.find();
+  findAll(): Promise<User[]> {
+    return this.userRepository.find();
+  }
+
+  findOne(id: number): Promise<User | null> {
+    return this.userRepository.findOneBy({ id });
+  }
+  // This method is used to find a user by their username and include the password in the result,
+  //  which is necessary for authentication purposes.
+  findByUsernameWithPassword(username: string): Promise<User | null> {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .addSelect('user.password')
+      .where('user.username = :username', { username })
+      .getOne();
+  }
+
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<User | null> {
+    const user = await this.userRepository.findOneBy({ id });
+    if (!user) {
+      return null;
     }
 
-    findOne(id: number): Promise<User | null> {
-        return this.userRepository.findOneBy({ id });
-    }
-    // This method is used to find a user by their username and include the password in the result,
-    //  which is necessary for authentication purposes.
-    findByUsernameWithPassword(username: string): Promise<User | null> {
-        return this.userRepository
-            .createQueryBuilder('user')
-            .addSelect('user.password')
-            .where('user.username = :username', { username })
-            .getOne();
-    }
+    const email = updateUserDto.email?.trim();
+    const username = updateUserDto.username?.trim();
 
-    async update(id: number, updateUserDto: UpdateUserDto): Promise<User | null> {
-        const user = await this.userRepository.findOneBy({ id });
-        if (!user) {
-            return null;
-        }
-
-        const email = updateUserDto.email?.trim();
-        const username = updateUserDto.username?.trim();
-
-        if (email && email !== user.email) {
-            const existingByEmail = await this.userRepository.findOne({ where: { email } });
-            if (existingByEmail && existingByEmail.id !== id) {
-                throw new ConflictException("Theres already a registered user with that email");
-            }
-            user.email = email;
-        }
-
-        if (username && username !== user.username) {
-            const existingByUsername = await this.userRepository.findOne({ where: { username } });
-            if (existingByUsername && existingByUsername.id !== id) {
-                throw new ConflictException("Theres already a registered user with that username");
-            }
-            user.username = username;
-        }
-
-        if (updateUserDto.fullName?.trim()) {
-            user.fullName = updateUserDto.fullName.trim();
-        }
-
-        if (updateUserDto.role && USER_ROLES.includes(updateUserDto.role)) {
-            user.role = updateUserDto.role;
-        }
-
-        return this.userRepository.save(user);
+    if (email && email !== user.email) {
+      const existingByEmail = await this.userRepository.findOne({
+        where: { email },
+      });
+      if (existingByEmail && existingByEmail.id !== id) {
+        throw new ConflictException(
+          'Theres already a registered user with that email',
+        );
+      }
+      user.email = email;
     }
 
-    async register(createUserDto: CreateUserDto): Promise<User> {
-        const { email, username, fullName, password } = createUserDto;
-
-        const existingUser = await this.userRepository.findOne({
-            where: [{ email }, { username }],
-        });
-
-        if (existingUser) {
-            throw new ConflictException(
-                "Theres already a registered user with that email or username",
-            );
-        }
-        // Hash the password before saving the user to the database.
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = this.userRepository.create({
-            fullName,
-            email,
-            role: "user",
-            username,
-            password: hashedPassword,
-        });
-
-        return this.userRepository.save(user);
+    if (username && username !== user.username) {
+      const existingByUsername = await this.userRepository.findOne({
+        where: { username },
+      });
+      if (existingByUsername && existingByUsername.id !== id) {
+        throw new ConflictException(
+          'Theres already a registered user with that username',
+        );
+      }
+      user.username = username;
     }
+
+    if (updateUserDto.fullName?.trim()) {
+      user.fullName = updateUserDto.fullName.trim();
+    }
+
+    if (updateUserDto.role && USER_ROLES.includes(updateUserDto.role)) {
+      user.role = updateUserDto.role;
+    }
+
+    return this.userRepository.save(user);
+  }
+
+  async register(createUserDto: CreateUserDto): Promise<User> {
+    const { email, username, fullName, password } = createUserDto;
+
+    const existingUser = await this.userRepository.findOne({
+      where: [{ email }, { username }],
+    });
+
+    if (existingUser) {
+      throw new ConflictException(
+        'Theres already a registered user with that email or username',
+      );
+    }
+    // Hash the password before saving the user to the database.
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = this.userRepository.create({
+      fullName,
+      email,
+      role: 'user',
+      username,
+      password: hashedPassword,
+    });
+
+    return this.userRepository.save(user);
+  }
 }
