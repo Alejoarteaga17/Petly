@@ -79,12 +79,14 @@ onMounted(async () => {
           <div class="bg-white rounded-lg shadow-md p-8 mb-8">
             <div class="flex items-start space-x-8">
               <div>
-                <img
-                  :src="imageSrc"
-                  @error="handleImageError"
-                  alt="Domestic Animal"
-                  class="object-cover rounded shadow-sm w-72 h-auto"
-                />
+                <div class="w-72 overflow-hidden rounded shadow-sm bg-gray-100 aspect-[4/3]">
+                  <img
+                    :src="imageSrc"
+                    @error="handleImageError"
+                    alt="Domestic Animal"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
               </div>
               <div>
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ domesticAnimal.breed }}</h2>
