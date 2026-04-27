@@ -1,4 +1,4 @@
-<!-- Author: Alejandro Arteaga & Alejandra Suarez -->
+<!-- Author: Alejandro Arteaga & Alejandra Suarez & Camila Velez-->
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
@@ -15,12 +15,48 @@ const reviews = ref<ReviewInterface[]>([]);
 const authStore = useAuthStore();
 const { user: authUser } = storeToRefs(authStore);
 const isSubmitting = ref(false);
+const activeFilters = ref<Record<string, string | number>>({
+  RatingSort: 'ALL',
+  DateSort: 'ALL',
+});
 const form = ref({
   rating: 5,
   comment: '',
 });
 
 const isUserLoggedIn = computed(() => authUser.value !== null);
+
+const filteredReviews = computed(() => {
+  const ratingSort = activeFilters.value.RatingSort;
+  const dateSort = activeFilters.value.DateSort;
+  let result = [...reviews.value];
+
+  if (ratingSort === 'desc') {
+    result.sort((a, b) => b.rating - a.rating);
+  }
+
+  if (ratingSort === 'asc') {
+    result.sort((a, b) => a.rating - b.rating);
+  }
+
+  if (dateSort === 'desc') {
+    result.sort(
+      (a, b) =>
+        new Date(b.createdAt as string).getTime() -
+        new Date(a.createdAt as string).getTime(),
+    );
+  }
+
+  if (dateSort === 'asc') {
+    result.sort(
+      (a, b) =>
+        new Date(a.createdAt as string).getTime() -
+        new Date(b.createdAt as string).getTime(),
+    );
+  }
+
+  return result;
+});
 
 async function submitReview() {
   if (!form.value.comment.trim() || !authUser.value) return;
@@ -111,10 +147,36 @@ onMounted(() => {
       </form>
     </div>
 
+    <div class="flex w-full flex-wrap justify-end gap-4 mb-4">
+      <div class="flex flex-col items-start">
+        <label class="text-sm font-medium text-gray-700 mb-1">Sort By Rating</label>
+        <select
+          v-model="activeFilters['RatingSort']"
+          class="px-3 py-2 border border-gray-300 rounded bg-white text-gray-800 text-sm focus:ring-2 focus:ring-blue-300 focus:border-blue-300"
+        >
+          <option value="ALL">All</option>
+          <option value="desc">Highest to Lowest</option>
+          <option value="asc">Lowest to Highest</option>
+        </select>
+      </div>
+
+      <div class="flex flex-col items-start">
+        <label class="text-sm font-medium text-gray-700 mb-1">Sort By Publication Date</label>
+        <select
+          v-model="activeFilters['DateSort']"
+          class="px-3 py-2 border border-gray-300 rounded bg-white text-gray-800 text-sm focus:ring-2 focus:ring-blue-300 focus:border-blue-300"
+        >
+          <option value="ALL">All</option>
+          <option value="desc">Newest to Oldest</option>
+          <option value="asc">Oldest to Newest</option>
+        </select>
+      </div>
+    </div>
+
     <!-- Review list -->
     <ul class="space-y-4">
       <li
-        v-for="review in reviews"
+        v-for="review in filteredReviews"
         :key="review.id"
         class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm"
       >
@@ -129,7 +191,7 @@ onMounted(() => {
           {{ formatDate(review.createdAt) }}
         </p>
       </li>
-      <li v-if="reviews.length === 0" class="text-gray-500 text-sm py-4">
+      <li v-if="filteredReviews.length === 0" class="text-gray-500 text-sm py-4">
         No reviews yet. Be the first to review!
       </li>
     </ul>

@@ -31,6 +31,13 @@ export class ReviewsService {
       relations: ['user', 'domesticAnimal'],
     });
   }
+
+  findAllOrdered(orderBy: 'publication' | 'rating'): Promise<Review[]> {
+    return this.reviewsRepository.find({
+      relations: ['user', 'domesticAnimal'],
+      order: orderBy === 'rating' ? { rating: 'DESC' } : { createdAt: 'DESC' },
+    });
+  }
  
   create(createReviewDto: CreateReviewDto): Promise<Review> {
     const { domesticAnimalId, userId, ...rest } = createReviewDto;
