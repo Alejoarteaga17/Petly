@@ -71,8 +71,18 @@ function destroyCharts() {
   }
 }
 
+function buildChartColors(count: number, alpha = 0.75): string[] {
+  return Array.from({ length: count }, (_, index) => {
+    const hue = Math.round((index * 137.508) % 360);
+    return `hsla(${hue}, 75%, 55%, ${alpha})`;
+  });
+}
+
 function renderCharts() {
   destroyCharts();
+
+  const categoryColors = buildChartColors(categoryRows.value.length, 0.8);
+  const popularityColors = buildChartColors(popularityRows.value.length, 0.85);
 
   if (categoryChartCanvas.value) {
     categoryChart = new Chart(categoryChartCanvas.value, {
@@ -83,7 +93,9 @@ function renderCharts() {
           {
             label: 'Pets by category',
             data: categoryRows.value.map((row) => row.count),
-            backgroundColor: '#fb923c',
+            backgroundColor: categoryColors,
+            borderColor: buildChartColors(categoryRows.value.length, 1),
+            borderWidth: 1,
             borderRadius: 6,
           },
         ],
@@ -107,7 +119,9 @@ function renderCharts() {
           {
             label: 'Popularity by species',
             data: popularityRows.value.map((row) => row.reviewsCount),
-            backgroundColor: ['#fb923c', '#f97316', '#ea580c', '#fdba74', '#f59e0b', '#fbbf24'],
+            backgroundColor: popularityColors,
+            borderColor: '#ffffff',
+            borderWidth: 2,
           },
         ],
       },
