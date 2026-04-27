@@ -1,17 +1,29 @@
 // Author: Alejandro Arteaga
-import { Controller, Get, Param, Post, Body, Put, Req, ForbiddenException, UseGuards } from '@nestjs/common'; 
+// External imports
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Put,
+  Req,
+  ForbiddenException,
+  UseGuards,
+} from '@nestjs/common';
 import type { Request } from 'express';
+
+// Internal imports
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UpdateUserDto } from '../users/dto/update-user.dto';
-import { UserService } from "../users/user.service";
+import { UserService } from '../users/user.service';
 import { User } from '../users/entities/user.entity';
 import { AuthGuard } from '../auth/auth.guard';
 
-
 @Controller('users')
 export class UserController {
-  constructor( private readonly userService: UserService) {}
-    
+  constructor(private readonly userService: UserService) {}
+
   @Get()
   findAll(): Promise<User[]> {
     return this.userService.findAll();
@@ -28,19 +40,26 @@ export class UserController {
   // The service returns null when the target user does not exist.
   @UseGuards(AuthGuard)
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @Req() req: Request,
-): Promise<User | null> {
+  async update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @Req() req: Request,
+  ): Promise<User | null> {
     const authUser = req['user'] as { sub?: number } | undefined;
     // Only allow role changes if the requester is an admin.
     if (updateUserDto.role) {
       const requesterId = Number(authUser?.sub);
       if (!requesterId) {
-        throw new ForbiddenException('Only administrators can change user roles');
+        throw new ForbiddenException(
+          'Only administrators can change user roles',
+        );
       }
 
       const requester = await this.userService.findOne(requesterId);
       if (!requester || requester.role !== 'admin') {
-        throw new ForbiddenException('Only administrators can change user roles');
+        throw new ForbiddenException(
+          'Only administrators can change user roles',
+        );
       }
     }
 
