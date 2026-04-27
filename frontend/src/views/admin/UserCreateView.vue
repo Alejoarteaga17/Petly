@@ -1,10 +1,13 @@
-<!-- Authors: Alejandro Arteaga & Alejandra Suarez -->
+<!-- Authors: Alejandra Suarez -->
 <script setup lang="ts">
+// External imports
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+// Internal imports
+import UserFormFields from '@/components/UserFormFields.vue';
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 import { UserService } from '@/services/UserService';
-import UserFormFields from '@/components/UserFormFields.vue';
 
 const router = useRouter();
 const saving = ref(false);

@@ -1,10 +1,13 @@
-<!-- Authors: Alejandro Arteaga & Alejandra Suarez -->
+<!-- Authors: Alejandra Suarez -->
 <script setup lang="ts">
+// External imports
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+// Internal imports
+import AdminManagementTable from '@/components/AdminManagementTable.vue';
 import type { UserInterface } from '@/interfaces/UserInterface';
 import { UserService } from '@/services/UserService';
-import AdminManagementTable from '@/components/AdminManagementTable.vue';
 
 const router = useRouter();
 const users = ref<UserInterface[]>([]);

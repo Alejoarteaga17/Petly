@@ -1,9 +1,12 @@
-<!-- Authors: Alejandro Arteaga & Alejandra Suarez -->
+<!-- Authors: Alejandra Suarez -->
 <script setup lang="ts">
+// External imports
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { UserService } from '@/services/UserService';
+
+// Internal imports
 import UserFormFields from '@/components/UserFormFields.vue';
+import { UserService } from '@/services/UserService';
 
 type UserEditForm = {
   fullName: string;

@@ -1,13 +1,16 @@
 <!-- Authors: Alejandro Arteaga & Alejandra Suarez -->
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+// External imports
 import Chart from 'chart.js/auto';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+
+// Internal imports
+import AdminStatsTable from '@/components/AdminStatsTable.vue';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import { ReviewService } from '@/services/ReviewService';
-import AdminStatsTable from '@/components/AdminStatsTable.vue';
 
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]);
 const reviews = ref<ReviewInterface[]>([]);
