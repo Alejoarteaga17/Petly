@@ -5,11 +5,13 @@ import { RouterLink } from 'vue-router';
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { ReviewService } from '@/services/ReviewService';
 import { useRouter } from 'vue-router';
-import type { UserInterface } from '@/interfaces/UserInterface';
 import { UserService } from '@/services/UserService';
+import { storeToRefs } from 'pinia';
+import { useAuthStore } from '@/stores/auth';
 
 // Reactive variables
-const authUser = ref<UserInterface | null>(null);
+const authStore = useAuthStore();
+const { user: authUser } = storeToRefs(authStore);
 const showReviews = ref(false);
 const reviews = ref<ReviewInterface[]>([]);
 const loadingReviews = ref(false);
@@ -37,31 +39,13 @@ const profileFields = computed(() => {
   ];
 });
 
-// Function to load the auth user
-function loadAuthUser() {
-  const stored = localStorage.getItem('authUser');
-  if (!stored) {
-    authUser.value = null;
-    return;
-  }
-
-  try {
-    authUser.value = JSON.parse(stored) as UserInterface;
-    syncEditForm();
-  } catch (error) {
-    console.error(error);
-    localStorage.removeItem('authUser');
-    authUser.value = null;
-  }
-}
 // If we change somthing user related in the DB directly, this will make sure we have the freshest data.
 async function refreshAuthUserFromBackend() {
   if (!authUser.value) return;
 
   try {
     const freshUser = await UserService.getById(authUser.value.id);
-    authUser.value = freshUser;
-    localStorage.setItem('authUser', JSON.stringify(freshUser));
+    authStore.setUser(freshUser);
     syncEditForm();
   } catch (error) {
     console.error(error);
@@ -79,9 +63,7 @@ function syncEditForm() {
 }
 
 async function logout() {
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('authUser');
-  authUser.value = null;
+  authStore.clearSession();
   showReviews.value = false;
   reviews.value = [];
   await router.push('/');
@@ -130,8 +112,7 @@ async function saveProfile() {
 
   try {
     const updatedUser = await UserService.updateUser(authUser.value.id, payload);
-    authUser.value = updatedUser;
-    localStorage.setItem('authUser', JSON.stringify(updatedUser));
+    authStore.setUser(updatedUser);
     isEditing.value = false;
     profileSuccess.value = 'Profile updated successfully.';
   } catch (error: any) {
@@ -173,7 +154,7 @@ function formatDate(iso?: string): string {
 }
 
 onMounted(() => {
-  loadAuthUser();
+  syncEditForm();
   refreshAuthUserFromBackend();
 });
 

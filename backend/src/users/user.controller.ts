@@ -1,11 +1,9 @@
 // Author: Alejandro Arteaga
 import { Controller, Get, Param, Post, Body, Put } from '@nestjs/common'; 
-import { CreateUserDto } from '../dto/create-user.dto';
-import { LoginUserDto } from '../dto/login-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
-import { UserService } from "../services/user.service";
-import { User } from '../entities/user.entity';
-
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { UpdateUserDto } from '../users/dto/update-user.dto';
+import { UserService } from "../users/user.service";
+import { User } from '../users/entities/user.entity';
 
 
 @Controller('users')
@@ -24,11 +22,6 @@ export class UserController {
   @Post('register')
   register(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.userService.register(createUserDto);
-  }
-
-  @Post('login')
-  login(@Body() loginUserDto: LoginUserDto) {
-    return this.userService.login(loginUserDto);
   }
   // Segun como definimos el dto, entonces acá si puede estar null?
   @Put(':id')

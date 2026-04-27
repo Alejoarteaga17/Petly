@@ -1,9 +1,11 @@
+<!-- Author: Alejandro Arteaga -->
 <script setup lang="ts">
 import { ref } from 'vue';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import type { CreateDomesticAnimalDTO } from '@/dtos/CreateDomesticAnimalDTO';
 import DomesticAnimalFormFields from '@/components/DomesticAnimalFormFields.vue';
 
+// Form data for the domestic animal creation
 const form = ref<CreateDomesticAnimalDTO>({
   breed: '',
   category: '',

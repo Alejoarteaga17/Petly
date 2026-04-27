@@ -1,4 +1,4 @@
-// Author: Alejandro Arteaga
+// Author: Alejandra Suarez
 export class CreateReviewDto {
   domesticAnimalId!: number;
   rating!: number;

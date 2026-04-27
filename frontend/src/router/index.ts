@@ -1,3 +1,4 @@
+// Authors: Alejandro Arteaga & Alejandra Suarez
 import { createRouter, createWebHistory } from 'vue-router';
 import DomesticAnimalIndexView from '@/views/DomesticAnimalIndexView.vue';
 import DomesticAniamlShowView from '@/views/DomesticAnimalShowView.vue';
@@ -9,7 +10,7 @@ import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import ProfileView from '@/views/ProfileView.vue';
 import AdminDashboardView from '@/views/AdminDashboardView.vue';
-import type { UserInterface } from '@/interfaces/UserInterface';
+import { useAuthStore } from '@/stores/auth';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,20 +29,10 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
-  const stored = localStorage.getItem('authUser');
-  let authUser: UserInterface | null = null;
-
-  if (stored) {
-    try {
-      authUser = JSON.parse(stored) as UserInterface;
-    } catch {
-      localStorage.removeItem('authUser');
-      authUser = null;
-    }
-  }
+  const authStore = useAuthStore();
 
   const needsAdmin = Boolean(to.meta.requiresAdmin);
-  if (needsAdmin && authUser?.role !== 'admin') {
+  if (needsAdmin && !authStore.isAdmin) {
     return { name: 'login' };
   }
 

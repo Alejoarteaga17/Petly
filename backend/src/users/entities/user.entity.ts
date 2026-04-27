@@ -1,6 +1,6 @@
 // Author: Alejandro Arteaga
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Review } from './review.entity';
+import { Review } from '../../domesticAnimals/entities/review.entity';
 
 // We defiine the possible user roles as a constant array and a type for better type safety
 // this means we can only use admin or user, numeric type bc of the array positions
