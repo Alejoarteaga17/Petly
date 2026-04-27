@@ -10,6 +10,7 @@ import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import ProfileView from '@/views/ProfileView.vue';
 import AdminDashboardView from '@/views/admin/AdminDashboardView.vue';
+import ManageDomesticAnimalsView from '@/views/admin/ManageDomesticAnimals.vue';
 import { useAuthStore } from '@/stores/auth';
 
 const router = createRouter({
@@ -21,6 +22,7 @@ const router = createRouter({
     { path: '/register', name: 'register', component: RegisterView, meta: { title: 'Register' } },
     { path: '/profile', name: 'profile', component: ProfileView, meta: { title: 'Profile' } },
     { path: '/admin/dashboard', name: 'admin.dashboard', component: AdminDashboardView, meta: { title: 'Admin Dashboard', requiresAdmin: true } },
+    { path: '/admin/domestic-animals', name: 'admin.manageDomesticAnimals', component: ManageDomesticAnimalsView, meta: { title: 'Manage Domestic Animals', requiresAdmin: true } },
     { path: '/domesticAnimals', name: 'domesticAnimals', component: DomesticAnimalIndexView, meta: { title: 'Domestic Animals' } },
     { path: '/domesticAnimals/create', name: 'domesticAnimals.create', component: DomesticAnimalCreateView, meta: { title: 'Create Domestic Animal', requiresAdmin: true } },
     { path: '/domesticAnimals/:id/edit', name: 'domesticAnimals.edit', component: DomesticAnimalEditView, meta: { title: 'Edit Domestic Animal', requiresAdmin: true } },

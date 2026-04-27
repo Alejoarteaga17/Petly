@@ -1,9 +1,12 @@
 <!-- Author: Alejandro Arteaga -->
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import type { CreateDomesticAnimalDTO } from '@/dtos/CreateDomesticAnimalDTO';
 import DomesticAnimalFormFields from '@/components/DomesticAnimalFormFields.vue';
+
+const router = useRouter();
 
 // Form data for the domestic animal creation
 const form = ref<CreateDomesticAnimalDTO>({
@@ -29,6 +32,7 @@ async function submitForm() {
   try {
       await DomesticAnimalService.createDomesticAnimal(form.value);
       successMessage.value = 'Domestic animal created successfully!';
+      await router.push({ name: 'admin.manageDomesticAnimals' });
       form.value = {
         breed: '',
         category: '',
