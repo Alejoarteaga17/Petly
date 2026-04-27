@@ -1,8 +1,10 @@
 <!-- Author: Alejandro Arteaga -->
 <script setup lang="ts">
+// External imports
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+// Internal imports
 import { UserService } from '@/services/UserService';
 import { decodeJWT } from '@/utils/jwtUtils';
 import type { UserInterface } from '@/interfaces/UserInterface';

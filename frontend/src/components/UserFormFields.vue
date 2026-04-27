@@ -1,5 +1,6 @@
 <!-- Authors: Alejandro Arteaga & Alejandra Suarez -->
 <script setup lang="ts">
+// Internal imports
 import type { UserRole } from '@/interfaces/UserInterface';
 
 type UserFormModel = {

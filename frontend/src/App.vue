@@ -1,7 +1,9 @@
 <!-- Author: Alejandro Arteaga & Alejandra Suarez-->
 <script setup lang="ts">
+// External imports
 import { RouterLink, RouterView } from 'vue-router';
 import { storeToRefs } from 'pinia';
+// Internal imports
 import { useAuthStore } from '@/stores/auth';
 
 const authStore = useAuthStore();

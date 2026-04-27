@@ -1,4 +1,4 @@
-<!-- Authors: GitHub Copilot -->
+<!-- Authors: Alejandro Arteaga -->
 <script setup lang="ts">
 // External imports
 import 'leaflet/dist/leaflet.css';

@@ -1,10 +1,11 @@
 <!-- Authors: Alejandro Arteaga and Alejandra Suarez -->
 <script setup lang="ts"> 
-
+// External imports
+import { computed, onMounted, ref } from 'vue'; 
+// Internal imports
 import CategoryFilter from '@/components/CategoryFilter.vue';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface'; 
-import { computed, onMounted, ref } from 'vue'; 
  
 // Default image on case the url is invalid
 const DEFAULT_IMAGE = 'https://placedog.net/536/355';

@@ -1,7 +1,9 @@
 <!-- Author: Alejandro Arteaga -->
 <script setup lang="ts">
+// External imports
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+// Internal imports
 import DomesticAnimalFormFields from '@/components/DomesticAnimalFormFields.vue';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import type { CreateDomesticAnimalDTO } from '@/dtos/CreateDomesticAnimalDTO';

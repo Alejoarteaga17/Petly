@@ -1,12 +1,13 @@
 <!-- Author: Alejandro Arteaga -->
 <script setup lang="ts">
+// External imports
 import { computed, ref, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
+import { useRouter } from 'vue-router';
+// Internal imports
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { ReviewService } from '@/services/ReviewService';
-import { useRouter } from 'vue-router';
 import { UserService } from '@/services/UserService';
-import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/stores/auth';
 
 // Reactive variables

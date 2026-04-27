@@ -1,8 +1,10 @@
 <!-- Author: Alejandro Arteaga & Alejandra Suarez & Camila Velez-->
 <script setup lang="ts">
+// External imports
 import { computed, onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import { storeToRefs } from 'pinia';
+// Internal imports
 import { ReviewService } from '@/services/ReviewService.js';
 import type { ReviewInterface } from '@/interfaces/ReviewInterface.js';
 import { useAuthStore } from '@/stores/auth';
