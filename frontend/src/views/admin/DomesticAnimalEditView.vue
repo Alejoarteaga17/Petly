@@ -66,7 +66,7 @@ async function submitForm() {
     const domesticAnimalId = Number(route.params.id);
     await DomesticAnimalService.updateDomesticAnimal(domesticAnimalId, form.value);
     successMessage.value = 'Domestic animal updated successfully!';
-    await router.push('/admin/dashboard');
+    await router.push({ name: 'admin.manageDomesticAnimals' });
   } catch (error) {
     console.error(error);
     errorMessage.value = 'Error updating domestic animal. Please verify all fields.';

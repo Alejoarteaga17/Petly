@@ -1,14 +1,16 @@
 <!-- Authors: Alejandro Arteaga & Alejandra Suarez -->
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+// External imports
 import Chart from 'chart.js/auto';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+
+// Internal imports
+import AdminStatsTable from '@/components/AdminStatsTable.vue';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import { ReviewService } from '@/services/ReviewService';
-import AdminStatsTable from '@/components/AdminStatsTable.vue';
-import AdminDomesticAnimalsTable from '@/components/AdminDomesticAnimalsTable.vue';
 
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]);
 const reviews = ref<ReviewInterface[]>([]);
@@ -143,29 +145,12 @@ watch([categoryRows, popularityRows], async () => {
   renderCharts();
 });
 
-function editDomesticAnimal(id: number) {
-  router.push(`/domesticAnimals/${id}/edit`);
+function goToManageDomesticAnimals() {
+  router.push({ name: 'admin.manageDomesticAnimals' });
 }
 
-async function deleteDomesticAnimal(id: number) {
-  const confirmed = window.confirm('Are you sure you want to delete this domestic animal?');
-  if (!confirmed) {
-    return;
-  }
-
-  deletingId.value = id;
-  errorMessage.value = '';
-
-  try {
-    await DomesticAnimalService.deleteDomesticAnimal(id);
-    actionMessage.value = 'Domestic animal deleted successfully.';
-    await loadDashboardData();
-  } catch (error) {
-    console.error(error);
-    errorMessage.value = 'Could not delete the domestic animal right now.';
-  } finally {
-    deletingId.value = null;
-  }
+function goToManageUsers() {
+  router.push({ name: 'admin.manageUsers' });
 }
 
 onMounted(() => {
@@ -242,13 +227,24 @@ onBeforeUnmount(() => {
           :rows="popularityRows"
         />
       </div>
+      
+      <div class="flex flex-col gap-3 sm:flex-row sm:justify-end">
+        <button
+          type="button"
+          class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+          @click="goToManageDomesticAnimals"
+        >
+          Manage domestic animals
+        </button>
 
-      <AdminDomesticAnimalsTable
-        :rows="domesticAnimals"
-        :deleting-id="deletingId"
-        @edit="editDomesticAnimal"
-        @delete="deleteDomesticAnimal"
-      />
+        <button
+          type="button"
+          class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+          @click="goToManageUsers"
+        >
+          Manage users
+        </button>
+      </div>
     </template>
   </section>
 </template>

@@ -1,7 +1,11 @@
 // Author: Alejandro Arteaga
+
+// External imports
 import axios from 'axios';
-import type { UserInterface } from '@/interfaces/UserInterface';
+
+// Internal imports
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
+import type { UserInterface } from '@/interfaces/UserInterface';
 import { useAuthStore } from '@/stores/auth';
 
 // We make a personalized response for the login, 

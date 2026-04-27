@@ -1,4 +1,4 @@
-// Autor: Alejandra Suarez
+// Author: Alejandra Suarez
 
 export interface DomesticAnimalInterface {
   id: number;

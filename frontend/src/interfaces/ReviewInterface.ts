@@ -1,7 +1,7 @@
 // Author: Alejandro Arteaga & Alejandra Suarez
 import type { UserInterface } from './UserInterface';
-// Modificamos la interfaz del front para poder acceder al animal desde la reseña asociada
-// desde el perfil del usuario
+// Extend the frontend interface to include the related domestic animal
+// so profile views can access review context directly.
 export interface ReviewInterface {
   id: number;
   domesticAnimalId: number;
