@@ -82,6 +82,16 @@ onMounted(() => {
 
 <template>
   <section class="max-w-2xl mx-auto py-8">
+    <div class="mb-4">
+      <RouterLink
+        :to="{ name: 'admin.manageDomesticAnimals' }"
+        class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+      >
+        <span aria-hidden="true">&larr;</span>
+        <span>Back to domestic animals</span>
+      </RouterLink>
+    </div>
+
     <h2 class="text-2xl font-bold text-gray-800 mb-8">Edit Domestic Animal</h2>
 
     <p v-if="loading" class="text-sm text-gray-500">Loading domestic animal...</p>
@@ -90,14 +100,21 @@ onMounted(() => {
     <form v-else class="bg-white rounded-lg shadow-md p-8 space-y-6" @submit.prevent="submitForm">
       <DomesticAnimalFormFields v-model="form" />
 
-      <div class="pt-4">
+      <div class="flex flex-wrap items-center gap-3 pt-4">
         <button
           type="submit"
           :disabled="saving"
-          class="w-full bg-orange-500 text-white font-semibold py-3 rounded hover:bg-orange-600 transition disabled:cursor-not-allowed disabled:bg-orange-300"
+          class="rounded bg-orange-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:bg-orange-300"
         >
           {{ saving ? 'Saving...' : 'Save Changes' }}
         </button>
+
+        <RouterLink
+          :to="{ name: 'admin.manageDomesticAnimals' }"
+          class="rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-300"
+        >
+          Cancel
+        </RouterLink>
       </div>
 
       <p v-if="successMessage" class="text-green-600 mt-4">{{ successMessage }}</p>

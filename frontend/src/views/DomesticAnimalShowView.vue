@@ -26,6 +26,16 @@ onMounted(async () => {
 <template>
   <section v-if="domesticAnimal">
     <div class="max-w-7xl mx-auto">
+      <div class="mb-4">
+        <RouterLink
+          :to="{ name: 'domesticAnimals' }"
+          class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+        >
+          <span aria-hidden="true">&larr;</span>
+          <span>Back to domestic animals</span>
+        </RouterLink>
+      </div>
+
       <div class="grid grid-cols-1 gap-12">
         <div class="lg:col-span-2">
           <div class="bg-white rounded-lg shadow-md p-8 mb-8">

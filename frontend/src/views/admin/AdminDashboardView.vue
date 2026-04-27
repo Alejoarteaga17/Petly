@@ -210,7 +210,7 @@ onBeforeUnmount(() => {
 
       <div class="grid gap-6 lg:grid-cols-2">
         <AdminStatsTable
-          title="Pets by category"
+          title="Domestic Animals by category"
           :columns="[
             { key: 'category', label: 'Category' },
             { key: 'count', label: 'Count' },

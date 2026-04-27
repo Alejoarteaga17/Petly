@@ -105,7 +105,7 @@ onMounted(() => {
           :to="{ name: 'admin.manageUsers' }"
           class="rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-300"
         >
-          Cancel
+          &larr; Cancel
         </RouterLink>
       </div>
     </form>
