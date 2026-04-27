@@ -32,7 +32,7 @@ function goToCreateDomesticAnimal() {
   router.push({ name: 'admin.domesticAnimals.create' });
 }
 
-function editDomesticAnimal(id: number) {
+function goToEditDomesticAnimal(id: number) {
   router.push({ name: 'admin.domesticAnimals.edit', params: { id } });
 }
 
@@ -97,7 +97,7 @@ onMounted(() => {
         :show-edit="true"
         :show-delete="true"
         :deleting-id="deletingId"
-        @edit="editDomesticAnimal"
+        @edit="goToEditDomesticAnimal"
         @delete="deleteDomesticAnimal"
       />
     </template>

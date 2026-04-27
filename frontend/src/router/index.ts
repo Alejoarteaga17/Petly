@@ -4,6 +4,8 @@ import DomesticAnimalIndexView from '@/views/DomesticAnimalIndexView.vue';
 import DomesticAniamlShowView from '@/views/DomesticAnimalShowView.vue';
 import DomesticAnimalCreateView from '@/views/admin/DomesticAnimalCreateView.vue';
 import DomesticAnimalEditView from '@/views/admin/DomesticAnimalEditView.vue';
+import UserCreateView from '@/views/admin/UserCreateView.vue';
+import UserEditView from '@/views/admin/UserEditView.vue';
 import HomeView from '@/views/HomeView.vue';
 import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
@@ -27,6 +29,8 @@ const router = createRouter({
     { path: '/domesticAnimals', name: 'domesticAnimals', component: DomesticAnimalIndexView, meta: { title: 'Domestic Animals' } },
     { path: '/admin/domesticAnimals/create', name: 'admin.domesticAnimals.create', component: DomesticAnimalCreateView, meta: { title: 'Create Domestic Animal', requiresAdmin: true } },
     { path: '/admin/domesticAnimals/:id/edit', name: 'admin.domesticAnimals.edit', component: DomesticAnimalEditView, meta: { title: 'Edit Domestic Animal', requiresAdmin: true } },
+    { path: '/admin/users/create', name: 'admin.users.create', component: UserCreateView, meta: { title: 'Create User', requiresAdmin: true } },
+    { path: '/admin/users/:id/edit', name: 'admin.users.edit', component: UserEditView, meta: { title: 'Edit User', requiresAdmin: true } },
     { path: '/domesticAnimals/:id', name: 'domesticAnimal', component: DomesticAniamlShowView, meta: { title: 'Domestic Animal Details' } },
   ],
 });
