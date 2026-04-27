@@ -11,6 +11,7 @@ import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterfa
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import { ReviewService } from '@/services/ReviewService';
+import { buildChartColors } from '@/utils/chartColors';
 
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]);
 const reviews = ref<ReviewInterface[]>([]);
@@ -69,13 +70,6 @@ function destroyCharts() {
     popularityChart.destroy();
     popularityChart = null;
   }
-}
-
-function buildChartColors(count: number, alpha = 0.75): string[] {
-  return Array.from({ length: count }, (_, index) => {
-    const hue = Math.round((index * 137.508) % 360);
-    return `hsla(${hue}, 75%, 55%, ${alpha})`;
-  });
 }
 
 function renderCharts() {
