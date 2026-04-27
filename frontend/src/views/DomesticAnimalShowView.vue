@@ -1,25 +1,63 @@
-<!-- Authors: Alejandra Suarez & Alejandro Arteaga  -->`
+<!-- Authors: Alejandra Suarez & Alejandro Arteaga  -->
 <script setup lang="ts">
-import DomesticAnimalReviews from '@/components/DomesticAnimalReviews.vue';
-import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
-import { DomesticAnimalService } from '@/services/DomesticAnimalService';
+// External imports
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { ref, onMounted } from 'vue';
+
+// Internal imports
+import DomesticAnimalReviews from '@/components/DomesticAnimalReviews.vue';
+import PopularityChart from '@/components/PopularityChart.vue';
+import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
+import type { ReviewInterface } from '@/interfaces/ReviewInterface';
+import { DomesticAnimalService } from '@/services/DomesticAnimalService';
+import { ReviewService } from '@/services/ReviewService';
 
 const DEFAULT_IMAGE = 'https://placedog.net/536/355';
 
 const domesticAnimal = ref<DomesticAnimalInterface | null>(null);
 const imageSrc = ref(DEFAULT_IMAGE);
+const reviews = ref<ReviewInterface[]>([]);
+const domesticAnimals = ref<DomesticAnimalInterface[]>([]);
 
 function handleImageError() {
   imageSrc.value = DEFAULT_IMAGE;
 }
+
+const popularityData = computed(() => {
+  const animalById = new Map<number, DomesticAnimalInterface>();
+  for (const animal of domesticAnimals.value) {
+    animalById.set(animal.id, animal);
+  }
+
+  const popularityMap = new Map<string, number>();
+  for (const review of reviews.value) {
+    const animal = animalById.get(review.domesticAnimalId);
+    const breed = animal?.breed || `Animal #${review.domesticAnimalId}`;
+    popularityMap.set(breed, (popularityMap.get(breed) ?? 0) + 1);
+  }
+
+  return Array.from(popularityMap.entries())
+    .map(([breed, reviewsCount]) => ({ breed, reviewsCount }))
+    .sort((a, b) => b.reviewsCount - a.reviewsCount);
+});
 
 onMounted(async () => { 
   const route = useRoute(); 
   const domesticAnimalId = Number(route.params.id); 
   domesticAnimal.value = await DomesticAnimalService.getById(domesticAnimalId); 
   imageSrc.value = domesticAnimal.value?.image?.trim() || DEFAULT_IMAGE;
+
+  try {
+    const [animalsData, reviewsData] = await Promise.all([
+      DomesticAnimalService.getAll(),
+      ReviewService.getReviews(),
+    ]);
+    
+    domesticAnimals.value = animalsData;
+    reviews.value = reviewsData;
+  } catch (error) {
+    console.error('Error loading data:', error);
+  }
 }); 
 </script>
 
@@ -76,8 +114,13 @@ onMounted(async () => {
               </div>
             </div>
           </div>
+
           <div class="bg-white rounded-lg shadow-md p-6 mt-8">
             <DomesticAnimalReviews :domestic-animal-id="domesticAnimal.id" />
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+            <PopularityChart :data="popularityData" title="Popularity" />
           </div>
         </div>
       </div>

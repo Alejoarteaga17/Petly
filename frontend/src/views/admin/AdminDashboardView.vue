@@ -1,17 +1,17 @@
 <!-- Authors: Alejandro Arteaga & Alejandra Suarez -->
 <script setup lang="ts">
 // External imports
-import Chart from 'chart.js/auto';
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 // Internal imports
 import AdminStatsTable from '@/components/AdminStatsTable.vue';
+import CategoryChart from '@/components/CategoryChart.vue';
+import PopularityChart from '@/components/PopularityChart.vue';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import { ReviewService } from '@/services/ReviewService';
-import { buildChartColors } from '@/utils/chartColors';
 
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]);
 const reviews = ref<ReviewInterface[]>([]);
@@ -20,11 +20,6 @@ const errorMessage = ref('');
 const deletingId = ref<number | null>(null);
 const actionMessage = ref('');
 const router = useRouter();
-
-const categoryChartCanvas = ref<HTMLCanvasElement | null>(null);
-const popularityChartCanvas = ref<HTMLCanvasElement | null>(null);
-let categoryChart: Chart | null = null;
-let popularityChart: Chart | null = null;
 
 const totalDomesticAnimals = computed(() => domesticAnimals.value.length);
 const totalReviews = computed(() => reviews.value.length);
@@ -60,73 +55,6 @@ const popularityRows = computed(() => {
     .sort((a, b) => b.reviewsCount - a.reviewsCount);
 });
 
-function destroyCharts() {
-  if (categoryChart) {
-    categoryChart.destroy();
-    categoryChart = null;
-  }
-
-  if (popularityChart) {
-    popularityChart.destroy();
-    popularityChart = null;
-  }
-}
-
-function renderCharts() {
-  destroyCharts();
-
-  const categoryColors = buildChartColors(categoryRows.value.length, 0.8);
-  const popularityColors = buildChartColors(popularityRows.value.length, 0.85);
-
-  if (categoryChartCanvas.value) {
-    categoryChart = new Chart(categoryChartCanvas.value, {
-      type: 'bar',
-      data: {
-        labels: categoryRows.value.map((row) => row.category),
-        datasets: [
-          {
-            label: 'Pets by category',
-            data: categoryRows.value.map((row) => row.count),
-            backgroundColor: categoryColors,
-            borderColor: buildChartColors(categoryRows.value.length, 1),
-            borderWidth: 1,
-            borderRadius: 6,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-        },
-      },
-    });
-  }
-
-  if (popularityChartCanvas.value) {
-    popularityChart = new Chart(popularityChartCanvas.value, {
-      type: 'doughnut',
-      data: {
-        labels: popularityRows.value.map((row) => row.breed),
-        datasets: [
-          {
-            label: 'Popularity by species',
-            data: popularityRows.value.map((row) => row.reviewsCount),
-            backgroundColor: popularityColors,
-            borderColor: '#ffffff',
-            borderWidth: 2,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-      },
-    });
-  }
-}
-
 async function loadDashboardData() {
   loading.value = true;
   errorMessage.value = '';
@@ -148,11 +76,6 @@ async function loadDashboardData() {
   }
 }
 
-watch([categoryRows, popularityRows], async () => {
-  await nextTick();
-  renderCharts();
-});
-
 function goToManageDomesticAnimals() {
   router.push({ name: 'admin.manageDomesticAnimals' });
 }
@@ -163,10 +86,6 @@ function goToManageUsers() {
 
 onMounted(() => {
   loadDashboardData();
-});
-
-onBeforeUnmount(() => {
-  destroyCharts();
 });
 </script>
 
@@ -201,19 +120,9 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="grid gap-6 lg:grid-cols-2">
-        <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-          <h3 class="mb-3 text-lg font-semibold text-gray-800">General count by category</h3>
-          <div class="relative h-72 w-full">
-            <canvas ref="categoryChartCanvas"></canvas>
-          </div>
-        </div>
+        <CategoryChart :data="categoryRows" />
 
-        <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-          <h3 class="mb-3 text-lg font-semibold text-gray-800">Popularity by species</h3>
-          <div class="relative h-72 w-full">
-            <canvas ref="popularityChartCanvas"></canvas>
-          </div>
-        </div>
+        <PopularityChart :data="popularityRows" />
       </div>
 
       <div class="grid gap-6 lg:grid-cols-2">
