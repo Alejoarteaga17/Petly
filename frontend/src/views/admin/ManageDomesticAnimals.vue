@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
-import AdminDomesticAnimalsTable from '@/components/AdminDomesticAnimalsTable.vue';
+import AdminManagementTable from '@/components/AdminManagementTable.vue';
 
 const router = useRouter();
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]);
@@ -29,11 +29,11 @@ async function loadDomesticAnimals() {
 }
 
 function goToCreateDomesticAnimal() {
-  router.push('/domesticAnimals/create');
+  router.push({ name: 'admin.domesticAnimals.create' });
 }
 
 function editDomesticAnimal(id: number) {
-  router.push(`/domesticAnimals/${id}/edit`);
+  router.push({ name: 'admin.domesticAnimals.edit', params: { id } });
 }
 
 async function deleteDomesticAnimal(id: number) {
@@ -85,8 +85,17 @@ onMounted(() => {
     <template v-else>
       <p v-if="actionMessage" class="text-sm text-green-600">{{ actionMessage }}</p>
 
-      <AdminDomesticAnimalsTable
+      <AdminManagementTable
+        title="All Pets"
+        :columns="[
+          { key: 'id', label: 'ID' },
+          { key: 'breed', label: 'Breed' },
+          { key: 'category', label: 'Category' },
+        ]"
         :rows="domesticAnimals"
+        row-key="id"
+        :show-edit="true"
+        :show-delete="true"
         :deleting-id="deletingId"
         @edit="editDomesticAnimal"
         @delete="deleteDomesticAnimal"

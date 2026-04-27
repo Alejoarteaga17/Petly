@@ -3,33 +3,13 @@
 
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface'; 
-import { UserService } from '@/services/UserService';
-import { computed, onMounted, ref } from 'vue'; 
-import { storeToRefs } from 'pinia';
-import { useAuthStore } from '@/stores/auth';
+import { onMounted, ref } from 'vue'; 
  
 // Default image on case the url is invalid
 const DEFAULT_IMAGE = 'https://placedog.net/536/355';
 
 // Reactive variables
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]); 
-const authStore = useAuthStore();
-const { user: authUser } = storeToRefs(authStore);
-
-// Computed property to check if the user is an admin
-const isAdmin = computed(() => authUser.value?.role === 'admin');
-
-// If we change somthing user related in the DB directly, this will make sure we have the freshest data.
-async function refreshAuthUserFromBackend() {
-  if (!authUser.value) return;
-
-  try {
-    const freshUser = await UserService.getById(authUser.value.id);
-    authStore.setUser(freshUser);
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 function getCardImage(image?: string) {
   return image?.trim() || DEFAULT_IMAGE;
@@ -41,7 +21,6 @@ function handleCardImageError(event: Event) {
 }
  
 onMounted(async () => { 
-  await refreshAuthUserFromBackend();
   domesticAnimals.value = await DomesticAnimalService.getAll(); 
 }); 
 </script> 
@@ -49,13 +28,6 @@ onMounted(async () => {
 <template> 
   <section> 
     <div class="max-w-7xl mx-auto"> 
-      <div v-if="isAdmin" class="flex justify-end mb-6"> 
-        <RouterLink 
-          to="/domesticAnimals/create" 
-          class="inline-block bg-orange-400 text-white font-semibold px-5 py-2 rounded hover:bg-orange-500 transition" 
-          >+ Add Domestic Animal</RouterLink 
-        > 
-      </div> 
  
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"> 
         <div v-for="domesticAnimal in domesticAnimals" :key="domesticAnimal.id"> 

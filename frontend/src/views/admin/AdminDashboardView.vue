@@ -142,8 +142,12 @@ watch([categoryRows, popularityRows], async () => {
   renderCharts();
 });
 
-function goToDomesticAnimals() {
+function goToManageDomesticAnimals() {
   router.push({ name: 'admin.manageDomesticAnimals' });
+}
+
+function goToManageUsers() {
+  router.push({ name: 'admin.manageUsers' });
 }
 
 onMounted(() => {
@@ -221,13 +225,21 @@ onBeforeUnmount(() => {
         />
       </div>
       
-      <div class="flex justify-end">
+      <div class="flex flex-col gap-3 sm:flex-row sm:justify-end">
         <button
           type="button"
           class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
-          @click="goToDomesticAnimals"
+          @click="goToManageDomesticAnimals"
         >
           Manage domestic animals
+        </button>
+
+        <button
+          type="button"
+          class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+          @click="goToManageUsers"
+        >
+          Manage users
         </button>
       </div>
     </template>
