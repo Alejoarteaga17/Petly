@@ -7,11 +7,13 @@ import { useRouter } from 'vue-router';
 // Internal imports
 import AdminStatsTable from '@/components/AdminStatsTable.vue';
 import CategoryChart from '@/components/CategoryChart.vue';
+import CountryOriginMap from '@/components/CountryOriginMap.vue';
 import PopularityChart from '@/components/PopularityChart.vue';
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import { ReviewService } from '@/services/ReviewService';
+import { CountryFormatterUtil } from '@/utils/CountryFormatterUtil';
 
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]);
 const reviews = ref<ReviewInterface[]>([]);
@@ -54,6 +56,14 @@ const popularityRows = computed(() => {
     .map(([breed, reviewsCount]) => ({ breed, reviewsCount }))
     .sort((a, b) => b.reviewsCount - a.reviewsCount);
 });
+
+const countryOriginRows = computed(() => {
+  return CountryFormatterUtil.summarizeCountryOrigins(
+    domesticAnimals.value.map((animal) => animal.countryOrigin),
+  );
+});
+
+const topCountryOriginRows = computed(() => countryOriginRows.value.slice(0, 8));
 
 async function loadDashboardData() {
   loading.value = true;
@@ -123,6 +133,19 @@ onMounted(() => {
         <CategoryChart :data="categoryRows" />
 
         <PopularityChart :data="popularityRows" />
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-2">
+        <CountryOriginMap :data="countryOriginRows" title="Animals by country of origin" />
+
+        <AdminStatsTable
+          title="Top 8 countries by origin"
+          :columns="[
+            { key: 'label', label: 'Country' },
+            { key: 'count', label: 'Count' },
+          ]"
+          :rows="topCountryOriginRows"
+        />
       </div>
 
       <div class="grid gap-6 lg:grid-cols-2">

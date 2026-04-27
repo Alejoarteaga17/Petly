@@ -26,6 +26,16 @@
             </p>
           </div>
 
+          <div>
+            <RouterLink
+              :to="{ name: 'domesticAnimals' }"
+              class="inline-flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-orange-600 hover:shadow-orange-300"
+            >
+              <span>Get to know our animals</span>
+              <span aria-hidden="true">&rarr;</span>
+            </RouterLink>
+          </div>
+
           <div class="grid gap-4 sm:grid-cols-3">
             <div class="rounded-2xl border border-orange-100 bg-white p-4 shadow-sm">
               <p class="text-sm font-semibold text-orange-700">Discover</p>
