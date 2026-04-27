@@ -118,12 +118,14 @@ onMounted(async () => {
             </div> 
 
             <div class="flex justify-center mb-4">
+              <div class="w-full overflow-hidden rounded-lg bg-gray-100 aspect-[4/3]">
               <img
                 :src="getCardImage(domesticAnimal.image)"
                 @error="handleCardImageError"
                 alt="Domestic Animal"
-                class="object-cover rounded shadow-sm w-full h-auto"
+                class="h-full w-full object-cover"
               />
+              </div>
             </div>
 
             <p class="text-gray-700 text-lg font-bold mb-3"> 
