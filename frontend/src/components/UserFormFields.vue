@@ -1,18 +1,23 @@
 <!-- Authors: Alejandro Arteaga & Alejandra Suarez -->
 <script setup lang="ts">
+import type { UserRole } from '@/interfaces/UserInterface';
+
 type UserFormModel = {
   fullName: string;
   username: string;
   email: string;
+  role?: UserRole;
   password?: string;
 };
 
 withDefaults(
   defineProps<{
     includePassword?: boolean;
+    includeRole?: boolean;
   }>(),
   {
     includePassword: false,
+    includeRole: false,
   },
 );
 
@@ -52,6 +57,19 @@ const model = defineModel<UserFormModel>({ required: true });
         class="w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-orange-300 focus:outline-none focus:ring"
         required
       />
+    </div>
+
+    <div v-if="includeRole">
+      <label class="mb-1 block text-sm font-semibold text-gray-600" for="role">Role</label>
+      <select
+        id="role"
+        v-model="model.role"
+        class="w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-orange-300 focus:outline-none focus:ring"
+        required
+      >
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
     </div>
 
     <div v-if="includePassword">

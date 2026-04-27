@@ -45,7 +45,7 @@ export class UserService {
 
     public static async updateUser(
         id: number,
-        updates: Partial<Pick<UserInterface, 'fullName' | 'email' | 'username'>>,
+        updates: Partial<Pick<UserInterface, 'fullName' | 'email' | 'username' | 'role'>>,
     ): Promise<UserInterface> {
         const { data } = await axios.put(`${this.API_URL}/${id}`, updates, this.authConfig());
         return data;

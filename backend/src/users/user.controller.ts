@@ -1,5 +1,6 @@
 // Author: Alejandro Arteaga
-import { Controller, Get, Param, Post, Body, Put } from '@nestjs/common'; 
+import { Controller, Get, Param, Post, Body, Put, Req, ForbiddenException } from '@nestjs/common'; 
+import type { Request } from 'express';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UpdateUserDto } from '../users/dto/update-user.dto';
 import { UserService } from "../users/user.service";
@@ -25,7 +26,13 @@ export class UserController {
   }
   // The service returns null when the target user does not exist.
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<User | null> {
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @Req() req: Request,
+): Promise<User | null> {
+    const authUser = req['user'] as { role?: string } | undefined;
+    if (updateUserDto.role && authUser?.role !== 'admin') {
+      throw new ForbiddenException('Only administrators can change user roles');
+    }
+
     return this.userService.update(Number(id), updateUserDto);
   }
 }
