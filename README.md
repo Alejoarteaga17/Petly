@@ -34,15 +34,15 @@ Petly/
 
 - Node.js 20 o superior
 - npm
-## Requirements
-## Instalación
 
-Instala las dependencias en cada carpeta:
-
+  
 ## Installation
-cd backend
 Install the dependencies in each folder:
-
+```bash
+cd ../backend
+npm install
+```
+```bash
 cd ../frontend
 npm install
 ```
