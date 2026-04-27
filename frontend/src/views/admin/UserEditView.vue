@@ -88,7 +88,11 @@ onMounted(() => {
 
     <p v-if="loading" class="text-sm text-gray-500">Loading user...</p>
 
-    <form v-else class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-6" @submit.prevent="submitForm">
+    <form
+      v-else
+      class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-6"
+      @submit.prevent="submitForm"
+    >
       <UserFormFields v-model="form" :include-role="true" />
 
       <p v-if="errorMessage" class="text-sm text-red-600">{{ errorMessage }}</p>

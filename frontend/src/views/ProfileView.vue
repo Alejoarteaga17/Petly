@@ -69,7 +69,7 @@ async function logout() {
   await router.push('/');
 }
 
-// Start editing profile info, we use a separate form so we 
+// Start editing profile info, we use a separate form so we
 // don't modify the authUser data until we save
 function startEditing() {
   if (!authUser.value) return;
@@ -157,8 +157,6 @@ onMounted(() => {
   syncEditForm();
   refreshAuthUserFromBackend();
 });
-
-
 </script>
 
 <template>
@@ -176,9 +174,15 @@ onMounted(() => {
         </button>
       </div>
       <div v-if="authUser" class="space-y-4">
-        <form v-if="isEditing" class="space-y-4 rounded-lg border border-blue-100 bg-blue-50 p-4" @submit.prevent="saveProfile">
+        <form
+          v-if="isEditing"
+          class="space-y-4 rounded-lg border border-blue-100 bg-blue-50 p-4"
+          @submit.prevent="saveProfile"
+        >
           <div>
-            <label class="mb-1 block text-sm font-semibold text-gray-600" for="fullName">Full Name</label>
+            <label class="mb-1 block text-sm font-semibold text-gray-600" for="fullName"
+              >Full Name</label
+            >
             <input
               id="fullName"
               v-model="editForm.fullName"
@@ -189,7 +193,9 @@ onMounted(() => {
           </div>
 
           <div>
-            <label class="mb-1 block text-sm font-semibold text-gray-600" for="username">Username</label>
+            <label class="mb-1 block text-sm font-semibold text-gray-600" for="username"
+              >Username</label
+            >
             <input
               id="username"
               v-model="editForm.username"
@@ -210,7 +216,6 @@ onMounted(() => {
             />
           </div>
 
-    
           <p v-if="profileError" class="text-sm text-red-600">{{ profileError }}</p>
 
           <div class="flex items-center gap-3">
@@ -250,14 +255,14 @@ onMounted(() => {
           >
             {{ showReviews ? 'Hide my reviews' : 'Show my reviews' }}
           </button>
-                  <button
-          v-if="authUser"
-          type="button"
-          class="rounded bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600"
-          @click="logout"
-        >
-          Logout
-        </button>
+          <button
+            v-if="authUser"
+            type="button"
+            class="rounded bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600"
+            @click="logout"
+          >
+            Logout
+          </button>
         </div>
 
         <div v-if="showReviews" class="rounded-lg border border-gray-200 bg-gray-50 p-4">
@@ -281,7 +286,11 @@ onMounted(() => {
                   {{ review.domesticAnimal.breed }}
                 </RouterLink>
                 <span v-else class="text-sm font-semibold text-gray-700">
-                  {{ review.domesticAnimalId ? `Domestic Animal #${review.domesticAnimalId}` : 'Domestic Animal' }}
+                  {{
+                    review.domesticAnimalId
+                      ? `Domestic Animal #${review.domesticAnimalId}`
+                      : 'Domestic Animal'
+                  }}
                 </span>
                 <span class="text-amber-500 text-sm" :title="`${review.rating} stars`">
                   {{ '★'.repeat(review.rating) }}{{ '☆'.repeat(5 - review.rating) }}
@@ -296,7 +305,6 @@ onMounted(() => {
 
           <p v-else class="text-sm text-gray-500">You haven't written reviews yet.</p>
         </div>
-
       </div>
 
       <div v-else class="rounded-lg border border-yellow-200 bg-yellow-50 p-5">
@@ -304,10 +312,16 @@ onMounted(() => {
           You are not logged in. Log in or create an account to see your profile information.
         </p>
         <div class="flex gap-3">
-          <RouterLink to="/login" class="rounded bg-blue-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-600">
+          <RouterLink
+            to="/login"
+            class="rounded bg-blue-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-600"
+          >
             Log in
           </RouterLink>
-          <RouterLink to="/register" class="rounded bg-green-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-600">
+          <RouterLink
+            to="/register"
+            class="rounded bg-green-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-600"
+          >
             Register
           </RouterLink>
         </div>

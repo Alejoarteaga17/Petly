@@ -10,7 +10,10 @@ const emit = defineEmits<{
   (event: 'update:modelValue', value: CreateDomesticAnimalDTO): void;
 }>();
 
-function updateField<K extends keyof CreateDomesticAnimalDTO>(key: K, value: CreateDomesticAnimalDTO[K]) {
+function updateField<K extends keyof CreateDomesticAnimalDTO>(
+  key: K,
+  value: CreateDomesticAnimalDTO[K],
+) {
   emit('update:modelValue', {
     ...props.modelValue,
     [key]: value,
@@ -61,7 +64,9 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(key: K, value: Cre
   </div>
 
   <div>
-    <label class="block text-gray-700 font-semibold mb-2" for="lifeExpectancy">Life Expectancy</label>
+    <label class="block text-gray-700 font-semibold mb-2" for="lifeExpectancy"
+      >Life Expectancy</label
+    >
     <input
       :value="modelValue.lifeExpectancy"
       type="number"

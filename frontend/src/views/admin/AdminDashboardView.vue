@@ -144,7 +144,7 @@ onMounted(() => {
           :rows="popularityRows"
         />
       </div>
-      
+
       <div class="flex flex-col gap-3 sm:flex-row sm:justify-end">
         <button
           type="button"

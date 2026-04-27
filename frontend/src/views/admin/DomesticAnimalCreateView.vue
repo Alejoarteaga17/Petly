@@ -30,26 +30,25 @@ async function submitForm() {
   errorMessage.value = '';
 
   try {
-      await DomesticAnimalService.createDomesticAnimal(form.value);
-      successMessage.value = 'Domestic animal created successfully!';
-      await router.push({ name: 'admin.manageDomesticAnimals' });
-      form.value = {
-        breed: '',
-        category: '',
-        description: '',
-        lifeExpectancy: '',
-        weight: '',
-        height: '',
-        behaviours: '',
-        commonDisease: '',
-        countryOrigin: '',
-        history: '',
-        image: '',
-      };
-  }
-  catch (error) {
-      console.error(error);
-      errorMessage.value = 'Error creating domestic animal. Please verify all fields.';
+    await DomesticAnimalService.createDomesticAnimal(form.value);
+    successMessage.value = 'Domestic animal created successfully!';
+    await router.push({ name: 'admin.manageDomesticAnimals' });
+    form.value = {
+      breed: '',
+      category: '',
+      description: '',
+      lifeExpectancy: '',
+      weight: '',
+      height: '',
+      behaviours: '',
+      commonDisease: '',
+      countryOrigin: '',
+      history: '',
+      image: '',
+    };
+  } catch (error) {
+    console.error(error);
+    errorMessage.value = 'Error creating domestic animal. Please verify all fields.';
   }
 }
 </script>

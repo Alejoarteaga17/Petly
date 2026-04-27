@@ -1,6 +1,5 @@
 <!-- Author: Alejandro Arteaga -->
 <script setup lang="ts">
-
 interface ColumnDefinition {
   key: string;
   label: string;
@@ -32,11 +31,7 @@ defineProps<{
         </thead>
         <tbody>
           <tr v-for="(row, index) in rows" :key="index" class="border-b border-gray-100">
-            <td
-              v-for="column in columns"
-              :key="column.key"
-              class="px-3 py-2 text-gray-700"
-            >
+            <td v-for="column in columns" :key="column.key" class="px-3 py-2 text-gray-700">
               {{ row[column.key] }}
             </td>
           </tr>

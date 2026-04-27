@@ -11,7 +11,9 @@ const { user: authUser } = storeToRefs(authStore);
 <template>
   <div class="min-h-screen bg-[#ffffff]">
     <!-- HEADER: fixed top bar -->
-    <header class="fixed inset-x-0 top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
+    <header
+      class="fixed inset-x-0 top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm"
+    >
       <div class="mx-auto max-w-7xl px-6">
         <div class="flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
           <!-- Logo -->
@@ -25,12 +27,39 @@ const { user: authUser } = storeToRefs(authStore);
           <!-- Nav links -->
           <!-- Hide auth actions based on user authentication state -->
           <nav class="flex items-center gap-3">
-            <RouterLink to="/" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Home</RouterLink>
-            <RouterLink to="/profile" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Profile</RouterLink>
-            <RouterLink to="/domesticAnimals" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Domestic animals</RouterLink>
-            <RouterLink v-if="authUser?.role === 'admin'" to="/admin/dashboard" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Admin Dashboard</RouterLink>
-            <RouterLink v-if="!authUser" to="/login" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Login</RouterLink>
-            <RouterLink v-if="!authUser" to="/register" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Register</RouterLink>
+            <RouterLink
+              to="/"
+              class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+              >Home</RouterLink
+            >
+            <RouterLink
+              to="/profile"
+              class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+              >Profile</RouterLink
+            >
+            <RouterLink
+              to="/domesticAnimals"
+              class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+              >Domestic animals</RouterLink
+            >
+            <RouterLink
+              v-if="authUser?.role === 'admin'"
+              to="/admin/dashboard"
+              class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+              >Admin Dashboard</RouterLink
+            >
+            <RouterLink
+              v-if="!authUser"
+              to="/login"
+              class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+              >Login</RouterLink
+            >
+            <RouterLink
+              v-if="!authUser"
+              to="/register"
+              class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+              >Register</RouterLink
+            >
           </nav>
         </div>
       </div>
@@ -48,7 +77,8 @@ const { user: authUser } = storeToRefs(authStore);
           <h2 class="mb-4 text-2xl font-black">PETLY.CO</h2>
 
           <p class="max-w-sm text-sm text-gray-500">
-            Find what other people think about your domesticAnimals and say something about them too.
+            Find what other people think about your domesticAnimals and say something about them
+            too.
           </p>
         </div>
 
@@ -75,7 +105,9 @@ const { user: authUser } = storeToRefs(authStore);
         </div>
       </div>
 
-      <div class="mx-auto mt-10 max-w-7xl border-t px-6 pt-6 text-xs text-gray-400">Petly 2026. All Rights Reserved</div>
+      <div class="mx-auto mt-10 max-w-7xl border-t px-6 pt-6 text-xs text-gray-400">
+        Petly 2026. All Rights Reserved
+      </div>
     </footer>
   </div>
 </template>

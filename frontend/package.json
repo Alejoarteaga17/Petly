@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "format": "prettier --write --experimental-cli src/"
+    "format": "prettier --write --experimental-cli src/",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:eslint": "eslint ."
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",

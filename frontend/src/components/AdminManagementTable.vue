@@ -43,12 +43,12 @@ const emit = defineEmits<{
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(row, index) in rows" :key="String(row[rowKey ?? 'id'] ?? index)" class="border-b border-gray-100">
-            <td
-              v-for="column in columns"
-              :key="column.key"
-              class="px-3 py-2 text-gray-700"
-            >
+          <tr
+            v-for="(row, index) in rows"
+            :key="String(row[rowKey ?? 'id'] ?? index)"
+            class="border-b border-gray-100"
+          >
+            <td v-for="column in columns" :key="column.key" class="px-3 py-2 text-gray-700">
               {{ row[column.key] }}
             </td>
             <td v-if="showEdit || showDelete" class="px-3 py-2">
@@ -74,7 +74,10 @@ const emit = defineEmits<{
             </td>
           </tr>
           <tr v-if="rows.length === 0">
-            <td :colspan="columns.length + (showEdit || showDelete ? 1 : 0)" class="px-3 py-4 text-center text-gray-500">
+            <td
+              :colspan="columns.length + (showEdit || showDelete ? 1 : 0)"
+              class="px-3 py-4 text-center text-gray-500"
+            >
               {{ emptyMessage || 'No data available.' }}
             </td>
           </tr>

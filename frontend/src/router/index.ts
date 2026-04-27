@@ -23,19 +23,80 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 
   routes: [
-    { path: '/', name: 'home', component: HomeView, meta: { title: 'Home' } },
-    { path: '/login', name: 'login', component: LoginView, meta: { title: 'Login' } },
-    { path: '/register', name: 'register', component: RegisterView, meta: { title: 'Register' } },
-    { path: '/profile', name: 'profile', component: ProfileView, meta: { title: 'Profile' } },
-    { path: '/admin/dashboard', name: 'admin.dashboard', component: AdminDashboardView, meta: { title: 'Admin Dashboard', requiresAdmin: true } },
-    { path: '/admin/manageDomesticAnimals', name: 'admin.manageDomesticAnimals', component: ManageDomesticAnimalsView, meta: { title: 'Manage Domestic Animals', requiresAdmin: true } },
-    { path: '/admin/manageUsers', name: 'admin.manageUsers', component: ManageUsersView, meta: { title: 'Manage Users', requiresAdmin: true } },
-    { path: '/domesticAnimals', name: 'domesticAnimals', component: DomesticAnimalIndexView, meta: { title: 'Domestic Animals' } },
-    { path: '/admin/domesticAnimals/create', name: 'admin.domesticAnimals.create', component: DomesticAnimalCreateView, meta: { title: 'Create Domestic Animal', requiresAdmin: true } },
-    { path: '/admin/domesticAnimals/:id/edit', name: 'admin.domesticAnimals.edit', component: DomesticAnimalEditView, meta: { title: 'Edit Domestic Animal', requiresAdmin: true } },
-    { path: '/admin/users/create', name: 'admin.users.create', component: UserCreateView, meta: { title: 'Create User', requiresAdmin: true } },
-    { path: '/admin/users/:id/edit', name: 'admin.users.edit', component: UserEditView, meta: { title: 'Edit User', requiresAdmin: true } },
-    { path: '/domesticAnimals/:id', name: 'domesticAnimal', component: DomesticAniamlShowView, meta: { title: 'Domestic Animal Details' } },
+    { path: '/', 
+      name: 'home', 
+      component: HomeView, 
+      meta: { title: 'Home' } 
+    },
+    { path: '/login', 
+      name: 'login', 
+      component: LoginView, 
+      meta: { title: 'Login' } 
+    },
+    { path: '/register', 
+      name: 'register', 
+      component: RegisterView, 
+      meta: { title: 'Register' } 
+    },
+    { path: '/profile', 
+      name: 'profile', 
+      component: ProfileView, 
+      meta: { title: 'Profile' } 
+    },
+    {
+      path: '/admin/dashboard',
+      name: 'admin.dashboard',
+      component: AdminDashboardView,
+      meta: { title: 'Admin Dashboard', requiresAdmin: true },
+    },
+    {
+      path: '/admin/manageDomesticAnimals',
+      name: 'admin.manageDomesticAnimals',
+      component: ManageDomesticAnimalsView,
+      meta: { title: 'Manage Domestic Animals', requiresAdmin: true },
+    },
+    {
+      path: '/admin/manageUsers',
+      name: 'admin.manageUsers',
+      component: ManageUsersView,
+      meta: { title: 'Manage Users', requiresAdmin: true },
+    },
+    {
+      path: '/domesticAnimals',
+      name: 'domesticAnimals',
+      component: DomesticAnimalIndexView,
+      meta: { title: 'Domestic Animals' },
+    },
+    {
+      path: '/admin/domesticAnimals/create',
+      name: 'admin.domesticAnimals.create',
+      component: DomesticAnimalCreateView,
+      meta: { title: 'Create Domestic Animal', requiresAdmin: true },
+    },
+    {
+      path: '/admin/domesticAnimals/:id/edit',
+      name: 'admin.domesticAnimals.edit',
+      component: DomesticAnimalEditView,
+      meta: { title: 'Edit Domestic Animal', requiresAdmin: true },
+    },
+    {
+      path: '/admin/users/create',
+      name: 'admin.users.create',
+      component: UserCreateView,
+      meta: { title: 'Create User', requiresAdmin: true },
+    },
+    {
+      path: '/admin/users/:id/edit',
+      name: 'admin.users.edit',
+      component: UserEditView,
+      meta: { title: 'Edit User', requiresAdmin: true },
+    },
+    {
+      path: '/domesticAnimals/:id',
+      name: 'domesticAnimal',
+      component: DomesticAniamlShowView,
+      meta: { title: 'Domestic Animal Details' },
+    },
   ],
 });
 

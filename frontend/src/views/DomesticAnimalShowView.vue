@@ -41,10 +41,10 @@ const popularityData = computed(() => {
     .sort((a, b) => b.reviewsCount - a.reviewsCount);
 });
 
-onMounted(async () => { 
-  const route = useRoute(); 
-  const domesticAnimalId = Number(route.params.id); 
-  domesticAnimal.value = await DomesticAnimalService.getById(domesticAnimalId); 
+onMounted(async () => {
+  const route = useRoute();
+  const domesticAnimalId = Number(route.params.id);
+  domesticAnimal.value = await DomesticAnimalService.getById(domesticAnimalId);
   imageSrc.value = domesticAnimal.value?.image?.trim() || DEFAULT_IMAGE;
 
   try {
@@ -52,13 +52,13 @@ onMounted(async () => {
       DomesticAnimalService.getAll(),
       ReviewService.getReviews(),
     ]);
-    
+
     domesticAnimals.value = animalsData;
     reviews.value = reviewsData;
   } catch (error) {
     console.error('Error loading data:', error);
   }
-}); 
+});
 </script>
 
 <template>
@@ -90,9 +90,9 @@ onMounted(async () => {
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ domesticAnimal.breed }}</h2>
                 <div class="prose text-gray-600">
                   <p class="mb-4">
-                    "{{ domesticAnimal.breed }}" is an outstanding domestic animal in the {{ domesticAnimal.category }} category.
-                    This profile is part of our collection and helps users discover useful details
-                    about different domestic animals.
+                    "{{ domesticAnimal.breed }}" is an outstanding domestic animal in the
+                    {{ domesticAnimal.category }} category. This profile is part of our collection
+                    and helps users discover useful details about different domestic animals.
                   </p>
                 </div>
               </div>
@@ -107,43 +107,77 @@ onMounted(async () => {
                   <tbody class="divide-y divide-gray-100 bg-white">
                     <tr>
                       <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">Breed</th>
-                      <td class="px-4 py-3 font-medium text-gray-800">{{ domesticAnimal.breed }}</td>
+                      <td class="px-4 py-3 font-medium text-gray-800">
+                        {{ domesticAnimal.breed }}
+                      </td>
                     </tr>
                     <tr>
-                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">Category</th>
-                      <td class="px-4 py-3 font-medium text-gray-800">{{ domesticAnimal.category }}</td>
+                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">
+                        Category
+                      </th>
+                      <td class="px-4 py-3 font-medium text-gray-800">
+                        {{ domesticAnimal.category }}
+                      </td>
                     </tr>
                     <tr>
-                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">Description</th>
-                      <td class="px-4 py-3 font-medium text-gray-800">{{ domesticAnimal.description }}</td>
+                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">
+                        Description
+                      </th>
+                      <td class="px-4 py-3 font-medium text-gray-800">
+                        {{ domesticAnimal.description }}
+                      </td>
                     </tr>
                     <tr>
-                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">Life Expectancy</th>
-                      <td class="px-4 py-3 font-medium text-gray-800">{{ domesticAnimal.lifeExpectancy }}</td>
+                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">
+                        Life Expectancy
+                      </th>
+                      <td class="px-4 py-3 font-medium text-gray-800">
+                        {{ domesticAnimal.lifeExpectancy }}
+                      </td>
                     </tr>
                     <tr>
                       <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">Weight</th>
-                      <td class="px-4 py-3 font-medium text-gray-800">{{ domesticAnimal.weight }}</td>
+                      <td class="px-4 py-3 font-medium text-gray-800">
+                        {{ domesticAnimal.weight }}
+                      </td>
                     </tr>
                     <tr>
                       <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">Height</th>
-                      <td class="px-4 py-3 font-medium text-gray-800">{{ domesticAnimal.height }}</td>
+                      <td class="px-4 py-3 font-medium text-gray-800">
+                        {{ domesticAnimal.height }}
+                      </td>
                     </tr>
                     <tr>
-                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">Behaviours</th>
-                      <td class="px-4 py-3 font-medium text-gray-800">{{ domesticAnimal.behaviours }}</td>
+                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">
+                        Behaviours
+                      </th>
+                      <td class="px-4 py-3 font-medium text-gray-800">
+                        {{ domesticAnimal.behaviours }}
+                      </td>
                     </tr>
                     <tr>
-                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">Common Disease</th>
-                      <td class="px-4 py-3 font-medium text-gray-800">{{ domesticAnimal.commonDisease }}</td>
+                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">
+                        Common Disease
+                      </th>
+                      <td class="px-4 py-3 font-medium text-gray-800">
+                        {{ domesticAnimal.commonDisease }}
+                      </td>
                     </tr>
                     <tr>
-                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">Country Origin</th>
-                      <td class="px-4 py-3 font-medium text-gray-800">{{ domesticAnimal.countryOrigin }}</td>
+                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">
+                        Country Origin
+                      </th>
+                      <td class="px-4 py-3 font-medium text-gray-800">
+                        {{ domesticAnimal.countryOrigin }}
+                      </td>
                     </tr>
                     <tr>
-                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">History</th>
-                      <td class="px-4 py-3 font-medium text-gray-800">{{ domesticAnimal.history }}</td>
+                      <th class="w-1/3 bg-gray-50 px-4 py-3 font-semibold text-gray-600">
+                        History
+                      </th>
+                      <td class="px-4 py-3 font-medium text-gray-800">
+                        {{ domesticAnimal.history }}
+                      </td>
                     </tr>
                   </tbody>
                 </table>

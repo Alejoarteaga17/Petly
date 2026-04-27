@@ -42,16 +42,14 @@ const filteredReviews = computed(() => {
   if (dateSort === 'desc') {
     result.sort(
       (a, b) =>
-        new Date(b.createdAt as string).getTime() -
-        new Date(a.createdAt as string).getTime(),
+        new Date(b.createdAt as string).getTime() - new Date(a.createdAt as string).getTime(),
     );
   }
 
   if (dateSort === 'asc') {
     result.sort(
       (a, b) =>
-        new Date(a.createdAt as string).getTime() -
-        new Date(b.createdAt as string).getTime(),
+        new Date(a.createdAt as string).getTime() - new Date(b.createdAt as string).getTime(),
     );
   }
 
@@ -102,10 +100,16 @@ onMounted(() => {
     <div v-if="!isUserLoggedIn" class="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
       <p class="text-sm text-gray-700 mb-3">You must be logged in to post a review.</p>
       <div class="flex gap-2">
-        <RouterLink to="/login" class="bg-blue-500 text-white font-medium py-2 px-4 rounded hover:bg-blue-600 transition">
+        <RouterLink
+          to="/login"
+          class="bg-blue-500 text-white font-medium py-2 px-4 rounded hover:bg-blue-600 transition"
+        >
           Log in
         </RouterLink>
-        <RouterLink to="/register" class="bg-green-500 text-white font-medium py-2 px-4 rounded hover:bg-green-600 transition">
+        <RouterLink
+          to="/register"
+          class="bg-green-500 text-white font-medium py-2 px-4 rounded hover:bg-green-600 transition"
+        >
           Register
         </RouterLink>
       </div>

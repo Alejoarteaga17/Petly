@@ -59,9 +59,13 @@ function renderChart() {
   });
 }
 
-watch(() => props.data, () => {
-  renderChart();
-}, { deep: true });
+watch(
+  () => props.data,
+  () => {
+    renderChart();
+  },
+  { deep: true },
+);
 
 onMounted(() => {
   renderChart();

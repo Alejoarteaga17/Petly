@@ -51,7 +51,10 @@ async function submitForm() {
       <p class="mt-2 text-sm text-gray-500">Create a new user account for the platform.</p>
     </div>
 
-    <form class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-6" @submit.prevent="submitForm">
+    <form
+      class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-6"
+      @submit.prevent="submitForm"
+    >
       <UserFormFields v-model="form" :include-password="true" />
 
       <p v-if="errorMessage" class="text-sm text-red-600">{{ errorMessage }}</p>
