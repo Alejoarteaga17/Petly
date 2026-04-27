@@ -23,7 +23,7 @@ const { user: authUser } = storeToRefs(authStore);
           </div>
 
           <!-- Nav links -->
-          <!-- Agregamos validacion de autenticacion para ocualtar botones-->
+          <!-- Hide auth actions based on user authentication state -->
           <nav class="flex items-center gap-3">
             <RouterLink to="/" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Home</RouterLink>
             <RouterLink to="/profile" class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100">Profile</RouterLink>

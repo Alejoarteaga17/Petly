@@ -50,7 +50,7 @@ onMounted(() => {
     <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <h2 class="text-3xl font-bold text-gray-800">Manage Users</h2>
-        <p class="mt-2 text-sm text-gray-500">Review and edit registered users.</p>
+        <p class="mt-2 text-sm text-gray-500">Manage the full list of registered users.</p>
       </div>
 
       <div class="flex items-center gap-3">

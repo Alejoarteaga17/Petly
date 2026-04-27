@@ -23,7 +23,7 @@ export class UserController {
   register(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.userService.register(createUserDto);
   }
-  // Segun como definimos el dto, entonces acá si puede estar null?
+  // The service returns null when the target user does not exist.
   @Put(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<User | null> {
     return this.userService.update(Number(id), updateUserDto);

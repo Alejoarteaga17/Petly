@@ -28,7 +28,7 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(key: K, value: Cre
       id="breed"
       class="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
       required
-      placeholder="Breed"
+      placeholder="e.g. Labrador Retriever"
       @input="updateField('breed', ($event.target as HTMLInputElement).value)"
     />
   </div>
@@ -42,7 +42,7 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(key: K, value: Cre
       id="category"
       class="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
       required
-      placeholder="Category"
+      placeholder="e.g. Dog, Cat, Bird"
       @input="updateField('category', ($event.target as HTMLInputElement).value)"
     />
   </div>
@@ -55,7 +55,7 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(key: K, value: Cre
       rows="4"
       class="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
       required
-      placeholder="Description"
+      placeholder="e.g. Friendly, active, good with children"
       @input="updateField('description', ($event.target as HTMLTextAreaElement).value)"
     />
   </div>
@@ -64,12 +64,15 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(key: K, value: Cre
     <label class="block text-gray-700 font-semibold mb-2" for="lifeExpectancy">Life Expectancy</label>
     <input
       :value="modelValue.lifeExpectancy"
-      type="text"
+      type="number"
       name="lifeExpectancy"
       id="lifeExpectancy"
       class="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
       required
-      placeholder="Life expectancy"
+      min="0"
+      step="1"
+      inputmode="numeric"
+      placeholder="e.g. 12 (years)"
       @input="updateField('lifeExpectancy', ($event.target as HTMLInputElement).value)"
     />
   </div>
@@ -78,12 +81,15 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(key: K, value: Cre
     <label class="block text-gray-700 font-semibold mb-2" for="weight">Weight</label>
     <input
       :value="modelValue.weight"
-      type="text"
+      type="number"
       name="weight"
       id="weight"
       class="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
       required
-      placeholder="Weight"
+      min="0"
+      step="0.1"
+      inputmode="decimal"
+      placeholder="e.g. 4.5 (kg)"
       @input="updateField('weight', ($event.target as HTMLInputElement).value)"
     />
   </div>
@@ -92,12 +98,15 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(key: K, value: Cre
     <label class="block text-gray-700 font-semibold mb-2" for="height">Height</label>
     <input
       :value="modelValue.height"
-      type="text"
+      type="number"
       name="height"
       id="height"
       class="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
       required
-      placeholder="Height"
+      min="0"
+      step="0.1"
+      inputmode="decimal"
+      placeholder="e.g. 35 (cm)"
       @input="updateField('height', ($event.target as HTMLInputElement).value)"
     />
   </div>
@@ -110,7 +119,7 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(key: K, value: Cre
       rows="3"
       class="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
       required
-      placeholder="Behaviours"
+      placeholder="e.g. Calm, playful, protective"
       @input="updateField('behaviours', ($event.target as HTMLTextAreaElement).value)"
     />
   </div>
@@ -124,7 +133,7 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(key: K, value: Cre
       id="commonDisease"
       class="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
       required
-      placeholder="Common disease"
+      placeholder="e.g. Hip dysplasia"
       @input="updateField('commonDisease', ($event.target as HTMLInputElement).value)"
     />
   </div>
@@ -138,7 +147,7 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(key: K, value: Cre
       id="countryOrigin"
       class="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
       required
-      placeholder="Country of origin"
+      placeholder="e.g. Colombia"
       @input="updateField('countryOrigin', ($event.target as HTMLInputElement).value)"
     />
   </div>
@@ -151,7 +160,7 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(key: K, value: Cre
       rows="4"
       class="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
       required
-      placeholder="History"
+      placeholder="e.g. Originally bred for companionship"
       @input="updateField('history', ($event.target as HTMLTextAreaElement).value)"
     />
   </div>
