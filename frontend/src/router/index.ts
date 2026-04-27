@@ -2,14 +2,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import DomesticAnimalIndexView from '@/views/DomesticAnimalIndexView.vue';
 import DomesticAniamlShowView from '@/views/DomesticAnimalShowView.vue';
-import DomesticAnimalCreateView from '@/views/DomesticAnimalCreateView.vue';
-import DomesticAnimalEditView from '@/views/DomesticAnimalEditView.vue';
+import DomesticAnimalCreateView from '@/views/admin/DomesticAnimalCreateView.vue';
+import DomesticAnimalEditView from '@/views/admin/DomesticAnimalEditView.vue';
 import ContactView from '@/views/ContactView.vue';
 import HomeView from '@/views/HomeView.vue';
 import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import ProfileView from '@/views/ProfileView.vue';
-import AdminDashboardView from '@/views/AdminDashboardView.vue';
+import AdminDashboardView from '@/views/admin/AdminDashboardView.vue';
 import { useAuthStore } from '@/stores/auth';
 
 const router = createRouter({
