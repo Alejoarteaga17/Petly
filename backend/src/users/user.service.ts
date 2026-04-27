@@ -6,6 +6,7 @@ import { Repository } from "typeorm";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import * as bcrypt from "bcrypt";
+import { USER_ROLES } from "./entities/user.entity";
 
 @Injectable()
 export class UserService {
@@ -58,6 +59,10 @@ export class UserService {
 
         if (updateUserDto.fullName?.trim()) {
             user.fullName = updateUserDto.fullName.trim();
+        }
+
+        if (updateUserDto.role && USER_ROLES.includes(updateUserDto.role)) {
+            user.role = updateUserDto.role;
         }
 
         return this.userRepository.save(user);

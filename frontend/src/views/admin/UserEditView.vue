@@ -6,12 +6,14 @@ import { useRoute, useRouter } from 'vue-router';
 
 // Internal imports
 import UserFormFields from '@/components/UserFormFields.vue';
+import type { UserRole } from '@/interfaces/UserInterface';
 import { UserService } from '@/services/UserService';
 
 type UserEditForm = {
   fullName: string;
   username: string;
   email: string;
+  role: UserRole;
 };
 
 const route = useRoute();
@@ -25,6 +27,7 @@ const form = ref<UserEditForm>({
   fullName: '',
   username: '',
   email: '',
+  role: 'user',
 });
 
 async function loadUser() {
@@ -39,6 +42,7 @@ async function loadUser() {
       fullName: user.fullName,
       username: user.username,
       email: user.email,
+      role: user.role,
     };
   } catch (error) {
     console.error(error);
@@ -58,6 +62,7 @@ async function submitForm() {
       fullName: form.value.fullName.trim(),
       username: form.value.username.trim(),
       email: form.value.email.trim(),
+      role: form.value.role,
     });
 
     await router.push({ name: 'admin.manageUsers' });
@@ -84,7 +89,7 @@ onMounted(() => {
     <p v-if="loading" class="text-sm text-gray-500">Loading user...</p>
 
     <form v-else class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-6" @submit.prevent="submitForm">
-      <UserFormFields v-model="form" />
+      <UserFormFields v-model="form" :include-role="true" />
 
       <p v-if="errorMessage" class="text-sm text-red-600">{{ errorMessage }}</p>
 

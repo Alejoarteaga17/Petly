@@ -81,7 +81,7 @@ function renderCharts() {
         labels: categoryRows.value.map((row) => row.category),
         datasets: [
           {
-            label: 'Pets by category',
+            label: 'Domestic animals by category',
             data: categoryRows.value.map((row) => row.count),
             backgroundColor: '#fb923c',
             borderRadius: 6,
