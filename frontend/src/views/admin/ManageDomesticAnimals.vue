@@ -39,6 +39,10 @@ function goToEditDomesticAnimal(id: number) {
   router.push({ name: 'admin.domesticAnimals.edit', params: { id } });
 }
 
+function goToAdminDashboard() {
+  router.push({ name: 'admin.dashboard' });
+}
+
 async function deleteDomesticAnimal(id: number) {
   const confirmed = window.confirm('Are you sure you want to delete this domestic animal?');
   if (!confirmed) {
@@ -67,6 +71,17 @@ onMounted(() => {
 
 <template>
   <section class="mx-auto max-w-7xl space-y-6">
+    <div>
+      <button
+        type="button"
+        class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+        @click="goToAdminDashboard"
+      >
+        <span aria-hidden="true">&larr;</span>
+        <span>Back to dashboard</span>
+      </button>
+    </div>
+
     <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <h2 class="text-3xl font-bold text-gray-800">Manage Domestic Animals</h2>

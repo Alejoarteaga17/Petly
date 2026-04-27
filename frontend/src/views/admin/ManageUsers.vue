@@ -40,6 +40,10 @@ function goToCreateUser() {
   router.push({ name: 'admin.users.create' });
 }
 
+function goToAdminDashboard() {
+  router.push({ name: 'admin.dashboard' });
+}
+
 onMounted(() => {
   loadUsers();
 });
@@ -47,6 +51,17 @@ onMounted(() => {
 
 <template>
   <section class="mx-auto max-w-7xl space-y-6">
+    <div>
+      <button
+        type="button"
+        class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+        @click="goToAdminDashboard"
+      >
+        <span aria-hidden="true">&larr;</span>
+        <span>Back to dashboard</span>
+      </button>
+    </div>
+
     <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <h2 class="text-3xl font-bold text-gray-800">Manage Users</h2>
