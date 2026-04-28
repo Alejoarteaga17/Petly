@@ -4,19 +4,19 @@
 import axios from 'axios';
 
 // Internal imports
+import { AUTH_API_URL, USERS_API_URL } from '@/config/api';
 import type { CreateUserDTO } from '@/dtos/CreateUserDTO';
 import type { UserInterface } from '@/interfaces/UserInterface';
 import { useAuthStore } from '@/stores/auth';
 
-// We make a personalized response for the login,
-// since the backend returns a token and the user
+
 type LoginResponse = {
   accessToken: string;
 };
 
 export class UserService {
-  private static readonly API_URL = 'http://localhost:3000/api/users';
-  private static readonly AUTH_URL = 'http://localhost:3000/api/auth';
+  private static readonly API_URL = USERS_API_URL;
+  private static readonly AUTH_URL = AUTH_API_URL;
 
   private static authConfig() {
     const authStore = useAuthStore();

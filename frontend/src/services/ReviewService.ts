@@ -2,9 +2,10 @@
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth';
+import { REVIEWS_API_URL } from '@/config/api';
 
 export class ReviewService {
-  private static readonly API_URL = 'http://localhost:3000/api/reviews';
+  private static readonly API_URL = REVIEWS_API_URL;
 
   private static authConfig() {
     const authStore = useAuthStore();

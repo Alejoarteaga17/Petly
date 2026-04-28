@@ -3,9 +3,10 @@ import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterfa
 import type { CreateDomesticAnimalDTO } from '@/dtos/CreateDomesticAnimalDTO.js';
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth';
+import { DOMESTIC_ANIMALS_API_URL } from '@/config/api';
 
 export class DomesticAnimalService {
-  private static readonly API_URL = 'http://localhost:3000/api/domestic-animals';
+  private static readonly API_URL = DOMESTIC_ANIMALS_API_URL;
 
   private static authConfig() {
     const authStore = useAuthStore();
