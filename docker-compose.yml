@@ -9,7 +9,10 @@ services:
       SQLITE_PATH: /data/database.sqlite 
       CORS_ORIGIN: "http://34.10.141.115,http://127.0.0.1:8080,http://localhost,http://127.0.0.1,http://localhost:5173" 
     volumes: 
-      - backend-data:/data 
+      # bind the sqlite file from the repo into the container so the image uses repo DB
+      - ./backend/database.sqlite:/data/database.sqlite:rw
+      # if you still want a persistent directory for other data, keep a named volume (optional)
+      # - backend-data:/data
  
   frontend: 
     build: 
