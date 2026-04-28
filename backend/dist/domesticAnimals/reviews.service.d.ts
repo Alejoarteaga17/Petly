@@ -1,0 +1,12 @@
+import { Repository } from 'typeorm';
+import { Review } from './entities/review.entity';
+import { CreateReviewDto } from './dto/create-review.dto';
+export declare class ReviewsService {
+    private reviewsRepository;
+    constructor(reviewsRepository: Repository<Review>);
+    findAll(): Promise<Review[]>;
+    findByDomesticAnimalId(domesticAnimalId: number): Promise<Review[]>;
+    findByUserId(userId: number): Promise<Review[]>;
+    findAllOrdered(orderBy: 'publication' | 'rating'): Promise<Review[]>;
+    create(createReviewDto: CreateReviewDto): Promise<Review>;
+}

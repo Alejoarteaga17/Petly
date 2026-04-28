@@ -8,7 +8,7 @@ import { DomesticAnimalsModule } from './domesticAnimals/domesticAnimal.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'database.sqlite',
+      database: process.env.SQLITE_PATH ?? 'database.sqlite',
       autoLoadEntities: true,
       synchronize: true,
     }),
