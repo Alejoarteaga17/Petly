@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 // Internal imports
 import { DomesticAnimal } from './entities/domesticAnimal.entity';
 import { CreateDomesticAnimalDto } from './dto/create-domesticAnimal.dto';
+import { Category } from '../categories/entities/category.entity';
 
 @Injectable()
 export class DomesticAnimalService {
@@ -16,19 +17,25 @@ export class DomesticAnimalService {
   ) {}
 
   findAll(): Promise<DomesticAnimal[]> {
-    return this.domesticAnimalsRepository.find();
+    return this.domesticAnimalsRepository.find({
+      relations: ['category'],
+    });
   }
 
   findOne(id: number): Promise<DomesticAnimal | null> {
-    return this.domesticAnimalsRepository.findOneBy({ id });
+    return this.domesticAnimalsRepository.findOne({
+      where: { id },
+      relations: ['category'],
+    });
   }
 
   create(
     createDomesticAnimalDto: CreateDomesticAnimalDto,
   ): Promise<DomesticAnimal> {
-    const domesticAnimal = this.domesticAnimalsRepository.create(
-      createDomesticAnimalDto,
-    );
+    const domesticAnimal = this.domesticAnimalsRepository.create({
+      ...createDomesticAnimalDto,
+      category: { id: createDomesticAnimalDto.categoryId } as Category,
+    });
     return this.domesticAnimalsRepository.save(domesticAnimal);
   }
 
@@ -36,14 +43,17 @@ export class DomesticAnimalService {
     id: number,
     updateDomesticAnimalDto: CreateDomesticAnimalDto,
   ): Promise<DomesticAnimal | null> {
-    const domesticAnimal = await this.domesticAnimalsRepository.findOneBy({
-      id,
+    const domesticAnimal = await this.domesticAnimalsRepository.findOne({
+      where: { id },
+      relations: ['category'],
     });
     if (!domesticAnimal) {
       return null;
     }
 
-    Object.assign(domesticAnimal, updateDomesticAnimalDto);
+    Object.assign(domesticAnimal, updateDomesticAnimalDto, {
+      category: { id: updateDomesticAnimalDto.categoryId } as Category,
+    });
     return this.domesticAnimalsRepository.save(domesticAnimal);
   }
 

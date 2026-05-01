@@ -1,6 +1,15 @@
 // Author: Alejandra Suarez
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  JoinColumn,
+  RelationId,
+} from 'typeorm';
 import { Review } from './review.entity';
+import { Category } from '../../categories/entities/category.entity';
 
 @Entity()
 export class DomesticAnimal {
@@ -9,9 +18,6 @@ export class DomesticAnimal {
 
   @Column()
   breed!: string;
-
-  @Column()
-  category!: string;
 
   @Column({ type: 'text' })
   description!: string;
@@ -39,6 +45,16 @@ export class DomesticAnimal {
 
   @Column()
   image!: string;
+
+  @ManyToOne(() => Category, (category) => category.domesticAnimals, {
+    onDelete: 'CASCADE',
+  })
+  
+  @JoinColumn({ name: 'categoryId' })
+  category!: Category;
+
+  @RelationId((domesticAnimal: DomesticAnimal) => domesticAnimal.category)
+  categoryId!: number | null;
 
   @OneToMany(() => Review, (review) => review.domesticAnimal)
   reviews!: Review[];

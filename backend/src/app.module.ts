@@ -1,8 +1,12 @@
+//  External imports
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+// Internal imports
 import { UserModule } from './users/user.module';
 import { AuthModule } from './auth/auth.module';
 import { DomesticAnimalsModule } from './domesticAnimals/domesticAnimal.module';
+import { CategoryModule } from './categories/category.module';
 
 @Module({
   imports: [
@@ -12,9 +16,10 @@ import { DomesticAnimalsModule } from './domesticAnimals/domesticAnimal.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    UserModule,
     AuthModule,
+    CategoryModule,
     DomesticAnimalsModule,
+    UserModule,
   ],
 })
 export class AppModule {}

@@ -6,6 +6,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 // Internal imports
 import { useAuthStore } from '@/stores/auth';
 import AdminDashboardView from '@/views/admin/AdminDashboardView.vue';
+import CategoryCreateView from '@/views/admin/CategoryCreateView.vue';
+import CategoryEditView from '@/views/admin/CategoryEditView.vue';
 import DomesticAnimalCreateView from '@/views/admin/DomesticAnimalCreateView.vue';
 import DomesticAnimalEditView from '@/views/admin/DomesticAnimalEditView.vue';
 import DomesticAnimalIndexView from '@/views/DomesticAnimalIndexView.vue';
@@ -14,6 +16,7 @@ import HomeView from '@/views/HomeView.vue';
 import LoginView from '@/views/LoginView.vue';
 import ProfileView from '@/views/ProfileView.vue';
 import RegisterView from '@/views/RegisterView.vue';
+import ManageCategoriesView from '@/views/admin/ManageCategories.vue';
 import ManageDomesticAnimalsView from '@/views/admin/ManageDomesticAnimals.vue';
 import ManageUsersView from '@/views/admin/ManageUsers.vue';
 import UserCreateView from '@/views/admin/UserCreateView.vue';
@@ -48,6 +51,24 @@ const router = createRouter({
       name: 'admin.dashboard',
       component: AdminDashboardView,
       meta: { title: 'Admin Dashboard', requiresAdmin: true },
+    },
+    {
+      path: '/admin/categories',
+      name: 'admin.categories',
+      component: ManageCategoriesView,
+      meta: { title: 'Manage Categories', requiresAdmin: true },
+    },
+    {
+      path: '/admin/categories/create',
+      name: 'admin.categories.create',
+      component: CategoryCreateView,
+      meta: { title: 'Create Category', requiresAdmin: true },
+    },
+    {
+      path: '/admin/categories/:id/edit',
+      name: 'admin.categories.edit',
+      component: CategoryEditView,
+      meta: { title: 'Edit Category', requiresAdmin: true },
     },
     {
       path: '/admin/manageDomesticAnimals',

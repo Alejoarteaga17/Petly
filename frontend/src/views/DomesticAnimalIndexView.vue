@@ -20,7 +20,9 @@ const categories = computed(() => {
   const uniqueCategories = new Set<string>();
 
   for (const animal of domesticAnimals.value) {
-    uniqueCategories.add(animal.category);
+    if (animal.category?.species) {
+      uniqueCategories.add(animal.category.species);
+    }
   }
 
   return ['All', ...Array.from(uniqueCategories).sort()];
@@ -31,7 +33,7 @@ const filteredDomesticAnimals = computed(() => {
 
   return domesticAnimals.value.filter((animal) => {
       const matchesCategory =
-        selectedCategory.value === 'All' || animal.category === selectedCategory.value;
+        selectedCategory.value === 'All' || animal.category?.species === selectedCategory.value;
 
       if (!matchesCategory) {
         return false;
@@ -41,7 +43,7 @@ const filteredDomesticAnimals = computed(() => {
         return true;
       }
 
-      return [animal.breed, animal.category, animal.description]
+      return [animal.breed, animal.category?.species, animal.description]
         .join(' ')
         .toLowerCase()
         .includes(normalizedQuery);
@@ -130,7 +132,7 @@ onMounted(async () => {
             </div>
 
             <p class="text-gray-700 text-lg font-bold mb-3">
-              {{ domesticAnimal.category }}
+              {{ domesticAnimal.category?.species || 'Unknown Category' }}
             </p>
 
             <p class="text-gray-600 text-sm mb-4 line-clamp-3">

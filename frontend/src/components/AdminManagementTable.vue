@@ -8,7 +8,7 @@ interface ColumnDefinition {
 defineProps<{
   title: string;
   columns: ColumnDefinition[];
-  rows: Array<Record<string, string | number | boolean | null | undefined>>;
+  rows: Array<Record<string, any>>;
   rowKey?: string;
   showEdit?: boolean;
   showDelete?: boolean;

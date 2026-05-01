@@ -30,7 +30,7 @@ const categoryRows = computed(() => {
   const categoryMap = new Map<string, number>();
 
   for (const animal of domesticAnimals.value) {
-    const category = animal.category || 'Unknown';
+    const category = animal.category?.species || 'Unknown';
     categoryMap.set(category, (categoryMap.get(category) ?? 0) + 1);
   }
 
@@ -88,6 +88,10 @@ async function loadDashboardData() {
 
 function goToManageDomesticAnimals() {
   router.push({ name: 'admin.manageDomesticAnimals' });
+}
+
+function goToManageCategories() {
+  router.push({ name: 'admin.categories' });
 }
 
 function goToManageUsers() {
@@ -172,8 +176,16 @@ onMounted(() => {
         <button
           type="button"
           class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
-          @click="goToManageDomesticAnimals"
+          @click="goToManageCategories"
         >
+          Manage categories
+        </button>
+        
+        <button
+          type="button"
+          class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+          @click="goToManageDomesticAnimals"
+          >
           Manage domestic animals
         </button>
 

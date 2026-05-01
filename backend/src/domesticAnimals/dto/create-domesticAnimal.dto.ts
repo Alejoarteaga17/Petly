@@ -1,7 +1,7 @@
 // Author: Alejandra Suarez
 export class CreateDomesticAnimalDto {
   breed!: string;
-  category!: string;
+  categoryId!: number;
   description!: string;
   lifeExpectancy!: string;
   weight!: string;

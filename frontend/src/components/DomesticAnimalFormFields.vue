@@ -1,6 +1,9 @@
 <!-- Author: Alejandro Arteaga & Camila Velez -->
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
 import type { CreateDomesticAnimalDTO } from '@/dtos/CreateDomesticAnimalDTO';
+import type { CategoryInterface } from '@/interfaces/CategoryInterface';
+import { CategoryService } from '@/services/CategoryService';
 
 const props = defineProps<{
   modelValue: CreateDomesticAnimalDTO;
@@ -9,6 +12,9 @@ const props = defineProps<{
 const emit = defineEmits<{
   (event: 'update:modelValue', value: CreateDomesticAnimalDTO): void;
 }>();
+
+const categories = ref<CategoryInterface[]>([]);
+const loadingCategories = ref(true);
 
 function updateField<K extends keyof CreateDomesticAnimalDTO>(
   key: K,
@@ -19,6 +25,16 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(
     [key]: value,
   });
 }
+
+onMounted(async () => {
+  try {
+    categories.value = await CategoryService.getAll();
+  } catch (error) {
+    console.error('Error loading categories:', error);
+  } finally {
+    loadingCategories.value = false;
+  }
+});
 </script>
 
 <template>
@@ -37,17 +53,21 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(
   </div>
 
   <div>
-    <label class="block text-gray-700 font-semibold mb-2" for="category">Category</label>
-    <input
-      :value="modelValue.category"
-      type="text"
-      name="category"
-      id="category"
+    <label class="block text-gray-700 font-semibold mb-2" for="categoryId">Category</label>
+    <select
+      :value="modelValue.categoryId"
+      name="categoryId"
+      id="categoryId"
       class="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
       required
-      placeholder="e.g. Dog, Cat, Bird"
-      @input="updateField('category', ($event.target as HTMLInputElement).value)"
-    />
+      :disabled="loadingCategories"
+      @change="updateField('categoryId', Number(($event.target as HTMLSelectElement).value))"
+    >
+      <option value="" disabled>{{ loadingCategories ? 'Loading categories...' : 'Select a category' }}</option>
+      <option v-for="category in categories" :key="category.id" :value="category.id">
+        {{ category.species }}
+      </option>
+    </select>
   </div>
 
   <div>

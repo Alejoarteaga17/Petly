@@ -7,6 +7,7 @@ const API_PREFIX = `${API_BASE_URL}/api`;
 
 export const USERS_API_URL = `${API_PREFIX}/users`;
 export const AUTH_API_URL = `${API_PREFIX}/auth`;
+export const CATEGORIES_API_URL = `${API_PREFIX}/categories`;
 export const DOMESTIC_ANIMALS_API_URL = `${API_PREFIX}/domestic-animals`;
 export const REVIEWS_API_URL = `${API_PREFIX}/reviews`;
 
