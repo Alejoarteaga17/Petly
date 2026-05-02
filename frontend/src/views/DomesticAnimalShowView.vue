@@ -93,8 +93,9 @@ onMounted(async () => {
                 <div class="prose text-gray-600">
                   <p class="mb-4">
                     "{{ domesticAnimal.breed }}" is an outstanding domestic animal in the
-                    {{ domesticAnimal.category }} category. This profile is part of our collection
-                    and helps users discover useful details about different domestic animals.
+                    {{ domesticAnimal.category?.species ?? 'Unknown category' }} category. This
+                    profile is part of our collection and helps users discover useful details about
+                    different domestic animals.
                   </p>
                 </div>
               </div>
@@ -118,7 +119,7 @@ onMounted(async () => {
                         Category
                       </th>
                       <td class="px-4 py-3 font-medium text-gray-800">
-                        {{ domesticAnimal.category }}
+                        {{ domesticAnimal.category?.species ?? 'Unknown category' }}
                       </td>
                     </tr>
                     <tr>

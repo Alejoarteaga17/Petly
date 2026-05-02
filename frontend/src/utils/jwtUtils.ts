@@ -10,10 +10,6 @@ export interface JwtPayload {
   exp: number;
 }
 
-/**
- * Decode a JWT token without verification (safe for reading payload on client)
- * Note: This doesn't verify the token, only decodes the payload
- */
 export function decodeJWT(token: string): JwtPayload | null {
   try {
     const parts = token.split('.');
