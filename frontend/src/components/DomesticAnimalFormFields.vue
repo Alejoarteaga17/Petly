@@ -2,8 +2,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import type { CreateDomesticAnimalDTO } from '@/dtos/CreateDomesticAnimalDTO';
-import type { CategoryInterface } from '@/interfaces/CategoryInterface';
-import { CategoryService } from '@/services/CategoryService';
+import { useCategoryLoader } from '@/utils/CategoryLoaderUtil.ts';
 
 const props = defineProps<{
   modelValue: CreateDomesticAnimalDTO;
@@ -13,8 +12,13 @@ const emit = defineEmits<{
   (event: 'update:modelValue', value: CreateDomesticAnimalDTO): void;
 }>();
 
-const categories = ref<CategoryInterface[]>([]);
-const loadingCategories = ref(true);
+const {
+  categories,
+  loading: loadingCategories,
+  loadCategories,
+} = useCategoryLoader({
+  fallbackErrorMessage: 'Could not load categories for this form.',
+});
 
 function updateField<K extends keyof CreateDomesticAnimalDTO>(
   key: K,
@@ -27,13 +31,7 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(
 }
 
 onMounted(async () => {
-  try {
-    categories.value = await CategoryService.getAll();
-  } catch (error) {
-    console.error('Error loading categories:', error);
-  } finally {
-    loadingCategories.value = false;
-  }
+  await loadCategories();
 });
 </script>
 

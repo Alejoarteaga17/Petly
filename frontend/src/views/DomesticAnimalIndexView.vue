@@ -1,7 +1,9 @@
 <!-- Authors: Alejandro Arteaga and Alejandra Suarez -->
 <script setup lang="ts"> 
+
 // External imports
 import { computed, onMounted, ref } from 'vue'; 
+
 // Internal imports
 import CategoryFilter from '@/components/CategoryFilter.vue';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
