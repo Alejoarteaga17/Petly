@@ -6,30 +6,15 @@ import { useRouter } from 'vue-router';
 
 // Internal imports
 import AdminManagementTable from '@/components/AdminManagementTable.vue';
-import type { CategoryInterface } from '@/interfaces/CategoryInterface';
 import { CategoryService } from '@/services/CategoryService';
+import { useCategoryLoader } from '@/utils/CategoryLoaderUtil.ts';
 
 const router = useRouter();
-const categories = ref<CategoryInterface[]>([]);
-const loading = ref(true);
-const errorMessage = ref('');
+const { categories, loading, errorMessage, loadCategories } = useCategoryLoader({
+  fallbackErrorMessage: 'Could not load categories right now.',
+});
 const deletingId = ref<number | null>(null);
 const actionMessage = ref('');
-
-async function loadCategories() {
-  loading.value = true;
-  errorMessage.value = '';
-  actionMessage.value = '';
-
-  try {
-    categories.value = await CategoryService.getAll();
-  } catch (error) {
-    console.error(error);
-    errorMessage.value = 'Could not load categories right now.';
-  } finally {
-    loading.value = false;
-  }
-}
 
 function goToCreateCategory() {
   router.push({ name: 'admin.categories.create' });
@@ -65,6 +50,7 @@ async function deleteCategory(id: number) {
 }
 
 onMounted(() => {
+  actionMessage.value = '';
   loadCategories();
 });
 </script>

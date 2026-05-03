@@ -5,7 +5,7 @@ import Chart from 'chart.js/auto';
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 // Internal imports
-import { buildChartColors } from '@/utils/chartColors';
+import { buildChartColors } from '../utils/chartColors';
 
 export interface CategoryData {
   category: string;

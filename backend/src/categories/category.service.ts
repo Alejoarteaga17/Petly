@@ -8,7 +8,6 @@ import { Repository } from "typeorm";
 // Internal imports
 import { Category } from "./entities/category.entity";
 import { CreateCategoryDto } from "./dto/create-category.dto";
-import { DomesticAnimal } from "src/domesticAnimals/entities/domesticAnimal.entity";
 
 @Injectable()
 export class CategoryService {

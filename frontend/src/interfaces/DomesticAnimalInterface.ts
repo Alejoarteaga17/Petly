@@ -6,7 +6,6 @@ export interface DomesticAnimalInterface {
   id: number;
   breed: string;
   categoryId: number;
-  category?: CategoryInterface;
   description: string;
   lifeExpectancy: string;
   weight: string;
@@ -17,4 +16,5 @@ export interface DomesticAnimalInterface {
   history: string;
   image: string;
   reviews?: string;
+  category?: CategoryInterface;
 }

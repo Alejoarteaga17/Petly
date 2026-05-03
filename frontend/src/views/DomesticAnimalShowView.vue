@@ -11,6 +11,7 @@ import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterfa
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import { ReviewService } from '@/services/ReviewService';
+import { computePopularityByBreed } from '@/utils/PopularityUtil.ts';
 
 const DEFAULT_IMAGE = 'https://placedog.net/536/355';
 
@@ -23,23 +24,7 @@ function handleImageError() {
   imageSrc.value = DEFAULT_IMAGE;
 }
 
-const popularityData = computed(() => {
-  const animalById = new Map<number, DomesticAnimalInterface>();
-  for (const animal of domesticAnimals.value) {
-    animalById.set(animal.id, animal);
-  }
-
-  const popularityMap = new Map<string, number>();
-  for (const review of reviews.value) {
-    const animal = animalById.get(review.domesticAnimalId);
-    const breed = animal?.breed || `Animal #${review.domesticAnimalId}`;
-    popularityMap.set(breed, (popularityMap.get(breed) ?? 0) + 1);
-  }
-
-  return Array.from(popularityMap.entries())
-    .map(([breed, reviewsCount]) => ({ breed, reviewsCount }))
-    .sort((a, b) => b.reviewsCount - a.reviewsCount);
-});
+const popularityData = computed(() => computePopularityByBreed(domesticAnimals.value, reviews.value));
 
 onMounted(async () => {
   const route = useRoute();
@@ -93,8 +78,9 @@ onMounted(async () => {
                 <div class="prose text-gray-600">
                   <p class="mb-4">
                     "{{ domesticAnimal.breed }}" is an outstanding domestic animal in the
-                    {{ domesticAnimal.category }} category. This profile is part of our collection
-                    and helps users discover useful details about different domestic animals.
+                    {{ domesticAnimal.category?.species ?? 'Unknown category' }} category. This
+                    profile is part of our collection and helps users discover useful details about
+                    different domestic animals.
                   </p>
                 </div>
               </div>
@@ -118,7 +104,7 @@ onMounted(async () => {
                         Category
                       </th>
                       <td class="px-4 py-3 font-medium text-gray-800">
-                        {{ domesticAnimal.category }}
+                        {{ domesticAnimal.category?.species ?? 'Unknown category' }}
                       </td>
                     </tr>
                     <tr>
