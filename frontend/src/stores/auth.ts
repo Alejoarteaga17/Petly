@@ -1,11 +1,7 @@
 // Author: Alejandro Arteaga
 import { defineStore } from 'pinia';
+import { computed, ref } from 'vue';
 import type { UserInterface } from '@/interfaces/UserInterface';
-
-type AuthState = {
-  token: string | null;
-  user: UserInterface | null;
-};
 
 const TOKEN_KEY = 'accessToken';
 const USER_KEY = 'authUser';
@@ -22,37 +18,47 @@ function readStoredUser(): UserInterface | null {
   }
 }
 
-export const useAuthStore = defineStore('auth', {
-  state: (): AuthState => ({
-    token: localStorage.getItem(TOKEN_KEY),
-    user: readStoredUser(),
-  }),
-  getters: {
-    isAuthenticated: (state) => Boolean(state.token && state.user),
-    isAdmin: (state) => state.user?.role === 'admin',
-    authHeaders: (state) =>
-      state.token
-        ? {
-            Authorization: `Bearer ${state.token}`,
-          }
-        : {},
-  },
-  actions: {
-    setSession(token: string, user: UserInterface) {
-      this.token = token;
-      this.user = user;
-      localStorage.setItem(TOKEN_KEY, token);
-      localStorage.setItem(USER_KEY, JSON.stringify(user));
-    },
-    setUser(user: UserInterface) {
-      this.user = user;
-      localStorage.setItem(USER_KEY, JSON.stringify(user));
-    },
-    clearSession() {
-      this.token = null;
-      this.user = null;
-      localStorage.removeItem(TOKEN_KEY);
-      localStorage.removeItem(USER_KEY);
-    },
-  },
+export const useAuthStore = defineStore('auth', () => {
+  const token = ref<string | null>(localStorage.getItem(TOKEN_KEY));
+  const user = ref<UserInterface | null>(readStoredUser());
+
+  const isAuthenticated = computed(() => Boolean(token.value && user.value));
+  const isAdmin = computed(() => user.value?.role === 'admin');
+  const authHeaders = computed(() =>
+    token.value
+      ? {
+          Authorization: `Bearer ${token.value}`,
+        }
+      : {},
+  );
+
+  function setSession(sessionToken: string, sessionUser: UserInterface) {
+    token.value = sessionToken;
+    user.value = sessionUser;
+    localStorage.setItem(TOKEN_KEY, sessionToken);
+    localStorage.setItem(USER_KEY, JSON.stringify(sessionUser));
+  }
+
+  function setUser(nextUser: UserInterface) {
+    user.value = nextUser;
+    localStorage.setItem(USER_KEY, JSON.stringify(nextUser));
+  }
+
+  function clearSession() {
+    token.value = null;
+    user.value = null;
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+  }
+
+  return {
+    token,
+    user,
+    isAuthenticated,
+    isAdmin,
+    authHeaders,
+    setSession,
+    setUser,
+    clearSession,
+  };
 });
