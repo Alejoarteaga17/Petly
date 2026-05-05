@@ -56,10 +56,10 @@ function handleImageError(event: Event) {
         <button
           type="button"
           :aria-label="getLabel(category)"
-          class="flex items-center justify-center rounded-full overflow-hidden transition w-16 h-16 md:w-20 md:h-20"
+          class="flex items-center justify-center rounded-full overflow-hidden border w-16 h-16 md:w-20 md:h-20 transition-all duration-300"
           :class="modelValue === getLabel(category)
-            ? 'bg-orange-500 text-white shadow-lg shadow-orange-200 border-orange-400 ring-2 ring-orange-400'
-            : 'bg-white text-gray-700 border border-gray-200 hover:bg-orange-500 hover:text-white hover:shadow-lg hover:shadow-orange-200'"
+            ? 'bg-orange-500 text-white shadow-xl border-orange-400 ring-2 ring-orange-400'
+            : 'bg-white text-gray-700 border-gray-200 hover:bg-orange-500 hover:text-white hover:-translate-y-1 hover:shadow-xl hover:border-orange-200'"
           @click="selectCategory(category)"
         >
           <template v-if="getImageSrc(category)">

@@ -121,7 +121,7 @@ onMounted(async () => {
  
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"> 
         <div v-for="domesticAnimal in filteredDomesticAnimals" :key="domesticAnimal.id"> 
-          <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 p-6 border border-gray-200"> 
+          <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-orange-200"> 
             <div class="flex justify-between items-center mb-2"> 
               <h3 class="text-xl font-semibold text-gray-800"> 
                 {{ domesticAnimal.breed }} 
@@ -150,7 +150,7 @@ onMounted(async () => {
             <div class="flex justify-center">
               <RouterLink
                 :to="`/domesticAnimals/${domesticAnimal.id}`"
-                class="bg-yellow-100 hover:bg-orange-200 text-orange-700 font-semibold py-2 px-3 rounded transition duration-300"
+                class="inline-flex items-center gap-2 rounded-full bg-yellow-100 px-4 py-2 text-sm font-semibold text-orange-700 shadow-sm transition duration-300 hover:bg-orange-200 hover:shadow"
               >
                 More info <i class="fas fa-info-circle"></i>
               </RouterLink>

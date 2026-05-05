@@ -74,7 +74,7 @@ onMounted(() => {
     <div>
       <button
         type="button"
-        class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+        class="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50 hover:shadow"
         @click="goToAdminDashboard"
       >
         <span aria-hidden="true">&larr;</span>
@@ -90,7 +90,7 @@ onMounted(() => {
 
       <button
         type="button"
-        class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+        class="inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-orange-600 hover:shadow-orange-300"
         @click="goToCreateDomesticAnimal"
       >
         + Add Domestic Animal
