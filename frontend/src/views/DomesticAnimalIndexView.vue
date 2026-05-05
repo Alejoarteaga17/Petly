@@ -19,15 +19,21 @@ const searchQuery = ref('');
 const sortOrder = ref('');
 
 const categories = computed(() => {
-  const uniqueCategories = new Set<string>();
+  // Build a list of unique category objects (id/species/image) so the filter
+  // can display images when available. Keep 'All' as the first item (string).
+  const map = new Map<string | number, { species: string; image?: string; id?: number }>();
 
   for (const animal of domesticAnimals.value) {
-    if (animal.category?.species) {
-      uniqueCategories.add(animal.category.species);
+    const cat = animal.category;
+    if (!cat || !cat.species) continue;
+    const key = cat.id ?? cat.species;
+    if (!map.has(key)) {
+      map.set(key, { id: cat.id, species: cat.species, image: cat.image });
     }
   }
 
-  return ['All', ...Array.from(uniqueCategories).sort()];
+  const list = Array.from(map.values()).sort((a, b) => a.species.localeCompare(b.species));
+  return ['All', ...list];
 });
 
 const filteredDomesticAnimals = computed(() => {

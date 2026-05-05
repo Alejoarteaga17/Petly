@@ -13,7 +13,7 @@ import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterfa
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import { ReviewService } from '@/services/ReviewService';
-import { CountryFormatterUtil } from '@/utils/CountryFormatterUtil';
+import { summarizeCountryOrigins } from '@/utils/CountrySummaryUtil.ts';
 import { computePopularityByBreed } from '@/utils/PopularityUtil.ts';
 
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]);
@@ -43,9 +43,7 @@ const categoryRows = computed(() => {
 const popularityRows = computed(() => computePopularityByBreed(domesticAnimals.value, reviews.value));
 
 const countryOriginRows = computed(() => {
-  return CountryFormatterUtil.summarizeCountryOrigins(
-    domesticAnimals.value.map((animal) => animal.countryOrigin),
-  );
+  return summarizeCountryOrigins(domesticAnimals.value.map((animal) => animal.countryOrigin));
 });
 
 const topCountryOriginRows = computed(() => countryOriginRows.value.slice(0, 8));
