@@ -1,18 +1,11 @@
-<script setup lang="ts"></script>
-
 <template>
-  <div class="min-vh-100 bg-white">
-
-    <!-- HEADER -->
-    <header class="border-bottom bg-white shadow-sm sticky-top">
+  <div class="d-flex min-vh-100 flex-column bg-white">
+    <header class="sticky-top border-bottom bg-white shadow-sm">
       <div class="container d-flex flex-wrap align-items-center justify-content-between gap-3 py-3">
-
-        <!-- Logo -->
         <NuxtLink class="text-decoration-none d-flex align-items-center gap-2" to="/">
           <span class="fw-black fs-5 text-dark tracking-wide">PETLY.CO</span>
         </NuxtLink>
 
-        <!-- Nav links -->
         <nav aria-label="Main">
           <ul class="nav mb-0 align-items-center gap-1">
             <li class="nav-item">
@@ -31,26 +24,22 @@
               </NuxtLink>
             </li>
             <li class="nav-item">
-              <NuxtLink class="nav-link px-3 py-2 rounded text-secondary fw-medium" to="/extras" active-class="active text-dark bg-light">
-                Extras
+              <NuxtLink class="nav-link px-3 py-2 rounded text-secondary fw-medium" to="/information" active-class="active text-dark bg-light">
+                Information
               </NuxtLink>
             </li>
           </ul>
         </nav>
-
       </div>
     </header>
 
-    <!-- MAIN -->
-    <main class="container py-4">
+    <main class="container flex-grow-1 py-4">
       <NuxtPage />
     </main>
 
-    <!-- FOOTER -->
-    <footer class="border-top pt-5 pb-4 mt-5">
+    <footer class="mt-5 border-top pt-5 pb-4">
       <div class="container">
         <div class="row g-4">
-
           <div class="col-12 col-md-5">
             <h2 class="fw-black fs-4 mb-3">PETLY.CO</h2>
             <p class="text-secondary small" style="max-width: 320px;">
@@ -77,7 +66,6 @@
               <li class="mb-2" style="cursor: pointer;">Privacy Policy</li>
             </ul>
           </div>
-
         </div>
 
         <div class="border-top mt-4 pt-3 text-secondary" style="font-size: 0.75rem;">
@@ -85,6 +73,5 @@
         </div>
       </div>
     </footer>
-
   </div>
 </template>
