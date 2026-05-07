@@ -1,7 +1,24 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config 
 export default defineNuxtConfig({ 
   compatibilityDate: '2025-07-15', 
-  devtools: { enabled: true }, 
+  devtools: { enabled: true },
+  routeRules: {
+    '/blog': { prerender: true },
+    '/blog/**': { prerender: true },
+    
+    '/domesticAnimals': { ssr: true },
+    '/domesticAnimals/**': { ssr: true },
+    
+    '/information': { ssr: false },
+    '/information/**': { ssr: false },
+    
+    '/': { ssr: true },
+  },
+  nitro: {
+    prerender: {
+      routes: ['/blog', '/blog/1', '/blog/2', '/blog/3']
+    }
+  }, 
   app: { 
     head: { 
       link: [ 
