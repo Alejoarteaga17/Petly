@@ -3,6 +3,7 @@
 import { onMounted, ref } from 'vue';
 import type { CreateDomesticAnimalDTO } from '@/dtos/CreateDomesticAnimalDTO';
 import { useCategoryLoader } from '@/utils/CategoryLoaderUtil.ts';
+import { getAllowedCountries } from '@/utils/CountryUtil.ts';
 
 const props = defineProps<{
   modelValue: CreateDomesticAnimalDTO;
@@ -33,6 +34,8 @@ function updateField<K extends keyof CreateDomesticAnimalDTO>(
 onMounted(async () => {
   await loadCategories();
 });
+
+const allowedCountries = getAllowedCountries();
 </script>
 
 <template>
@@ -163,16 +166,17 @@ onMounted(async () => {
 
   <div>
     <label class="block text-gray-700 font-semibold mb-2" for="countryOrigin">Country Origin</label>
-    <input
+    <select
       :value="modelValue.countryOrigin"
-      type="text"
       name="countryOrigin"
       id="countryOrigin"
       class="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
       required
-      placeholder="e.g. Colombia"
-      @input="updateField('countryOrigin', ($event.target as HTMLInputElement).value)"
-    />
+      @change="updateField('countryOrigin', ($event.target as HTMLSelectElement).value)"
+    >
+      <option value="" disabled>Select a country</option>
+      <option v-for="c in allowedCountries" :key="c.code" :value="c.code">{{ c.name }}</option>
+    </select>
   </div>
 
   <div>

@@ -13,7 +13,7 @@ import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterfa
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 import { DomesticAnimalService } from '@/services/DomesticAnimalService';
 import { ReviewService } from '@/services/ReviewService';
-import { CountryFormatterUtil } from '@/utils/CountryFormatterUtil';
+import { summarizeCountryOrigins } from '@/utils/CountrySummaryUtil.ts';
 import { computePopularityByBreed } from '@/utils/PopularityUtil.ts';
 
 const domesticAnimals = ref<DomesticAnimalInterface[]>([]);
@@ -43,9 +43,7 @@ const categoryRows = computed(() => {
 const popularityRows = computed(() => computePopularityByBreed(domesticAnimals.value, reviews.value));
 
 const countryOriginRows = computed(() => {
-  return CountryFormatterUtil.summarizeCountryOrigins(
-    domesticAnimals.value.map((animal) => animal.countryOrigin),
-  );
+  return summarizeCountryOrigins(domesticAnimals.value.map((animal) => animal.countryOrigin));
 });
 
 const topCountryOriginRows = computed(() => countryOriginRows.value.slice(0, 8));
@@ -160,7 +158,7 @@ onMounted(() => {
       <div class="flex flex-col gap-3 sm:flex-row sm:justify-end">
         <button
           type="button"
-          class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+          class="inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-orange-600 hover:shadow-orange-300"
           @click="goToManageCategories"
         >
           Manage categories
@@ -168,7 +166,7 @@ onMounted(() => {
         
         <button
           type="button"
-          class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+          class="inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-orange-600 hover:shadow-orange-300"
           @click="goToManageDomesticAnimals"
           >
           Manage domestic animals
@@ -176,7 +174,7 @@ onMounted(() => {
 
         <button
           type="button"
-          class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+          class="inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-orange-600 hover:shadow-orange-300"
           @click="goToManageUsers"
         >
           Manage users

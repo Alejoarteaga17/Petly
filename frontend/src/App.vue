@@ -53,13 +53,13 @@ const { user: authUser } = storeToRefs(authStore);
             <RouterLink
               v-if="!authUser"
               to="/login"
-              class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+              class="inline-flex items-center gap-2 rounded-full bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-blue-200 transition hover:bg-blue-600 hover:shadow-blue-300"
               >Login</RouterLink
             >
             <RouterLink
               v-if="!authUser"
               to="/register"
-              class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+              class="inline-flex items-center gap-2 rounded-full bg-green-500 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-green-200 transition hover:bg-green-600 hover:shadow-green-300"
               >Register</RouterLink
             >
           </nav>

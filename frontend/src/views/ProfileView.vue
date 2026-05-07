@@ -169,7 +169,7 @@ onMounted(() => {
         <button
           v-if="authUser && !isEditing"
           type="button"
-          class="rounded bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+          class="inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-orange-600 hover:shadow-orange-300"
           @click="startEditing"
         >
           Edit info
@@ -224,13 +224,13 @@ onMounted(() => {
             <button
               type="submit"
               :disabled="isSavingProfile"
-              class="rounded bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300"
+              class="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700 hover:shadow-blue-300 disabled:cursor-not-allowed disabled:bg-blue-300 disabled:shadow-none"
             >
               {{ isSavingProfile ? 'Saving...' : 'Save changes' }}
             </button>
             <button
               type="button"
-              class="rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-300"
+              class="inline-flex items-center gap-2 rounded-full bg-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-300 hover:shadow"
               @click="cancelEditing"
             >
               Cancel
@@ -252,7 +252,7 @@ onMounted(() => {
         <div class="pt-2 flex items-center justify-between gap-4">
           <button
             type="button"
-            class="rounded bg-gray-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-800"
+            class="inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-orange-600 hover:shadow-orange-300"
             @click="toggleReviews"
           >
             {{ showReviews ? 'Hide my reviews' : 'Show my reviews' }}
@@ -260,7 +260,7 @@ onMounted(() => {
           <button
             v-if="authUser"
             type="button"
-            class="rounded bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600"
+            class="inline-flex items-center gap-2 rounded-full bg-red-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-200 transition hover:bg-red-600 hover:shadow-red-300"
             @click="logout"
           >
             Logout
@@ -316,13 +316,13 @@ onMounted(() => {
         <div class="flex gap-3">
           <RouterLink
             to="/login"
-            class="rounded bg-blue-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-600"
+            class="inline-flex items-center gap-2 rounded-full bg-blue-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-600 hover:shadow-blue-300"
           >
             Log in
           </RouterLink>
           <RouterLink
             to="/register"
-            class="rounded bg-green-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-600"
+            class="inline-flex items-center gap-2 rounded-full bg-green-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-green-200 transition hover:bg-green-600 hover:shadow-green-300"
           >
             Register
           </RouterLink>

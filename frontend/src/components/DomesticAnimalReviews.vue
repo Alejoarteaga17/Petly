@@ -104,13 +104,13 @@ onMounted(() => {
       <div class="flex gap-2">
         <RouterLink
           to="/login"
-          class="bg-blue-500 text-white font-medium py-2 px-4 rounded hover:bg-blue-600 transition"
+          class="inline-flex items-center gap-2 rounded-full bg-blue-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-600 hover:shadow-blue-300"
         >
           Log in
         </RouterLink>
         <RouterLink
           to="/register"
-          class="bg-green-500 text-white font-medium py-2 px-4 rounded hover:bg-green-600 transition"
+          class="inline-flex items-center gap-2 rounded-full bg-green-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-green-200 transition hover:bg-green-600 hover:shadow-green-300"
         >
           Register
         </RouterLink>
@@ -146,7 +146,7 @@ onMounted(() => {
         <button
           type="submit"
           :disabled="isSubmitting || !form.comment.trim()"
-          class="bg-orange-500 text-white font-medium py-2 px-4 rounded hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition"
+          class="inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-orange-600 hover:shadow-orange-300 disabled:cursor-not-allowed disabled:opacity-50"
         >
           Post review
         </button>

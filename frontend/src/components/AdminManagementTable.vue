@@ -56,7 +56,7 @@ const emit = defineEmits<{
                 <button
                   v-if="showEdit"
                   type="button"
-                  class="rounded bg-blue-600 px-3 py-1 text-xs font-medium text-white transition hover:bg-blue-700"
+                  class="inline-flex items-center gap-1 rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white shadow-sm shadow-blue-200 transition hover:bg-blue-700 hover:shadow-blue-300"
                   @click="emit('edit', Number(row[rowKey ?? 'id']))"
                 >
                   Edit
@@ -65,7 +65,7 @@ const emit = defineEmits<{
                   v-if="showDelete"
                   type="button"
                   :disabled="deletingId === Number(row[rowKey ?? 'id'])"
-                  class="rounded bg-red-500 px-3 py-1 text-xs font-medium text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:bg-red-300"
+                  class="inline-flex items-center gap-1 rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white shadow-sm shadow-red-200 transition hover:bg-red-600 hover:shadow-red-300 disabled:cursor-not-allowed disabled:bg-red-300 disabled:shadow-none"
                   @click="emit('delete', Number(row[rowKey ?? 'id']))"
                 >
                   {{ deletingId === Number(row[rowKey ?? 'id']) ? 'Deleting...' : 'Delete' }}

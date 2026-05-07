@@ -100,7 +100,7 @@ async function submitLogin() {
       <button
         type="submit"
         :disabled="loading"
-        class="w-full rounded bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:bg-orange-300"
+        class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-orange-500 py-3 font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-orange-600 hover:shadow-orange-300 disabled:cursor-not-allowed disabled:bg-orange-300 disabled:shadow-none"
       >
         {{ loading ? 'Logging in...' : 'Log in' }}
       </button>

@@ -101,13 +101,13 @@ onMounted(() => {
         <button
           type="submit"
           :disabled="saving"
-          class="rounded bg-orange-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:bg-orange-300"
+          class="inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:bg-orange-600 hover:shadow-orange-300 disabled:cursor-not-allowed disabled:bg-orange-300 disabled:shadow-none"
         >
           {{ saving ? 'Saving...' : 'Save changes' }}
         </button>
         <RouterLink
           :to="{ name: 'admin.manageUsers' }"
-          class="rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-300"
+          class="inline-flex items-center gap-2 rounded-full bg-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-300 hover:shadow"
         >
           &larr; Cancel
         </RouterLink>

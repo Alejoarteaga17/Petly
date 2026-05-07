@@ -1,3 +1,6 @@
+// Author: Alejandro Arteaga
+
+// Internal imports
 import type { DomesticAnimalInterface } from '@/interfaces/DomesticAnimalInterface';
 import type { ReviewInterface } from '@/interfaces/ReviewInterface';
 
