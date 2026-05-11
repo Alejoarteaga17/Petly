@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { domesticAnimals } from '~/data/domesticAnimals'
+const { data } = await useFetch('/api/domesticAnimals')
+
+const domesticAnimals = data?.value?.domesticAnimals || [];
 </script>
 
 <template>
@@ -7,18 +9,18 @@ import { domesticAnimals } from '~/data/domesticAnimals'
     <h1 class="h2 mb-3">Domestic Animals</h1>
     <ul class="list-group">
       <li
-        v-for="animal in domesticAnimals"
-        :key="animal.id"
+        v-for="domesticAnimal in domesticAnimals"
+        :key="domesticAnimal.id"
         class="list-group-item position-relative"
       >
         <NuxtLink
           class="stretched-link text-decoration-none fw-medium"
-          :to="`/domesticAnimals/${animal.id}`"
+          :to="`/domesticAnimals/${domesticAnimal.id}`"
         >
-          {{ animal.breed }}
+          {{ domesticAnimal.breed }}
         </NuxtLink>
         <span class="text-body-secondary d-block small">
-          {{ animal.countryOrigin }} · {{ animal.lifeExpectancy }}
+          {{ domesticAnimal.countryOrigin }} · {{ domesticAnimal.lifeExpectancy }}
         </span>
       </li>
     </ul>
