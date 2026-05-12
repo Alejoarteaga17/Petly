@@ -7,7 +7,7 @@ services:
     environment: 
       PORT: 3000 
       SQLITE_PATH: /data/database.sqlite 
-      CORS_ORIGIN: "http://34.10.141.115,http://127.0.0.1:8080,http://localhost,http://127.0.0.1,http://localhost:5173" 
+      CORS_ORIGIN: "http://34.10.141.115,http://34.10.141.115:3001,http://127.0.0.1:8080,http://localhost,http://127.0.0.1,http://localhost:5173,http://localhost:3001,http://127.0.0.1:3001" 
     volumes: 
       # bind the sqlite file from the repo into the container so the image uses repo DB
       - ./backend/database.sqlite:/data/database.sqlite:rw
@@ -21,6 +21,17 @@ services:
       - "80:80" 
     depends_on: 
       - backend 
+
+  nuxt:
+    build:
+      context: ./nuxt
+    ports:
+      - "3001:3001"
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3001
+    depends_on:
+      - backend
  
 volumes: 
   backend-data: 

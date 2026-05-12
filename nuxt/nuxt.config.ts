@@ -2,6 +2,10 @@
 export default defineNuxtConfig({ 
   compatibilityDate: '2025-07-15', 
   devtools: { enabled: true },
+  server: {
+    host: process.env.HOST || '0.0.0.0',
+    port: Number(process.env.PORT || 3001)
+  },
   routeRules: {
     '/blog': { prerender: true },
     '/blog/**': { prerender: true },
