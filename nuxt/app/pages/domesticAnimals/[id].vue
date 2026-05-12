@@ -15,9 +15,10 @@ if (!domesticAnimal) {
 
 <template>
   <article v-if="domesticAnimal">
-    <p class="mb-1">
-      <NuxtLink class="text-decoration-none small" to="/domesticAnimals">← All domestic animals</NuxtLink>
-    </p>
+    <NuxtLink to="/domesticAnimals" class="btn btn-outline-primary d-inline-flex align-items-center mb-3">
+      <span class="me-2">←</span>
+      All domestic animals
+    </NuxtLink>
 
     <h1 class="h2 mb-1">{{ domesticAnimal.breed }}</h1>
     <p class="text-body-secondary mb-4">{{ domesticAnimal.countryOrigin }} · {{ domesticAnimal.lifeExpectancy }}</p>
