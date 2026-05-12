@@ -23,7 +23,7 @@ exports.AppModule = AppModule = __decorate([
                 type: 'sqlite',
                 database: process.env.SQLITE_PATH ?? 'database.sqlite',
                 autoLoadEntities: true,
-                synchronize: true,
+                synchronize: process.env.NODE_ENV !== 'production',
             }),
             auth_module_1.AuthModule,
             category_module_1.CategoryModule,

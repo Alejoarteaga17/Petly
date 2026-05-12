@@ -14,7 +14,7 @@ import { CategoryModule } from './categories/category.module';
       type: 'sqlite',
       database: process.env.SQLITE_PATH ?? 'database.sqlite',
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: process.env.NODE_ENV !== 'production',
     }),
     AuthModule,
     CategoryModule,
