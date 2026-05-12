@@ -6,11 +6,11 @@ services:
       - "3000:3000" 
     environment: 
       PORT: 3000 
-      SQLITE_PATH: /data/database.sqlite 
+      SQLITE_PATH: /app/database.sqlite 
       CORS_ORIGIN: "http://34.44.55.170,http://34.44.55.170:3001,http://127.0.0.1:8080,http://localhost,http://127.0.0.1,http://localhost:5173,http://localhost:3001,http://127.0.0.1:3001" 
     volumes: 
       # bind the sqlite file from the repo into the container so the image uses repo DB
-      - ./backend/database.sqlite:/data/database.sqlite:rw
+      - ./backend/database.sqlite:/app/database.sqlite:rw
       # if you still want a persistent directory for other data, keep a named volume (optional)
       # - backend-data:/data
  
