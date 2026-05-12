@@ -1,9 +1,9 @@
-const rawApiBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000').toString().trim();
+const rawApiBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? '').toString().trim();
 
 // Remove trailing slash if present
 export const API_BASE_URL = rawApiBaseUrl.replace(/\/$/, '');
 
-const API_PREFIX = `${API_BASE_URL}/api`;
+const API_PREFIX = API_BASE_URL ? `${API_BASE_URL}/api` : '/api';
 
 export const USERS_API_URL = `${API_PREFIX}/users`;
 export const AUTH_API_URL = `${API_PREFIX}/auth`;
