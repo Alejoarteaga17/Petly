@@ -20,6 +20,10 @@ if (!article) {
 <template>
   <div>
     <header class="mb-4">
+      <NuxtLink to="/blog" class="btn btn-outline-primary d-inline-flex align-items-center mb-3">
+        <span class="me-2">←</span>
+        Back to blog
+      </NuxtLink>
       <h1 class="h2">{{ article.title }}</h1>
       <p class="text-body-secondary mb-0">By {{ article.author }} · {{ article.date }}</p>
     </header>
@@ -29,7 +33,5 @@ if (!article) {
     <div class="mb-4">
       <p v-for="(line, idx) in article.content.split('\n')" :key="idx">{{ line }}</p>
     </div>
-
-    <NuxtLink to="/blog" class="btn btn-secondary">Back to blog</NuxtLink>
   </div>
 </template>
